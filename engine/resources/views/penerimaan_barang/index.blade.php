@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="{{asset('assets/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css')}}">
 <script src="{{asset('assets/js/lib/jquery.min.js')}}"></script>
+<style>
+.modal-body {
+    height: calc(100vh - 5em);
+    overflow-x: auto;
+}
+</style>
 @endpush
 @section('content')
 <!-- Page Content -->
@@ -97,7 +103,7 @@
         <!-- Large Block Modal -->
         <div class="modal" id="modal-penerimaan" role="dialog" aria-labelledby="modal-penerimaan" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content">
+              <div class="modal-content modal-body">
                 <div class="block block-rounded block-transparent mb-0">
 
                   <div class="block-header block-header-default">
@@ -324,6 +330,15 @@
                     $("#po_header_id").val(data['id']);
                     $("#invoice_date").val(day(tglnow));
                     $("#rencana_diterima").val(day(tglrencanadtg));
+                    if(day(tglrencanadtg) == 'NaN-NaN-NaN'){
+                        $("#rencana_diterima").val('');
+                    }
+                    if(day(tglrencanadtg) == 'NULL'){
+                        $("#rencana_diterima").val('');
+                    }
+                    if(day(tglrencanadtg) == '01-01-1970'){
+                        $("#rencana_diterima").val('');
+                    }
 
                     var htmldetail = '';
                     var htmlid = '';

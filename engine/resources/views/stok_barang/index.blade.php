@@ -296,7 +296,7 @@
         <!-- Large Block Modal -->
         <div class="modal" id="modal-block-extra-large" tabindex="-1" role="dialog" aria-labelledby="modal-block-extra-large" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content  modal-body">
+              <div class="modal-content modal-body">
                 <div class="block block-rounded block-transparent mb-0">
                   <div class="block-header block-header-default">
                     <h3 class="block-title">Detail Stok Barang</h3>
