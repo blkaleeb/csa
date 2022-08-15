@@ -43,7 +43,7 @@ class LapOpnameController extends Controller
         $d["data"] = StockOpname::
         select(DB::raw('id, DATE(createdOn) as date, SUM(qty) as totalqty'))
         ->groupBy('date')
-        ->orderBy('id','desc')->get();
+        ->orderBy('id','desc')->paginate(10);
         $d["stocks"] = Stok::all();
         $d["category"] = Kategori::wherein("id", $d["stocks"]->pluck("category_id")->toArray())->get();
         $d["brand"] = Merk::whereIn("id", $d["stocks"]->pluck("brand_id")->toArray())->get();
