@@ -39,7 +39,7 @@ class PoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
@@ -47,7 +47,12 @@ class PoController extends Controller
         $d["suppliers"] = Supplier::all();
         $d["stock"] = Stok::with('satuan')->get();
         $d["warehouses"] = Warehouse::all();
-        return view($this->view . "form", $d);
+        $d["mode"] = $request->mode;
+        if ($request->mode == "popup") {
+            return view($this->view . "form", $d)->render();
+        } else {
+            return view($this->view . "form", $d);
+        }
     }
 
     /**

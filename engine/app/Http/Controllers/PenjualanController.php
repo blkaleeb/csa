@@ -32,7 +32,7 @@ class PenjualanController extends Controller
             $date_start = Carbon::parse($request->date_start);
         }
         if ($request->date_end != "") {
-            $date_end = Carbon::parse($request->date_end." 23:59:59");
+            $date_end = Carbon::parse($request->date_end . " 23:59:59");
         }
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
@@ -65,6 +65,8 @@ class PenjualanController extends Controller
 
         //paginate variable
         $d["limit"] = $request->limit ?? 25;
+
+        $d["filter_enabled"] = true;
         // $d["viewform"] = $this->create(1,1);
         return view($this->view . "index", $d);
     }
@@ -75,9 +77,9 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($mode = 0, $popup = 0)
+    public function create(Request $request)
     {
-        $d["popup"] = $popup;
+        $d["mode"] = $request->mode;
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
         $d["is_edit"] = false;
@@ -95,11 +97,10 @@ class PenjualanController extends Controller
         $d["stock"] = Stok::all();
         $d["jatuhtempo"] = Carbon::now()->addDays(30);
         $d["orderdate"] = Carbon::now();
-        if($mode == 0){
-        return view($this->view . "form", $d);
-        }else{
-        return view($this->view . "form", $d)->render();
-
+        if ($request->mode == "popup") {
+            return view($this->view . "form", $d)->render();
+        } else {
+            return view($this->view . "form", $d);
         }
     }
 
@@ -115,15 +116,22 @@ class PenjualanController extends Controller
         $nomor = str_pad($counter->sequence_next_value, 4, 0, STR_PAD_LEFT);
         $intnomorsales = str_pad(date("mY") . $nomor, 12, 0, STR_PAD_LEFT);
         DB::beginTransaction();
+        $total_sales= 0;
+        //garagarapopup
+        foreach($request->subtotal as $subtotal){
+            $total_sales += $subtotal;
+        }
+        //endgaragarapopup
+
         $header = new SalesOrderHeader();
         $header->due_date = Carbon::parse($request->due_date)->format('Y-m-d');
         $header->intnomorsales = $intnomorsales;
         $header->order_date = Carbon::parse($request->order_date)->format('Y-m-d');
-        $header->payment_remain = $request->total_sales;
+        $header->payment_remain = $total_sales;
         $header->retur = 0;
         $header->status = "C";
         $header->total_paid = 0;
-        $header->total_sales = $request->total_sales;
+        $header->total_sales = $total_sales;
         $header->customer_id = $request->customer_id;
         $header->supir = $request->supir;
         $header->kenek = $request->kenek;
@@ -163,7 +171,7 @@ class PenjualanController extends Controller
             $stock->save();
         }
 
-        $header->komisi = $request->total_sales * ($komisipersen / 100);
+        $header->komisi = $total_sales * ($komisipersen / 100);
         $header->modal = $modal;
         $header->save();
         try {

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-@include("includes.head-meta")
+@include('includes.head-meta')
 
 
 <body>
@@ -52,84 +52,89 @@
       'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
     -->
     <div id="page-container"
-        class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow side-trans-enabled">
+        @if (!isset($mode)) class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow side-trans-enabled"
+        @else
+        class="main-content-narrow" @endif>
         {{-- @include('includes.overlay') --}}
+        @if (!isset($mode))
+            @include('includes.sidebar')
+            <!-- Header -->
+            <header id="page-header">
+                <!-- Header Content -->
+                <div class="content-header w-100">
+                    <!-- Left Section -->
+                    <div class="d-flex align-items-center">
+                        <!-- Toggle Sidebar -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
+                        <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-lg-none" data-toggle="layout"
+                            data-action="sidebar_toggle">
+                            <i class="fa fa-fw fa-bars"></i>
+                        </button>
+                        <!-- END Toggle Sidebar -->
 
-        @include("includes.sidebar")
+                        <!-- Toggle Mini Sidebar -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
+                        <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block"
+                            data-toggle="layout" data-action="sidebar_mini_toggle">
+                            <i class="fa fa-fw fa-ellipsis-v"></i>
+                        </button>
+                        <!-- END Toggle Mini Sidebar -->
 
-        <!-- Header -->
-        <header id="page-header">
-            <!-- Header Content -->
-            <div class="content-header w-100">
-                <!-- Left Section -->
-                <div class="d-flex align-items-center">
-                    <!-- Toggle Sidebar -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-                    <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-lg-none" data-toggle="layout"
-                        data-action="sidebar_toggle">
-                        <i class="fa fa-fw fa-bars"></i>
-                    </button>
-                    <!-- END Toggle Sidebar -->
+                        <!-- Open Search Section (visible on smaller screens) -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout"
+                            data-action="header_search_on">
+                            <i class="fa fa-fw fa-search"></i>
+                        </button>
 
-                    <!-- Toggle Mini Sidebar -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
-                    <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block"
-                        data-toggle="layout" data-action="sidebar_mini_toggle">
-                        <i class="fa fa-fw fa-ellipsis-v"></i>
-                    </button>
-                    <!-- END Toggle Mini Sidebar -->
+                        <!-- END Open Search Section -->
 
-                    <!-- Open Search Section (visible on smaller screens) -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout"
-                        data-action="header_search_on">
-                        <i class="fa fa-fw fa-search"></i>
-                    </button>
-                    <!-- END Open Search Section -->
+                        @include('includes.search')
+                        <!-- END Search Form -->
+                    </div>
+                    <!-- END Left Section -->
 
-                    @include('includes.search')
-                    <!-- END Search Form -->
+                    <!-- Right Section -->
+                    <div class="d-flex align-items-center">
+
+
+                        @include('includes.notification')
+                        @include('includes.user')
+
+                        <!-- Toggle Side Overlay -->
+                        <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout"
+                            data-action="side_overlay_toggle">
+                            <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
+                        </button>
+                        <!-- END Toggle Side Overlay -->
+                    </div>
+                    <!-- END Right Section -->
                 </div>
-                <!-- END Left Section -->
-
-                <!-- Right Section -->
-                <div class="d-flex align-items-center">
-
-
-                    {{-- @include("includes.notification") --}}
-                    @include('includes.user')
-
-                    <!-- Toggle Side Overlay -->
-                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    {{-- <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout"
-                        data-action="side_overlay_toggle">
-                        <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
-                    </button> --}}
-                    <!-- END Toggle Side Overlay -->
-                </div>
-                <!-- END Right Section -->
-            </div>
-            <!-- END Header Content -->
-            {{-- @include('includes.search-mobile') --}}
-            @include('includes.loader')
+                <!-- END Header Content -->
+                {{-- @include('includes.search-mobile') --}}
+                @include('includes.loader')
 
 
-        </header>
-        <!-- END Header -->
-
+            </header>
+            <!-- END Header -->
+            @include('includes.overlay')
+        @endif
         <!-- Main Container -->
         <main id="main-container">
 
 
-            @yield("content")
+            @yield('content')
 
         </main>
         <!-- END Main Container -->
 
-        @include("includes.footer")
+        @if (!isset($mode))
+            @include('includes.footer')
+        @endif
     </div>
     <!-- END Page Container -->
-    @include("includes.js")
+    @include('includes.js')
 </body>
 
 </html>

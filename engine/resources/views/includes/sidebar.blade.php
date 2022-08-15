@@ -138,28 +138,28 @@
                     <ul class="nav-main-submenu">
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="{{ route('penjualan.create') }}">
+                            <a class="nav-main-link" href="{{ route('daftar-piutang.create') }}">
                                 <span class="nav-main-link-name">Buat Faktur</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="{{ route('penjualan.index') }}">
+                            <a class="nav-main-link" href="{{ route('daftar-piutang.index') }}">
                                 <span class="nav-main-link-name">Daftar Piutang</span>
                             </a>
                         </li>
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('datavoid*')) ? 'active' : '' }}" href="{{ route('datavoid.index') }}">
+                            <a class="nav-main-link {{ (request()->is('datavoid*')) ? 'active' : '' }}" href="{{ route('daftar-void.index') }}">
                                 <span class="nav-main-link-name">Daftar Void</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('retur_penjualan*')) ? 'active' : '' }}" href="{{ route('retur_penjualan.index') }}">
+                            <a class="nav-main-link {{ (request()->is('retur_penjualan*')) ? 'active' : '' }}" href="{{ route('retur-penjualan.index') }}">
                                 <span class="nav-main-link-name">Retur Penjualan</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('piutang*')) ? 'active' : '' }}" href="{{ route('piutang.index') }}">
+                            <a class="nav-main-link {{ (request()->is('piutang*')) ? 'active' : '' }}" href="{{ route('laporan-penjualan.index') }}">
                                 <span class="nav-main-link-name">Laporan Penjualan</span>
                             </a>
                         </li>

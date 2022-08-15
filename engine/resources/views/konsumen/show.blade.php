@@ -134,7 +134,7 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->createdOn->format('d-m-Y') }}</td>
                                                     <td>
-                                                        <a target="_blank" href="{{ route('penjualan.edit', $item->sales_order_header_id) }}">
+                                                        <a target="_blank" href="{{ route('daftar-piutang.edit', $item->sales_order_header_id) }}">
                                                             {{ $item->header->intnomorsales }}
                                                         </a>
                                                     </td>
@@ -178,7 +178,7 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $item->createdOn->format('d-m-Y') }}</td>
                                                     <td>
-                                                        <a target="_blank" href="{{route('retur_penjualan.edit', $item->id)}}">
+                                                        <a target="_blank" href="{{route('retur-penjualan.edit', $item->id)}}">
                                                             {{ $item->header->no_invoice ?? 'void' }}
                                                         </a>
                                                     </td>

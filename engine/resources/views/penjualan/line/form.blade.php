@@ -277,7 +277,7 @@ if(price.data("max")>0){
 //     var method ="post"
 //     $.ajax({
 //     method: method,
-//     url: "{{route('penjualan.store')}}",
+//     url: "{{route('daftar-piutang.store')}}",
 //     data: param
 //     })
 //     .done(function( msg ) {

@@ -2,6 +2,7 @@
 @extends('layouts.master-sidebar')
 
 @section('content')
+
 <!-- Page Content -->
 <div class="content">
     <!-- Stats -->
@@ -152,7 +153,7 @@
                                         Rp {{number_format($item->total_sales)}}
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{route('penjualan.edit',$item->id)}}" data-bs-toggle="tooltip"
+                                        <a href="{{route('daftar-piutang.edit',$item->id)}}" data-bs-toggle="tooltip"
                                             data-bs-placement="left"
                                             title="" class="js-bs-tooltip-enabled" data-bs-original-title="Manage">
                                             <i class="fa fa-fw fa-eye"></i>

@@ -694,7 +694,7 @@
                     //penjualan
                     var htmlpenjualan = '';
                     var totalpenjualan = 0;
-                    for (let i = 0; i < penjualan.length; i++) {
+                    for (let i = 0; i < daftar-piutang.length; i++) {
                         var tgl = new Date(penjualan[i]['createdOn']);
                         htmlpenjualan += '<tr><td>'+(i+1)+'</td>';
                         htmlpenjualan += '<td>'+day(tgl)+'</td>';
@@ -713,7 +713,7 @@
                     //retur penjualan
                     var htmlreturpenjualan = '';
                     var totalreturpenjualan = 0;
-                    for (let i = 0; i < returpenjualan.length; i++) {
+                    for (let i = 0; i < returdaftar-piutang.length; i++) {
                         var tgl = new Date(returpenjualan[i]['createdOn']);
                         htmlreturpenjualan += '<tr><td>'+(i+1)+'</td>';
                         htmlreturpenjualan += '<td>'+day(tgl)+'</td>';

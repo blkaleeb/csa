@@ -16,7 +16,7 @@
                     <h3 class="block-title">Retur Penjualan</h3>
                 </div>
                 <div class="float-end">
-                    <a href="{{route('retur_penjualan.create')}}" class="btn btn-info block-title">Buat Faktur</a>
+                    <a href="{{route('retur-penjualan.create')}}" class="btn btn-info block-title">Buat Faktur</a>
                 </div>
 
             </div>
@@ -55,11 +55,11 @@
                                     </button>
                                     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
                                         <a class="dropdown-item"
-                                            href="{{route('retur_penjualan.edit',$item->id)}}">Edit</a>
+                                            href="{{route('retur-penjualan.edit',$item->id)}}">Edit</a>
                                             <a class="dropdown-item"
-                                            href="{{route('retur_penjualan.print',$item->id)}}">Print</a>
+                                            href="{{route('retur-penjualan.print',$item->id)}}">Print</a>
                                         <a class="dropdown-item delete">Void</a>
-                                        <form autocomplete="off" action="{{route('retur_penjualan.destroy',$item->id)}}" method="post">
+                                        <form autocomplete="off" action="{{route('retur-penjualan.destroy',$item->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -93,9 +93,9 @@
                                     </button>
                                     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
                                         <a class="dropdown-item"
-                                            href="{{route('retur_penjualan_line.edit',$line->id)}}">Edit</a>
+                                            href="{{route('retur-penjualan-line.edit',$line->id)}}">Edit</a>
                                         <a class="dropdown-item delete">Void</a>
-                                        <form autocomplete="off" action="{{route('retur_penjualan_line.destroy',$line->id)}}"
+                                        <form autocomplete="off" action="{{route('retur-penjualan-line.destroy',$line->id)}}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')
@@ -127,12 +127,12 @@
                             data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             Filter
                         </button>
-                        <a href="{{ route('penjualan.create') }}" class="btn btn-info">Buat Faktur</a>
+                        <a href="{{ route('daftar-piutang.create') }}" class="btn btn-info">Buat Faktur</a>
                     </div>
                 </div>
                 <div class="block-content block-content-full">
 
-                    <form autocomplete="off" action="{{ route('penjualan.index') }}" class="collapse" id="collapseExample">
+                    <form autocomplete="off" action="{{ route('daftar-piutang.index') }}" class="collapse" id="collapseExample">
 
                         <div class="row">
                             <div class="col-lg-6">
@@ -210,7 +210,7 @@
                                                 </button>
                                                 <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('retur_penjualan.create', ['salesid' => $item->id]) }}">Retur Faktur ini</a>
+                                                        href="{{ route('retur-penjualan.create', ['salesid' => $item->id]) }}">Retur Faktur ini</a>
                                                 </div>
                                             </div>
                                         </td>

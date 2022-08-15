@@ -34,13 +34,17 @@ class HutangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
         $d["is_edit"] = false;
         $d["sales"] = PurchaseInvoiceHeader::all();
-        return view($this->view . "form", $d);
+        if ($request->mode == "popup") {
+            return view($this->view . "form", $d)->render();
+        } else {
+            return view($this->view . "form", $d);
+        }
     }
 
     /**

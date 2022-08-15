@@ -22,7 +22,7 @@
                                 {{$data->purchaseinvoiceheader->poheader->supplier->supplier_name}}
                             </p>
                             @else
-                            <select name="purchase_invoice_header_id" id="" class="form-control select2 faktur">
+                            <select name="purchase_invoice_header_id" id="" class="form-control select2-modal faktur">
                                 <option value="" disabled selected>Pilih Faktur</option>
                                 @foreach($sales as $item)
                                 @if($item->invoice_total > $item->paid_total)

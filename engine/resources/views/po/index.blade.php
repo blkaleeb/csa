@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="{{asset('assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css')}}">
 @endpush
 @section('content')
+@include('includes.modal.form')
+
 <!-- Page Content -->
 <div class="content w-100">
     <div class="row">
@@ -16,7 +18,11 @@
                     <h3 class="block-title">Purchase Order</h3>
                 </div>
                 <div class="float-end">
-                    <a href="{{route('po.create')}}" class="btn btn-info block-title">Buat PO</a>
+                    {{-- <a href="" class="btn btn-info block-title">Buat PO</a> --}}
+                    <button type="button" class="btn btn-info form-modal-btn" data-bs-target="#formModal"
+                    data-url="{{route('po.create')}}">
+                    Buat PO
+                </button>
                 </div>
 
             </div>

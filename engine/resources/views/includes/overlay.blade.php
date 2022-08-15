@@ -10,7 +10,7 @@
 
                 <!-- User Info -->
                 <div class="ms-2">
-                    <a class="text-dark fw-semibold fs-sm" href="javascript:void(0)">John Smith</a>
+                    <a class="text-dark fw-semibold fs-sm" href="javascript:void(0)">{{ Auth::user()->displayName }}</a>
                 </div>
                 <!-- END User Info -->
 
@@ -29,249 +29,75 @@
                 <!-- Side Overlay Tabs -->
                 <div class="block block-transparent pull-x pull-t">
                     <ul class="nav nav-tabs nav-tabs-block nav-justified" role="tablist">
+                        @if (isset($filter_enabled))
                         <li class="nav-item">
-                            <button type="button" class="nav-link active" id="so-overview-tab" data-bs-toggle="tab"
-                                data-bs-target="#so-overview" role="tab" aria-controls="so-overview"
-                                aria-selected="true">
-                                <i class="fa fa-fw fa-coffee text-gray opacity-75 me-1"></i> Overview
+                            <button type="button" class="nav-link @if (isset($filter_enabled)) active @endif"
+                                id="so-filter-tab" data-bs-toggle="tab" data-bs-target="#so-filter" role="tab"
+                                aria-controls="so-filter" aria-selected="true">
+                                <i class="fa fa-fw fa-filter text-gray opacity-75 me-1"></i> Filter
                             </button>
                         </li>
+                        @endif
                         <li class="nav-item">
-                            <button type="button" class="nav-link" id="so-sales-tab" data-bs-toggle="tab"
-                                data-bs-target="#so-sales" role="tab" aria-controls="so-sales" aria-selected="false">
-                                <i class="fa fa-fw fa-chart-line text-gray opacity-75 me-1"></i> Sales
+                            <button type="button" class="nav-link" id="so-recent-tab" data-bs-toggle="tab"
+                                data-bs-target="#so-recent" role="tab" aria-controls="so-recent"
+                                aria-selected="false">
+                                <i class="fa fa-fw fa-chart-line text-gray opacity-75 me-1"></i> Activity
                             </button>
                         </li>
                     </ul>
                     <div class="block-content tab-content overflow-hidden">
-                        <!-- Overview Tab -->
-                        <div class="tab-pane pull-x fade fade-left show active" id="so-overview" role="tabpanel"
-                            aria-labelledby="so-overview-tab">
-                            <!-- Activity -->
-                            <div class="block block-transparent">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">Recent Activity</h3>
-                                    <div class="block-options">
-                                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                                            data-action="state_toggle" data-action-mode="demo">
-                                            <i class="si si-refresh"></i>
-                                        </button>
-                                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                                            data-action="content_toggle"></button>
-                                    </div>
-                                </div>
-                                <div class="block-content">
-                                    <!-- Activity List -->
-                                    <ul class="nav-items mb-0">
-                                        <li>
-                                            <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                                                <div class="flex-shrink-0 me-3 ms-2">
-                                                    <i class="fa fa-fw fa-plus text-success"></i>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">New sale ($15)</div>
-                                                    <div>Admin Template</div>
-                                                    <small class="text-muted">3 min ago</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                                                <div class="flex-shrink-0 me-3 ms-2">
-                                                    <i class="fa fa-fw fa-pencil-alt text-info"></i>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">You edited the file</div>
-                                                    <div>Documentation.doc</div>
-                                                    <small class="text-muted">15 min ago</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="text-dark d-flex py-2" href="javascript:void(0)">
-                                                <div class="flex-shrink-0 me-3 ms-2">
-                                                    <i class="fa fa-fw fa-trash text-danger"></i>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">Project deleted</div>
-                                                    <div>Line Icon Set</div>
-                                                    <small class="text-muted">4 hours ago</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <!-- END Activity List -->
-                                </div>
-                            </div>
-                            <!-- END Activity -->
+                        <!-- filter Tab -->
+                        @if (isset($filter_enabled))
+                            <div class="tab-pane pull-x fade fade-left @if (isset($filter_enabled)) show active @endif "
+                                id="so-filter" role="tabpanel" aria-labelledby="so-filter-tab">
+                                <!-- Activity -->
+                                <div class="block-content block-content-full">
 
-                            <!-- Online Friends -->
-                            <div class="block block-transparent">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">Online Friends</h3>
-                                    <div class="block-options">
-                                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                                            data-action="state_toggle" data-action-mode="demo">
-                                            <i class="si si-refresh"></i>
-                                        </button>
-                                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                                            data-action="content_toggle"></button>
-                                    </div>
-                                </div>
-                                <div class="block-content">
-                                    <!-- Users Navigation -->
-                                    <ul class="nav-items mb-0">
-                                        <li>
-                                            <a class="d-flex py-2" href="javascript:void(0)">
-                                                <div class="me-3 ms-2 overlay-container overlay-bottom">
-                                                    <img class="img-avatar img-avatar48"
-                                                        src="assets/media/avatars/avatar4.jpg" alt="">
-                                                    <span
-                                                        class="overlay-item item item-tiny item-circle border border-2 border-white bg-success"></span>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">Carol White</div>
-                                                    <div class="text-muted">Copywriter</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="d-flex py-2" href="javascript:void(0)">
-                                                <div class="me-3 ms-2 overlay-container overlay-bottom">
-                                                    <img class="img-avatar img-avatar48"
-                                                        src="assets/media/avatars/avatar12.jpg" alt="">
-                                                    <span
-                                                        class="overlay-item item item-tiny item-circle border border-2 border-white bg-success"></span>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">Jose Parker</div>
-                                                    <div class="text-muted">Web Developer</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="d-flex py-2" href="javascript:void(0)">
-                                                <div class="me-3 ms-2 overlay-container overlay-bottom">
-                                                    <img class="img-avatar img-avatar48"
-                                                        src="assets/media/avatars/avatar8.jpg" alt="">
-                                                    <span
-                                                        class="overlay-item item item-tiny item-circle border border-2 border-white bg-success"></span>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">Lori Grant</div>
-                                                    <div class="text-muted">Web Designer</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="d-flex py-2" href="javascript:void(0)">
-                                                <div class="me-3 ms-2 overlay-container overlay-bottom">
-                                                    <img class="img-avatar img-avatar48"
-                                                        src="assets/media/avatars/avatar3.jpg" alt="">
-                                                    <span
-                                                        class="overlay-item item item-tiny item-circle border border-2 border-white bg-warning"></span>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">Susan Day</div>
-                                                    <div class="text-muted">Photographer</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="d-flex py-2" href="javascript:void(0)">
-                                                <div class="me-3 ms-2 overlay-container overlay-bottom">
-                                                    <img class="img-avatar img-avatar48"
-                                                        src="assets/media/avatars/avatar12.jpg" alt="">
-                                                    <span
-                                                        class="overlay-item item item-tiny item-circle border border-2 border-white bg-warning"></span>
-                                                </div>
-                                                <div class="flex-grow-1 fs-sm">
-                                                    <div class="fw-semibold">Jose Mills</div>
-                                                    <div class="text-muted">Graphic Designer</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <!-- END Users Navigation -->
-                                </div>
-                            </div>
-                            <!-- END Online Friends -->
+                                    <form autocomplete="off" action="{{ route('daftar-piutang.index') }}">
 
-                            <!-- Quick Settings -->
-                            <div class="block block-transparent mb-0">
-                                <div class="block-header block-header-default">
-                                    <h3 class="block-title">Quick Settings</h3>
-                                    <div class="block-options">
-                                        <button type="button" class="btn-block-option" data-toggle="block-option"
-                                            data-action="content_toggle"></button>
-                                    </div>
-                                </div>
-                                <div class="block-content">
-                                    <!-- Quick Settings Form -->
-                                    <form autocomplete="off" action="be_pages_dashboard.html" method="POST" onsubmit="return false;">
-                                        <div class="mb-4">
-                                            <p class="fs-sm fw-semibold mb-2">
-                                                Online Status
-                                            </p>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="so-settings-check1" name="so-settings-check1" checked>
-                                                <label class="form-check-label fs-sm" for="so-settings-check1">Show your
-                                                    status to all</label>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label class="form-label" for="customer_filter">Customer</label>
+                                                <input type="text" class="form-control" id="customer_filter"
+                                                    name="customer" value="{{ $customer_filter ?? '' }}">
                                             </div>
+                                            <div class="col-lg-12">
+                                                <label class="form-label" for="invoice_filter">No Faktur</label>
+                                                <input type="text" class="form-control" id="invoice_filter"
+                                                    name="invoice" value="{{ $invoice_filter ?? '' }}">
+                                            </div>
+
                                         </div>
-                                        <div class="mb-4">
-                                            <p class="fs-sm fw-semibold mb-2">
-                                                Auto Updates
-                                            </p>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="so-settings-check2" name="so-settings-check2" checked>
-                                                <label class="form-check-label fs-sm" for="so-settings-check2">Keep up
-                                                    to date</label>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <label class="form-label" for="due_date">Dari</label>
+                                                <input type="text" class="js-flatpickr form-control"
+                                                    id="example-flatpickr-custom" name="date_start"
+                                                    placeholder="hari-bulan-tahun"
+                                                    value="{{ $date_start->format('d F Y') }}" data-date-format="d F Y">
                                             </div>
+                                            <div class="col-lg-12">
+                                                <label class="form-label" for="due_date">Sampai</label>
+                                                <input type="text" class="js-flatpickr form-control"
+                                                    id="example-flatpickr-custom" name="date_end"
+                                                    placeholder="hari-bulan-tahun"
+                                                    value="{{ $date_end?->format('d F Y') }}" data-date-format="d F Y">
+                                            </div>
+
                                         </div>
-                                        <div class="mb-4">
-                                            <p class="fs-sm fw-semibold mb-1">
-                                                Application Alerts
-                                            </p>
-                                            <div class="space-y-2">
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="so-settings-check3" name="so-settings-check3" checked>
-                                                    <label class="form-check-label fs-sm" for="so-settings-check3">Email
-                                                        Notifications</label>
-                                                </div>
-                                                <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="so-settings-check4" name="so-settings-check4" checked>
-                                                    <label class="form-check-label fs-sm" for="so-settings-check4">SMS
-                                                        Notifications</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-4">
-                                            <p class="fs-sm fw-semibold mb-1">
-                                                API
-                                            </p>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="so-settings-check5" name="so-settings-check5" checked>
-                                                <label class="form-check-label fs-sm" for="so-settings-check5">Enable
-                                                    access</label>
-                                            </div>
+                                        <div class="col-lg-12 mt-3">
+                                            <button type="submit" class="btn btn-info form-control">Filter</button>
                                         </div>
                                     </form>
-                                    <!-- END Quick Settings Form -->
                                 </div>
-                            </div>
-                            <!-- END Quick Settings -->
-                        </div>
-                        <!-- END Overview Tab -->
 
+                            </div>
+                        @endif
+                        <!-- END Overview Tab -->
                         <!-- Sales Tab -->
-                        <div class="tab-pane pull-x fade fade-right" id="so-sales" role="tabpanel"
-                            aria-labelledby="so-sales-tab">
+                        <div class="tab-pane pull-x fade fade-right @if (!isset($filter_enabled)) show active @endif "
+                            id="so-recent" role="tabpanel" aria-labelledby="so-recent-tab">
                             <div class="block block-transparent mb-0">
                                 <!-- Stats -->
                                 <div class="block-content">

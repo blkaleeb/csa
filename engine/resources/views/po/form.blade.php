@@ -25,7 +25,7 @@
                         <div class="row mb-4">
                             <div class="col-lg-12">
                                 <label class="form-label" for="example-ltf-email">Supplier</label>
-                                <select name="supplier_id" id="" class="supplier form-control select2">
+                                <select name="supplier_id" id="" class="supplier form-control select2-modal">
                                     <option value="" disabled @if(!$is_edit) selected @endif>Pilih Supplier</option>
 
                                     @foreach($suppliers as $supplier)
@@ -129,7 +129,7 @@
                                 <div class="row mb-4">
                                     <div class="col-xl-12">
                                         <label class="form-label" for="">Barang:</label>
-                                        <select class="stock select2 form-control" style="width: 100%">
+                                        <select class="stock select2-modal form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Barang</option>
                                             @foreach ($stock as $item)
                                             <option value="{{$item->id}}" data-item="{{$item}}">{{$item->name}}</option>
@@ -140,7 +140,7 @@
                                 <div class="row mb-4">
                                     <div class="col-xl-12">
                                         <label class="form-label" for="">Gudang:</label>
-                                        <select class="warehouse select2 form-control" style="width: 100%">
+                                        <select class="warehouse select2-modal form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Gudang</option>
                                             @foreach ($warehouses as $item)
                                             <option value="{{$item->id}}" data-item="{{$item}}">
@@ -157,7 +157,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <label class="form-label" for="">Bonus?</label>
-                                        <select class="bonus select2 form-control" style="width: 100%">
+                                        <select class="bonus select2-modal form-control" style="width: 100%">
                                             <option value="0" selected>Tidak</option>
                                             <option value="1">Iya</option>
                                         </select>
@@ -213,7 +213,7 @@
                                 <div class="row mb-4">
                                     <div class="col-xl-12">
                                         <label class="form-label" for="">Barang:</label>
-                                        <select class="stock select2 form-control" style="width: 100%">
+                                        <select class="stock select2-modal form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Barang</option>
                                             @foreach ($stock as $item)
                                             <option value="{{$item->id}}" data-item="{{$item}}">{{$item->name}}</option>
@@ -224,7 +224,7 @@
                                 <div class="row mb-4">
                                     <div class="col-xl-12">
                                         <label class="form-label" for="">Gudang:</label>
-                                        <select class="warehouse select2 form-control" style="width: 100%">
+                                        <select class="warehouse select2-modal form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Gudang</option>
                                             @foreach ($warehouses as $item)
                                             <option value="{{$item->id}}" data-item="{{$item}}">
@@ -241,7 +241,7 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <label class="form-label" for="">Bonus?</label>
-                                        <select class="bonus select2 form-control" style="width: 100%">
+                                        <select class="bonus select2-modal form-control" style="width: 100%">
                                             <option value="0" selected>Tidak</option>
                                             <option value="1">Iya</option>
                                         </select>
@@ -325,7 +325,7 @@
         'js-flatpickr',
         'jq-datepicker',
         // 'jq-maxlength',
-        'jq-select2',
+        'jq-select2-modal',
         // 'jq-masked-inputs',
         // 'jq-rangeslider',
         // 'jq-colorpicker'
@@ -398,9 +398,9 @@ function addToCart(){
     // ////////////////////////////////////////////////////////////////////////
 $(".void").click(remove);
 // ////////////////////////////////////////////////////////////////////////
-    var selectstock = $(".stock").select2();
-    selectstock.select2('open');
-    $(".select2-search__field").focus();
+    var selectstock = $(".stock").select2-modal();
+    selectstock.select2-modal('open');
+    $(".select2-modal-search__field").focus();
     $(".quantity").val(1)
 }
 

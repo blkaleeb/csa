@@ -1,8 +1,4 @@
-@if($popup == 0)
 @extends('layouts.master-sidebar')
-@else
-@extends('layouts.master')
-@endif
 @push('css')
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
 @endpush
@@ -20,7 +16,8 @@
                     <div class="col-lg-12 space-y-5">
                         <!-- Form Horizontal - Default Style -->
                         <form autocomplete="off" class="space-y-4 form-header"
-                            action="{{ $is_edit ? route('penjualan.update', $data->id) : '#' }}" method="POST" novalidate>
+                            action="{{ $is_edit ? route('daftar-piutang.update', $data->id) : '#' }}" method="POST"
+                            novalidate>
                             @csrf
                             @if ($is_edit)
                                 @method('put')
@@ -29,7 +26,7 @@
                             <div class="row mb-4">
                                 <div class="col-lg-6">
                                     <label class="form-label" for="example-ltf-email">Konsumen</label>
-                                    <select name="customer_id" id="" class="customer js-select2 form-select ">
+                                    <select name="customer_id" id="" class="customer select2-modal form-select ">
                                         <option value="" disabled @if (!$is_edit) selected @endif>
                                             Pilih Konsumen</option>
 
@@ -69,7 +66,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <label class="form-label" for="example-ltf-email">Supir</label>
-                                    <select name="supir" id="" class="form-control  js-select2 form-select ">
+                                    <select name="supir" id="" class="form-control  select2-modal form-select ">
                                         @foreach ($supir as $item)
                                             <option value="{{ $item->id }}"
                                                 @if ($is_edit && $data->supir == $item->id) selected @endif>
@@ -81,7 +78,7 @@
 
                                 <div class="col-lg-6">
                                     <label class="form-label" for="example-ltf-email">Kenek</label>
-                                    <select name="kenek" id="" class="form-control  js-select2 form-select ">
+                                    <select name="kenek" id="" class="form-control  select2-modal form-select ">
                                         @foreach ($kenek as $item)
                                             <option value="{{ $item->id }}"
                                                 @if ($is_edit && $data->kenek == $item->id) selected @endif>
@@ -186,7 +183,8 @@
                                         <div class="row mb-4">
                                             <div class="col-xl-12">
                                                 <label class="form-label" for="">Barang:</label>
-                                                <select class="stock  js-select2 form-select  form-control" style="width: 100%">
+                                                <select class="stock  select2-modal form-select  form-control"
+                                                    style="width: 100%">
                                                     <option value="" disabled selected>Pilih Barang</option>
                                                     @foreach ($stock as $item)
                                                         <option value="{{ $item->id }}"
@@ -289,7 +287,8 @@
                                         <div class="row mb-4">
                                             <div class="col-xl-12">
                                                 <label class="form-label" for="">Barang:</label>
-                                                <select class="stock  js-select2 form-select  form-control" style="width: 100%">
+                                                <select class="stock  select2-modal form-select  form-control"
+                                                    style="width: 100%">
                                                     <option value="" disabled selected>Pilih Barang</option>
                                                     @foreach ($stock as $item)
                                                         <option value="{{ $item->id }}"
@@ -398,15 +397,16 @@
             $(".history").show();
             calcGrandTotal();
         });
-        One.helpersOnLoad([
-            'js-flatpickr',
-            'jq-datepicker',
-            // 'jq-maxlength',
-            'jq-select2',
-            // 'jq-masked-inputs',
-            // 'jq-rangeslider',
-            // 'jq-colorpicker'
-        ]);
+
+        // One.helpersOnLoad([
+        //     'js-flatpickr',
+        //     'jq-datepicker',
+        //     // 'jq-maxlength',
+        //     // 'jq-select2',
+        //     // 'jq-masked-inputs',
+        //     // 'jq-rangeslider',
+        //     // 'jq-colorpicker'
+        // ]);
 
         $(".customer").change(function() {
             var customer = $(this).find('option').filter(':selected');
@@ -490,9 +490,11 @@
             // ////////////////////////////////////////////////////////////////////////
             $(".void").click(remove);
             // ////////////////////////////////////////////////////////////////////////
-            var selectstock = $(".stock").select2();
-            selectstock.select2('open');
-            $(".select2-search__field").focus();
+            // var selectstock = $(".stock").select2({
+            //     dropdownParent: $('#formModal')
+            // });
+            // selectstock.select2('open');
+            // $(".select2-search__field").focus();
             $(".diskon").val(0);
             $(".quantity").val(1)
         }
@@ -500,6 +502,7 @@
         $(window).keydown(function(event) {
             if (event.keyCode == 13) {
                 addToCart();
+                alert("cart")
             }
         });
 
@@ -522,72 +525,72 @@
             calcGrandTotal();
         }
 
-        $('#salesorderhistory').on('show.bs.modal', function(e) {
-            // do something...
-            var customerid = $(".customer").find('option').filter(':selected').val();
-            if (customerid != "") {
-                $.ajax({
-                        method: "post",
-                        url: "{{ url('api/salesorder/history/customer') }}",
-                        data: {
-                            customer_id: customerid
-                        }
-                    })
-                    .done(function(msg) {
-                        var table = $("#riwayat_sales")
-                        table.empty()
-                        $.each(msg, function(k, v) {
-                            var no = `<td class="number">` + (k + 1) + `</td>`
-                            var nosales = `<td>` + v.intnomorsales + `</td>`
-                            var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
-                                `</td>`
-                            var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
-                                `</td>`
-                            var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
-                            var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
-                            var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
-                                `</td>`
-                            table.append(`<tr>` + no + nosales + tanggalorder + totalfaktur +
-                                totalbayar + retur + sisabayar + `</tr>`);
-                        })
-                    });
-            } else {
-                $("#salesorderhistory").modal("hide");
-                toastr.error("Pilih Konsumen terlebih dahulu");
-            }
-        })
+        // $('#salesorderhistory').on('show.bs.modal', function(e) {
+        //     // do something...
+        //     var customerid = $(".customer").find('option').filter(':selected').val();
+        //     if (customerid != "") {
+        //         $.ajax({
+        //                 method: "post",
+        //                 url: "{{ url('api/salesorder/history/customer') }}",
+        //                 data: {
+        //                     customer_id: customerid
+        //                 }
+        //             })
+        //             .done(function(msg) {
+        //                 var table = $("#riwayat_sales")
+        //                 table.empty()
+        //                 $.each(msg, function(k, v) {
+        //                     var no = `<td class="number">` + (k + 1) + `</td>`
+        //                     var nosales = `<td>` + v.intnomorsales + `</td>`
+        //                     var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
+        //                         `</td>`
+        //                     var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
+        //                         `</td>`
+        //                     var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
+        //                     var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
+        //                     var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
+        //                         `</td>`
+        //                     table.append(`<tr>` + no + nosales + tanggalorder + totalfaktur +
+        //                         totalbayar + retur + sisabayar + `</tr>`);
+        //                 })
+        //             });
+        //     } else {
+        //         $("#salesorderhistory").modal("hide");
+        //         toastr.error("Pilih Konsumen terlebih dahulu");
+        //     }
+        // })
 
-        $('#saleslinehistory').on('show.bs.modal', function(e) {
-            // do something...
-            var stockid = $(".stock").find('option').filter(':selected').val();
-            var customerid = $(".customer").find('option').filter(':selected').val();
+        // $('#saleslinehistory').on('show.bs.modal', function(e) {
+        //     // do something...
+        //     var stockid = $(".stock").find('option').filter(':selected').val();
+        //     var customerid = $(".customer").find('option').filter(':selected').val();
 
-            if (stockid != "" && customerid != "") {
-                $.ajax({
-                        method: "post",
-                        url: "{{ url('api/salesline/history/customer') }}",
-                        data: {
-                            item_stock_id: stockid,
-                            customer_id: customerid
-                        }
-                    })
-                    .done(function(msg) {
-                        var table = $("#riwayat_item")
-                        table.empty()
-                        $.each(msg, function(k, v) {
-                            var tanggal = `<td>` + new Date(v.createdOn).toLocaleDateString() + `</td>`
-                            var barang = `<td>` + v.stock.name + `</td>`
-                            var qty = `<td>` + v.qty + `</td>`
-                            var hargasatuan = `<td>` + number_format(v.price_per_satuan_id, 0, ",",
-                                ".") + `</td>`
-                            table.append(`<tr>` + tanggal + barang + qty + hargasatuan + `</tr>`);
-                        })
-                    });
-            } else {
-                $("#salesorderhistory").modal("hide");
-                toastr.error("Pilih Konsumen terlebih dahulu");
-            }
-        })
+        //     if (stockid != "" && customerid != "") {
+        //         $.ajax({
+        //                 method: "post",
+        //                 url: "{{ url('api/salesline/history/customer') }}",
+        //                 data: {
+        //                     item_stock_id: stockid,
+        //                     customer_id: customerid
+        //                 }
+        //             })
+        //             .done(function(msg) {
+        //                 var table = $("#riwayat_item")
+        //                 table.empty()
+        //                 $.each(msg, function(k, v) {
+        //                     var tanggal = `<td>` + new Date(v.createdOn).toLocaleDateString() + `</td>`
+        //                     var barang = `<td>` + v.stock.name + `</td>`
+        //                     var qty = `<td>` + v.qty + `</td>`
+        //                     var hargasatuan = `<td>` + number_format(v.price_per_satuan_id, 0, ",",
+        //                         ".") + `</td>`
+        //                     table.append(`<tr>` + tanggal + barang + qty + hargasatuan + `</tr>`);
+        //                 })
+        //             });
+        //     } else {
+        //         $("#salesorderhistory").modal("hide");
+        //         toastr.error("Pilih Konsumen terlebih dahulu");
+        //     }
+        // })
 
         function submitSalesOrder(print) {
             var formheader = $(".form-header").serialize();
@@ -602,7 +605,7 @@
                     })
                     .done(function(msg) {
                         toastr.success("Success");
-                        // location.reload(true)
+                        location.reload(true)
                     }).fail(function(msg) {
                         toastr.error("Error");
                     });
@@ -611,7 +614,7 @@
                 var method = "post"
                 $.ajax({
                         method: method,
-                        url: "{{ route('penjualan.store') }}",
+                        url: "{{ route('daftar-piutang.store') }}",
                         data: param
                     })
                     .done(function(msg) {
@@ -647,7 +650,5 @@
                 }
             })
         }
-
     </script>
-
 @endpush

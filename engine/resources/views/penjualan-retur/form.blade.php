@@ -16,7 +16,7 @@
                 <div class="col-lg-12 space-y-5">
                     <!-- Form Horizontal - Default Style -->
                     <form autocomplete="off" class="space-y-4 form-header"
-                        action="{{$is_edit?route('retur_penjualan.update',$data->id):'#'}}" method="POST" novalidate>
+                        action="{{$is_edit?route('retur-penjualan.update',$data->id):'#'}}" method="POST" novalidate>
                         @csrf
                         @if($is_edit)
                         @method('put')
@@ -487,7 +487,7 @@ function submitSupplierReturn(print){
     var method ="post"
     $.ajax({
     method: method,
-    url: "{{route('retur_penjualan.store')}}",
+    url: "{{route('retur-penjualan.store')}}",
     data: param
     })
     .done(function( msg ) {

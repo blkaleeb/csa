@@ -71,9 +71,9 @@
                                         </button>
                                         <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
                                             <a class="dropdown-item"
-                                                href="{{ route('datavoid.approve', ['id' => $item->id]) }}">Approve</a>
+                                                href="{{ route('daftar-void.approve', ['id' => $item->id]) }}">Approve</a>
                                             <a class="dropdown-item"
-                                                href="{{ route('datavoid.cancel', ['id' => $item->id]) }}">Cancel</a>
+                                                href="{{ route('daftar-void.cancel', ['id' => $item->id]) }}">Cancel</a>
 
                                         </div>
                                     </div>

@@ -23,12 +23,12 @@
                         data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Filter
                     </button>
-                    <a href="{{route('piutang.create')}}" class="btn btn-info">Buat Pembayaran</a>
+                    <a href="{{route('laporan-penjualan.create')}}" class="btn btn-info">Buat Pembayaran</a>
                 </div>
             </div>
             <div class="block-content block-content-full">
 
-                <form autocomplete="off" action="{{ route('piutang.index') }}" class="collapse" id="collapseExample">
+                <form autocomplete="off" action="{{ route('laporan-penjualan.index') }}" class="collapse" id="collapseExample">
 
                     <div class="row">
                         <div class="col-lg-6">
@@ -153,9 +153,9 @@
                                         <i class="fas fa-bars"></i>
                                     </button>
                                     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
-                                        <a class="dropdown-item" href="{{route('piutang.edit',$key->id)}}">Edit</a>
+                                        <a class="dropdown-item" href="{{route('laporan-penjualan.edit',$key->id)}}">Edit</a>
                                         <a class="dropdown-item delete">Void</a>
-                                        <form autocomplete="off" action="{{route('piutang.destroy',$key->id)}}"
+                                        <form autocomplete="off" action="{{route('laporan-penjualan.destroy',$key->id)}}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')

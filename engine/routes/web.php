@@ -81,19 +81,19 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     //penjualan
 
-    Route::prefix("datavoid")->as("datavoid.")->group(function(){
+    Route::prefix("daftar-void")->as("daftar-void.")->group(function(){
         Route::get("{id}/approve", [DataVoidController::class, "approve"])->name("approve");
         Route::get("{id}/cancel", [DataVoidController::class, "cancel"])->name("cancel");
     });
-    Route::resource('datavoid', DataVoidController::class);
-    Route::prefix("penjualan")->as("penjualan.")->group(function(){
+    Route::resource('daftar-void', DataVoidController::class);
+    Route::prefix("daftar-piutang")->as("penjualan.")->group(function(){
         Route::get("{id}/print", [PenjualanController::class, "print"])->name("print");
     });
-    Route::resource('penjualan', PenjualanController::class);
+    Route::resource('daftar-piutang', PenjualanController::class);
     Route::resource('penjualan_line', PenjualanLineController::class);
-    Route::resource('piutang', PiutangController::class);
-    Route::resource('retur_penjualan', ReturPenjualanController::class);
-    Route::resource('retur_penjualan_line', ReturPembelianController::class);
+    Route::resource('laporan-penjualan', PiutangController::class);
+    Route::resource('retur-penjualan', ReturPenjualanController::class);
+    Route::resource('retur-penjualan-line', ReturPembelianController::class);
 
 
     Route::resource('po', PoController::class);
