@@ -45,10 +45,33 @@ class StokBarangController extends Controller
         $d["satuan"] = Satuan::all();
         $d["gudangs"] = Warehouse::all();
 
-        $d["stocks"] = Stok::with("gudang")->get();
+        $d["stocks"] = Stok::with("gudang")->paginate(10);
+        // $stok = Stok::with("gudang")->get();
+
+        $stok = Stok::join('warehouse','warehouse.id','=','item_stock.warehouse_id')
+                            ->select(DB::raw('IFNULL(qty,0) as qty, threshold_bottom'))
+                            ->get();
+
+        $stokavail = 0;
+        $stokhabis = 0;
+        $stokbeli = 0; 
+        foreach ($stok as $s) {
+            if($s->qty > $s->threshold_bottom){
+                $stokavail++;
+            }elseif($s->qty == 0){
+                $stokhabis++;
+            }else{
+                $stokbeli++;
+            }
+        }
+
+        $d["stokavail"] = $stokavail;
+        $d["stokhabis"] = $stokhabis;
+        $d["stokbeli"] = $stokbeli;
+
         if ($request->ajax()) {
             if ($request->has("q")) {
-                $d["stocks"] = Stok::with("gudang")->where("name", "like", "%" . $request->q . "%")->get();
+                $d["stocks"] = Stok::with("gudang")->where("name", "like", "%" . $request->q . "%")->paginate(10);
             }
             return response()->json($d["stocks"]);
         } else {

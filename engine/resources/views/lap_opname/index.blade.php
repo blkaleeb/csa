@@ -57,6 +57,7 @@
                     @endforeach
                     </tbody>
                 </table></div>
+                {{ $data->links() }}
             </div>
         </div>
         <!-- END Dynamic Table with Export Buttons -->

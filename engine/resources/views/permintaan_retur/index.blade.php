@@ -119,7 +119,7 @@
                     </script>
                     @endforeach
                 </table></div>
-
+                {{$data->links()}}
 
 
             </div>

@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="{{asset('assets/js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css')}}">
 <script src="{{asset('assets/js/lib/jquery.min.js')}}"></script>
+<style>
+.modal-body {
+    height: calc(100vh - 5em);
+    overflow-x: auto;
+}
+</style>
 @endpush
 @section('content')
 <!-- Page Content -->
@@ -28,7 +34,7 @@
                   <h3 class="block-title">Stok Habis</h3>
                 </div>
                 <div class="block-content">
-                  <p id="stokhabis">0</p>
+                  <p id="stokhabis">{{$stokhabis}}</p>
                 </div>
               </div>
             </div>
@@ -38,7 +44,7 @@
                   <h3 class="block-title">Stok Perlu Segera Beli</h3>
                 </div>
                 <div class="block-content">
-                <p id="stokbeli">0</p>
+                <p id="stokbeli">{{$stokbeli}}</p>
                 </div>
               </div>
             </div>
@@ -48,7 +54,7 @@
                   <h3 class="block-title">Stok Available</h3>
                 </div>
                 <div class="block-content">
-                <p id="stokavail">0</p>
+                <p id="stokavail">{{$stokavail}}</p>
                 </div>
               </div>
             </div>
@@ -72,9 +78,9 @@
                     </thead>
                     <tbody>
                         <?php
-                            $stokavail = 0;
-                            $stokhabis = 0;
-                            $stokbeli = 0;
+                            // $stokavail = 0;
+                            // $stokhabis = 0;
+                            // $stokbeli = 0;
                         ?>
                         @foreach($stocks as $stok)
                         <tr>
@@ -102,15 +108,12 @@
                             </td>
                             <td class="fw-semibold fs-sm">
                                 @if($stok->qty > $stok->threshold_bottom)
-                                <?php $stokavail++ ?>
                                 <span
                                 class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-info-light text-info">Stok Aman</span>
                                 @elseif($stok->qty == 0)
-                                <?php $stokhabis++ ?>
                                 <span
                                 class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-danger-light text-danger">Stok Habis</span>
                                 @else
-                                <?php $stokbeli++ ?>
                                 <span
                                 class="fs-xs fw-semibold d-inline-block py-1 px-3 rounded-pill bg-danger-light text-danger">Segera Pembelian</span>
                                 @endif
@@ -132,6 +135,7 @@
                         @endforeach
                     </tbody>
                 </table></div>
+                {{ $stocks->links() }}
             </div>
         </div>
         <!-- END Dynamic Table with Export Buttons -->
@@ -141,7 +145,7 @@
         <!-- Large Block Modal -->
         <div class="modal" id="modal-tambah" role="dialog" aria-labelledby="modal-tambah" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content">
+              <div class="modal-content  modal-body">
                 <div class="block block-rounded block-transparent mb-0">
                   <div class="block-header block-header-default">
                     <h3 class="block-title">Tambah Stok</h3>
@@ -290,7 +294,7 @@
         <!-- Large Block Modal -->
         <div class="modal" id="modal-block-extra-large" tabindex="-1" role="dialog" aria-labelledby="modal-block-extra-large" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
-              <div class="modal-content">
+              <div class="modal-content modal-body">
                 <div class="block block-rounded block-transparent mb-0">
                   <div class="block-header block-header-default">
                     <h3 class="block-title">Detail Stok Barang</h3>
@@ -584,9 +588,9 @@
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     }
 
-    document.getElementById("stokhabis").innerHTML = <?php echo number_format($stokhabis)?>;
-    document.getElementById("stokbeli").innerHTML = <?php echo number_format($stokbeli)?>;
-    document.getElementById("stokavail").innerHTML = <?php echo number_format($stokavail)?>;
+    // document.getElementById("stokhabis").innerHTML = <?php echo number_format($stokhabis)?>;
+    // document.getElementById("stokbeli").innerHTML = <?php echo number_format($stokbeli)?>;
+    // document.getElementById("stokavail").innerHTML = <?php echo number_format($stokavail)?>;
 
     //display modal tambah
     $(document).on('click', '#tambahbtn', function(event) {

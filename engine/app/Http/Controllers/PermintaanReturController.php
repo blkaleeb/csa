@@ -26,7 +26,7 @@ class PermintaanReturController extends Controller
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
-        $d["data"] = SupplierReturnHeader::all();
+        $d["data"] = SupplierReturnHeader::paginate(10);
         return view($this->view . "index", $d);
     }
 
