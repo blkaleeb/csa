@@ -1,4 +1,4 @@
-<!-- Search Form (visible on larger screens) -->
+{{-- <!-- Search Form (visible on larger screens) -->
 <form autocomplete="off" class="d-inline-flex" action="" method="">
     <div class="row gtText" style="display: none">
         <label class="col-sm-2 offset-sm-2 col-form-label" for="example-hf-email" id="toggleModal">Total</label>
@@ -18,9 +18,9 @@
         </div>
     </div>
     <div class="row history ms-4" style="display: none">
-        {{-- <div class="col-sm-12">
+        <div class="col-sm-12">
             <button type="button" class="btn btn-alt-primary push" data-bs-toggle="modal" data-bs-target="#saleslinehistory">Riwayat Barang</button>
-        </div> --}}
+        </div>
     </div>
 </form>
 @push("js")
@@ -29,4 +29,4 @@
         $("#modal").toggle();
     })
 </script>
-@endpush
+@endpush --}}

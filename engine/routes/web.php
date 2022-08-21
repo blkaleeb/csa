@@ -86,7 +86,7 @@ Route::middleware(['web', 'auth'])->group(function () {
         Route::get("{id}/cancel", [DataVoidController::class, "cancel"])->name("cancel");
     });
     Route::resource('daftar-void', DataVoidController::class);
-    Route::prefix("daftar-piutang")->as("penjualan.")->group(function(){
+    Route::prefix("daftar-piutang")->as("daftar-piutang.")->group(function(){
         Route::get("{id}/print", [PenjualanController::class, "print"])->name("print");
     });
     Route::resource('daftar-piutang', PenjualanController::class);

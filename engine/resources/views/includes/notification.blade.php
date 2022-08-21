@@ -1,9 +1,9 @@
 <!-- Notifications Dropdown -->
 <div class="dropdown d-inline-block ms-2 me-2">
-    <a class="btn btn-sm btn-alt-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+    {{-- <a class="btn btn-sm btn-alt-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
         aria-controls="collapseExample">
         <i class="fa-solid fa-filter"></i>
-    </a>
+    </a> --}}
     {{-- <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-notifications-dropdown"
         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-fw fa-bell"></i>
