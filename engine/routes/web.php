@@ -65,12 +65,19 @@ Route::middleware(['web', 'auth'])->group(function () {
     ////////////////////////////////////////////////
     /////////////////NEW ROUTES/////////////////////
     ////////////////AFTER REVAMP////////////////////
-    Route::prefix("penjualan")->as("penjualan-new.")->group(function(){
-        Route::resource("create-invoice",CreateInvoiceController::class);
-        Route::resource("daftar-piutang",DaftarPiutangController::class);
-        Route::resource("daftar-void",DaftarVoidController::class);
-        Route::resource("laporan",LaporanPenjualanController::class);
-        Route::resource("retur",PenjualanReturPenjualanController::class);
+    Route::prefix("penjualan")->as("penjualan-new.")->group(function () {
+        Route::resource("create-invoice", CreateInvoiceController::class);
+        Route::prefix("daftar-piutang")->as("daftar-piutang.")->group(function () {
+            Route::get("{id}/print", [PenjualanController::class, "print"])->name("print");
+        });
+        Route::resource("daftar-piutang", DaftarPiutangController::class);
+        Route::prefix("daftar-void")->as("daftar-void.")->group(function () {
+            Route::get("{id}/approve", [DaftarVoidController::class, "approve"])->name("approve");
+            Route::get("{id}/cancel", [DaftarVoidController::class, "cancel"])->name("cancel");
+        });
+        Route::resource("daftar-void", DaftarVoidController::class);
+        Route::resource("laporan", LaporanPenjualanController::class);
+        Route::resource("retur", PenjualanReturPenjualanController::class);
     });
     ////////////////////////////////////////////////
 
@@ -99,14 +106,9 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     //penjualan
 
-    Route::prefix("daftar-void")->as("daftar-void.")->group(function(){
-        Route::get("{id}/approve", [DataVoidController::class, "approve"])->name("approve");
-        Route::get("{id}/cancel", [DataVoidController::class, "cancel"])->name("cancel");
-    });
+
     Route::resource('daftar-void', DataVoidController::class);
-    Route::prefix("daftar-piutang")->as("daftar-piutang.")->group(function(){
-        Route::get("{id}/print", [PenjualanController::class, "print"])->name("print");
-    });
+
     Route::resource('daftar-piutang', PenjualanController::class);
     Route::resource('penjualan_line', PenjualanLineController::class);
     Route::resource('laporan-penjualan', PiutangController::class);
@@ -157,4 +159,4 @@ Route::get("update/modal/{start}/{end}", [ReportController::class, "calcModalSal
 Route::get("update/totalpaid/{start}/{end?}", [ReportController::class, "calcTotalPaid"]);
 Route::get("update/totalsales/{start}/{end?}", [ReportController::class, "calcTotalSales"]);
 Route::get("update/komisi/{flagAll}", [ReportController::class, "calckomisi"]);
-Route::get("update/{id}/{check}/purchaseprice",[StokController::class,"updateModalPrice"]);
+Route::get("update/{id}/{check}/purchaseprice", [StokController::class, "updateModalPrice"]);

@@ -149,12 +149,12 @@
                         </li>
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('datavoid*')) ? 'active' : '' }}" href="{{ route('daftar-void.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/daftar-void*')) ? 'active' : '' }}" href="{{ route('penjualan-new.daftar-void.index') }}">
                                 <span class="nav-main-link-name">Daftar Void</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('retur_penjualan*')) ? 'active' : '' }}" href="{{ route('retur-penjualan.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/retur*')) ? 'active' : '' }}" href="{{ route('penjualan-new.retur.index') }}">
                                 <span class="nav-main-link-name">Retur Penjualan</span>
                             </a>
                         </li>

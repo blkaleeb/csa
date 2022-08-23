@@ -27,50 +27,10 @@
                 </div>
             </div>
             <div class="block-content block-content-full">
-
-                <form autocomplete="off" action="{{ route('laporan-penjualan.index') }}" class="collapse" id="collapseExample">
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label class="form-label" for="customer_filter">Customer</label>
-                            <input type="text" class="form-control" id="customer_filter" name="customer"
-                                value="{{ $customer_filter ?? '' }}">
-                        </div>
-                        <div class="col-lg-6">
-                            <label class="form-label" for="invoice_filter">No Faktur</label>
-                            <input type="text" class="form-control" id="invoice_filter" name="invoice"
-                                value="{{ $invoice_filter ?? '' }}">
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <label class="form-label" for="due_date">Dari</label>
-                            <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
-                                name="date_start" placeholder="hari-bulan-tahun"
-                                value="{{ $date_start?->format('d F Y') }}" data-date-format="d F Y">
-                        </div>
-                        <div class="col-lg-6">
-                            <label class="form-label" for="due_date">Sampai</label>
-                            <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
-                                name="date_end" placeholder="hari-bulan-tahun" value="{{ $date_end?->format('d F Y') }}"
-                                data-date-format="d F Y">
-                        </div>
-
-                    </div>
-                    <div class="col-lg-12 mt-3">
-                        <button type="submit" class="btn btn-info form-control">Filter</button>
-                    </div>
-                </form>
-            </div>
-
-
-            <div class="block-content block-content-full">
                 <div class="table-responsive">
-                    <table class="table table-hover table-vcenter js-dataTable-buttons js-table-sections ">
+                    <table class="table table-hover table-vcenter js-dataTable-buttons">
                         <thead>
                             <tr>
-                                <th class="text-center"></th>
                                 <th class="col-head">
                                     No
                                 </th>
@@ -108,11 +68,11 @@
                                 </th>
                             </tr>
                         </thead>
+                        <tbody id="">
+
                         @foreach ($data as $key)
-                        <tbody id="js-table-sections-header">
-                            <td class="text-center fs-sm">
-                                <i class="fa fa-angle-right text-muted"></i>
-                            </td>
+                        <tr>
+
                             <td class="fw-semibold fs-sm">{{ $loop->iteration }}</td>
                             <td class="fw-semibold fs-sm">{{$key->salesorderheader->intnomorsales ?? null}}
                             </td>
@@ -163,7 +123,8 @@
                                     </div>
                                 </div>
                             </td>
-                        <tbody class="fs-sm">
+                            </tr>
+                        {{-- <tbody class="fs-sm">
                             <tr>
                                 <td class="text-center"></td>
                                 <td colspan="3" class="fw-semibold fs-sm">Product</td>
@@ -200,9 +161,10 @@
                                     </div>
                                 </td>
                             </tr>
-                            @endforeach
-                        </tbody>
+                            @endforeach --}}
                         @endforeach
+                    </tbody>
+
                     </table>
                     {{ $data->links() }}
                 </div>

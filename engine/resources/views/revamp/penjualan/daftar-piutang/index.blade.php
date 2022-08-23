@@ -16,19 +16,15 @@
                     <h3 class="block-title">Daftar Piutang</h3>
                 </div>
                 <div class="float-end">
-                    {{-- <a href="{{route('retur_pembelian.create')}}" class="btn btn-info block-title">Buat Faktur</a>
-                    --}}
-                    <a href="{{route('penjualan-new.daftar-piutang.create')}}" class="btn btn-info">Buat Pembayaran</a>
                 </div>
             </div>
 
 
             <div class="block-content block-content-full">
                 <div class="table-responsive">
-                    <table class="table table-hover table-vcenter js-dataTable-buttons js-table-sections ">
+                    <table class="table table-hover table-vcenter js-dataTable-buttons ">
                         <thead>
                             <tr>
-                                <th class="text-center"></th>
                                 <th class="col-head">
                                     No
                                 </th>
@@ -66,19 +62,21 @@
                                 </th>
                             </tr>
                         </thead>
+                        <tbody id="">
+
                         @foreach ($data as $key)
-                        <tbody id="js-table-sections-header">
+                        <tr>
                             <td class="text-center fs-sm">
                                 <i class="fa fa-angle-right text-muted"></i>
                             </td>
                             <td class="fw-semibold fs-sm">{{ $loop->iteration }}</td>
-                            <td class="fw-semibold fs-sm">{{$key->salesorderheader->intnomorsales ?? null}}
+                            <td class="fw-semibold fs-sm">{{$key->intnomorsales ?? null}}
                             </td>
                             <td class="fw-semibold fs-sm">{{date("d-m-Y",strtotime($key->createdOn))}}</td>
                             <td>
                                 <a target="_blank"
-                                    href="{{route('konsumen.show', $key->salesorderheader->customer->id ?? 0)}}">
-                                    {{$key->salesorderheader->customer->name ?? null}}
+                                    href="{{route('konsumen.show', $key->customer->id ?? 0)}}">
+                                    {{$key->customer->name ?? null}}
                                 </a>
                             </td>
                             <td class="fw-semibold fs-sm">Rp. {{number_format($key->diskon)}}</td>
@@ -91,7 +89,7 @@
                             $notes = explode("||",$key->note);
                             }
                             @endphp
-                            <td>{{$key->salesorderheader->retur ?? 0}}</td>
+                            <td>{{$key->retur ?? 0}}</td>
                             <td class="fw-semibold fs-sm">{{$notes[0] ?? null}}</td>
                             <td class="fw-semibold fs-sm">@if($key->payment_id=="C")
                                 Cash
@@ -111,9 +109,17 @@
                                         <i class="fas fa-bars"></i>
                                     </button>
                                     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
-                                        <a class="dropdown-item" href="{{route('laporan-penjualan.edit',$key->id)}}">Edit</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('penjualan-new.daftar-piutang.create', ['salesid' => $key->id]) }}">Bayar</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('penjualan-new.retur.create', ['salesid' => $key->id]) }}">Buat
+                                            Retur
+                                            Faktur</a>
+                                        <a class="dropdown-item"
+                                            href="{{ route('penjualan-new.daftar-piutang.print', $key->id) }}">Print</a>
                                         <a class="dropdown-item delete">Void</a>
-                                        <form autocomplete="off" action="{{route('laporan-penjualan.destroy',$key->id)}}"
+                                        <form autocomplete="off"
+                                            action="{{ route('penjualan-new.daftar-piutang.destroy', $key->id) }}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')
@@ -121,7 +127,7 @@
                                     </div>
                                 </div>
                             </td>
-                        <tbody class="fs-sm">
+                            {{-- <tbody class="fs-sm">
                             <tr>
                                 <td class="text-center"></td>
                                 <td colspan="3" class="fw-semibold fs-sm">Product</td>
@@ -130,14 +136,14 @@
                                 <td colspan="2" class="fw-semibold fs-sm">Harga Total</td>
                                 <td colspan="2"></td>
                             </tr>
-                            @if($key->salesorderheader)
-                            @foreach ($key->salesorderheader->line as $line)
+                            @if($key)
+                            @foreach ($key->line as $line)
                             <tr>
                                 <td class="text-center"></td>
                                 <td colspan="3">{{ $line->stock->name ?? "-" }}</td>
-                                <td colspan="2">{{ number_format($line->retur_price) ?? "-" }}</td>
+                                <td colspan="2">{{ number_format($line->price_per_satuan_id) ?? "-" }}</td>
                                 <td colspan="2">{{ $line->qty }}</td>
-                                <td colspan="2">{{ number_format($line->qty * $line->retur_price) }}</td>
+                                <td colspan="2">{{ number_format($line->qty * $line->price_per_satuan_id) }}</td>
                                 <td colspan="2">
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-primary dropdown-toggle"
@@ -161,8 +167,12 @@
                             </tr>
                             @endforeach
                             @endif
-                        </tbody>
+                        </tbody> --}}
+
+                    </tr>
                         @endforeach
+                    </tbody>
+
                     </table>
                     {{ $data->links() }}
                 </div>

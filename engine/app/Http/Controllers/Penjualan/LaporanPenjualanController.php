@@ -46,6 +46,9 @@ class LaporanPenjualanController extends Controller
         }
         $data = $data->whereBetween("createdOn", [$d["date_start"], $d["date_end"]]);
         $d["data"] = $data->orderBy("createdOn", "desc")->paginate(25);
+        $d["url_filter"] = route("penjualan-new.laporan.index");
+        $d["filter_enabled"] = true;
+
         return view("revamp.penjualan.laporan-penjualan.index", $d);
     }
 

@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Penjualan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Counter;
+use App\Models\DataVoid;
+use App\Models\Komisi;
 use App\Models\Konsumen;
+use App\Models\SalesInvoicePayment;
 use App\Models\SalesOrderHeader;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DaftarPiutangController extends Controller
 {
@@ -57,18 +62,18 @@ class DaftarPiutangController extends Controller
         $d["limit"] = $request->limit ?? 25;
 
         $d["filter_enabled"] = true;
+        $d["url_filter"] = route("penjualan-new.daftar-piutang.index");
         // $d["viewform"] = $this->create(1,1);
         return view("revamp.penjualan.daftar-piutang.index", $d);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $d["menu_header"] = "Daftar Piutang";
+        $d["menu_title"] = "Daftar Piutang";
+        $d["is_edit"] = false;
+        $d["sales"] = SalesOrderHeader::find($request->salesid);
+        return view("revamp.penjualan.daftar-piutang.form", $d);
     }
 
     /**
@@ -79,7 +84,44 @@ class DaftarPiutangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //check
+        $sales = SalesOrderHeader::find($request->sales_order_header_id);
+        if ($sales->void_status == 0) {
+            DB::beginTransaction();
+
+            $invoice = new SalesInvoicePayment();
+            $diskon = floor(($request->diskon) / 100 * $request->nilaibayar);
+            $counter = Counter::where("table_name", "sales_invoice_payment")->first();
+            $nomor = str_pad($counter->sequence_next_value, 4, 0, STR_PAD_LEFT);
+            $intnomorsales = str_pad(date("mY") . $nomor, 12, 0, STR_PAD_LEFT);
+            $invoice->diskon = $diskon;
+            $invoice->giro = $request->giro;
+            $invoice->payment_id = $request->payment_id;
+            $invoice->jatuhtempo = $request->jatuhtempo;
+            $invoice->note = $request->note;
+            $invoice->payment_value = $request->nilaibayar - $diskon;
+            $invoice->sales_invoice_payment_no = $intnomorsales;
+            $invoice->sales_order_header_id = $request->sales_order_header_id;
+            $invoice->save();
+            $counter->sequence_next_value += 1;
+            $counter->save();
+            $header = SalesOrderHeader::find($request->sales_order_header_id);
+            $header->payment_remain -= $request->nilaibayar;
+            $header->total_paid += $request->nilaibayar;
+            $header->save();
+
+            $komisi = Komisi::where("sales_order_header_id", $header->id)->firstorfail();
+            $komisi->amount = $header->komisi;
+            $komisi->current_amount = 0;
+            $komisi->customer_id = $header->customer->id;
+            $komisi->sales_order_header_id = $header->id;
+            $komisi->user_id = $header->customer->sales->id;
+            $komisi->save();
+            DB::commit();
+            return redirect()->back()->with("success", "Pembayaran diterima");
+        } else {
+            return redirect()->back()->with("success", "Pembayaran ditolak, Faktur menunggu/sudah divoid");
+        }
     }
 
     /**
@@ -101,7 +143,12 @@ class DaftarPiutangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $d["menu_header"] = "Daftar Piutang";
+        $d["menu_title"] = "Daftar Piutang";
+        $d["is_edit"] = true;
+        $d["data"] = SalesInvoicePayment::find($id);
+        $d["sales"] = SalesOrderHeader::find($d["data"]->sales_order_header_id);
+        return view("revamp.penjualan.daftar-piutang.form", $d);
     }
 
     /**
@@ -113,7 +160,32 @@ class DaftarPiutangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        $invoice = SalesInvoicePayment::find($id);
+        $header = SalesOrderHeader::find($invoice->sales_order_header_id);
+        $header->payment_remain += $request->nilaibayar;
+        $header->total_paid -= $request->nilaibayar;
+        $header->save();
+        $diskon = floor(($request->diskon) / 100 * $request->nilaibayar);
+        $invoice->diskon = $diskon;
+        $invoice->payment_id = $request->payment_id;
+        $invoice->giro = $request->giro;
+        $invoice->jatuhtempo = $request->jatuhtempo;
+        $invoice->note = $request->note;
+        $invoice->payment_value = $request->nilaibayar - $diskon;
+        $invoice->save();
+        $header->payment_remain -= $request->nilaibayar;
+        $header->total_paid += $request->nilaibayar;
+        $header->save();
+        $komisi = Komisi::where("sales_order_header_id", $header->id)->firstorfail();
+        $komisi->amount = $header->komisi;
+        $komisi->current_amount = 0;
+        $komisi->customer_id = $header->customer->id;
+        $komisi->sales_order_header_id = $header->id;
+        $komisi->user_id = $header->customer->sales->id;
+        $komisi->save();
+        DB::commit();
+        return redirect()->back()->with("success", "Pembayaran diubah");
     }
 
     /**
@@ -122,8 +194,24 @@ class DaftarPiutangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         //
+
+
+        // $sales = SalesInvoicePayment::find($id);
+        // $sales->void_status = 1;
+        // $sales->save();
+        $void = new DataVoid();
+
+        $void->type = "SalesInvoicePayment";
+        $void->model_id = $id;
+        $void->reason = $request->reason;
+        $void->status = 0;
+        $void->save();
+
+
+        return redirect()->back()->with("message", "data menunggu approval");
+        return redirect()->back()->with("success", "Pembayaran dihapus");
     }
 }

@@ -10,7 +10,7 @@
             <div class="block-content block-content-full">
                 <div class="row">
                     <div class="col-lg-12 space-y-5">
-                        <form autocomplete="off" action="{{ $is_edit ? url('/') . '/piutang/' . $data->id : url('/') . '/piutang' }}"
+                        <form autocomplete="off" action="{{ $is_edit ? route("penjualan-new.daftar-piutang.update",$data->id) : route("penjualan-new.daftar-piutang.store") }}"
                             method="post">
                             {{ csrf_field() }}
                             @if ($is_edit)

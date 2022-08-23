@@ -16,7 +16,7 @@
                 <div class="col-lg-12 space-y-5">
                     <!-- Form Horizontal - Default Style -->
                     <form autocomplete="off" class="space-y-4 form-header"
-                        action="{{$is_edit?route('retur-penjualan.update',$data->id):'#'}}" method="POST" novalidate>
+                        action="{{$is_edit?route('penjualan-new.retur.update',$data->id):'#'}}" method="POST" novalidate>
                         @csrf
                         @if($is_edit)
                         @method('put')
@@ -338,11 +338,10 @@ $(".po").change(function(){
 $(".stock").change(function(){
     var stock = $(this).find('option').filter(':selected');
     var datastock = stock.data("item");
-    var datasales = stock.data("sales");
     console.log(datastock)
     $(".quantity").attr("min",1);
     $(".quantity").attr("max",datastock.qty);
-    $(".harga_satuan").val(datastock.sell_price)
+    $(".harga_satuan").val(datastock.price_per_satuan_id)
 })
 
 
@@ -467,10 +466,7 @@ $('#saleslinehistory').on('show.bs.modal', function (e) {
 })
 
 function submitSupplierReturn(print){
-    $("#btn_simpan").attr("disabled",true)
-    $("#btn_simpan_cetak").attr("disabled",true)
-    $(".page-container").html(`<div id="page-loader" class="show"></div>`)
-
+    $(".content").html(`<div id="page-loader" class="show"></div>`)
     var formheader = $(".form-header").serialize();
     var formbarang = $(".form-barang").serialize();
     @if($is_edit)
@@ -492,7 +488,7 @@ function submitSupplierReturn(print){
     var method ="post"
     $.ajax({
     method: method,
-    url: "{{route('retur-penjualan.store')}}",
+    url: "{{route('penjualan-new.retur.store')}}",
     data: param
     })
     .done(function( msg ) {
@@ -500,9 +496,6 @@ function submitSupplierReturn(print){
         location.reload(true)
     }).fail(function (msg){
     toastr.error("Error");
-
-    $("#btn_simpan").attr("disabled",false)
-    $("#btn_simpan_cetak").attr("disabled",false)
     });
     @endif
 

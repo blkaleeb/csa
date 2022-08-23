@@ -54,7 +54,7 @@
                                 <!-- Activity -->
                                 <div class="block-content block-content-full">
 
-                                    <form autocomplete="off" action="{{ route('daftar-piutang.index') }}">
+                                    <form autocomplete="off" action="{{$url_filter}}">
 
                                         <div class="row">
                                             <div class="col-lg-12">
