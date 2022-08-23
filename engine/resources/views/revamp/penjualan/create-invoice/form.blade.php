@@ -67,6 +67,7 @@
                                 <div class="col-lg-6">
                                     <label class="form-label" for="example-ltf-email">Supir</label>
                                     <select name="supir" id="" class="form-control  select2-modal form-select ">
+                                        <option value="0">Tidak Pakai Supir</option>
                                         @foreach ($supir as $item)
                                             <option value="{{ $item->id }}"
                                                 @if ($is_edit && $data->supir == $item->id) selected @endif>
@@ -79,6 +80,8 @@
                                 <div class="col-lg-6">
                                     <label class="form-label" for="example-ltf-email">Kenek</label>
                                     <select name="kenek" id="" class="form-control  select2-modal form-select ">
+                                        <option value="0">Tidak Pakai Kenek</option>
+
                                         @foreach ($kenek as $item)
                                             <option value="{{ $item->id }}"
                                                 @if ($is_edit && $data->kenek == $item->id) selected @endif>
@@ -502,7 +505,6 @@
         $(window).keydown(function(event) {
             if (event.keyCode == 13) {
                 addToCart();
-                alert("cart")
             }
         });
 
@@ -524,73 +526,6 @@
             updateRowOrder();
             calcGrandTotal();
         }
-
-        // $('#salesorderhistory').on('show.bs.modal', function(e) {
-        //     // do something...
-        //     var customerid = $(".customer").find('option').filter(':selected').val();
-        //     if (customerid != "") {
-        //         $.ajax({
-        //                 method: "post",
-        //                 url: "{{ url('api/salesorder/history/customer') }}",
-        //                 data: {
-        //                     customer_id: customerid
-        //                 }
-        //             })
-        //             .done(function(msg) {
-        //                 var table = $("#riwayat_sales")
-        //                 table.empty()
-        //                 $.each(msg, function(k, v) {
-        //                     var no = `<td class="number">` + (k + 1) + `</td>`
-        //                     var nosales = `<td>` + v.intnomorsales + `</td>`
-        //                     var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
-        //                         `</td>`
-        //                     var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
-        //                         `</td>`
-        //                     var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
-        //                     var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
-        //                     var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
-        //                         `</td>`
-        //                     table.append(`<tr>` + no + nosales + tanggalorder + totalfaktur +
-        //                         totalbayar + retur + sisabayar + `</tr>`);
-        //                 })
-        //             });
-        //     } else {
-        //         $("#salesorderhistory").modal("hide");
-        //         toastr.error("Pilih Konsumen terlebih dahulu");
-        //     }
-        // })
-
-        // $('#saleslinehistory').on('show.bs.modal', function(e) {
-        //     // do something...
-        //     var stockid = $(".stock").find('option').filter(':selected').val();
-        //     var customerid = $(".customer").find('option').filter(':selected').val();
-
-        //     if (stockid != "" && customerid != "") {
-        //         $.ajax({
-        //                 method: "post",
-        //                 url: "{{ url('api/salesline/history/customer') }}",
-        //                 data: {
-        //                     item_stock_id: stockid,
-        //                     customer_id: customerid
-        //                 }
-        //             })
-        //             .done(function(msg) {
-        //                 var table = $("#riwayat_item")
-        //                 table.empty()
-        //                 $.each(msg, function(k, v) {
-        //                     var tanggal = `<td>` + new Date(v.createdOn).toLocaleDateString() + `</td>`
-        //                     var barang = `<td>` + v.stock.name + `</td>`
-        //                     var qty = `<td>` + v.qty + `</td>`
-        //                     var hargasatuan = `<td>` + number_format(v.price_per_satuan_id, 0, ",",
-        //                         ".") + `</td>`
-        //                     table.append(`<tr>` + tanggal + barang + qty + hargasatuan + `</tr>`);
-        //                 })
-        //             });
-        //     } else {
-        //         $("#salesorderhistory").modal("hide");
-        //         toastr.error("Pilih Konsumen terlebih dahulu");
-        //     }
-        // })
 
         function submitSalesOrder(print) {
             var formheader = $(".form-header").serialize();

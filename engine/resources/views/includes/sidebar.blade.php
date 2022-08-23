@@ -129,7 +129,7 @@
                     </a>
                 </li>
                 <li class="nav-main-heading">Transaksi</li>
-                <li class="nav-main-item {{ (request()->is('penjualan*')) || (request()->is('datavoid*')) || (request()->is('retur_penjualan*')) || (request()->is('piutang*')) ? 'active open' : '' }}">
+                <li class="nav-main-item {{ (request()->is('penjualan*')) ? 'active open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                         aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-energy"></i>
@@ -138,12 +138,12 @@
                     <ul class="nav-main-submenu">
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="{{ route('daftar-piutang.create') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/create-invoice*')) ? 'active' : '' }}" href="{{ route('penjualan-new.create-invoice.create') }}">
                                 <span class="nav-main-link-name">Buat Faktur</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="{{ route('daftar-piutang.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/daftar-piutang*')) ? 'active' : '' }}" href="{{ route('penjualan-new.daftar-piutang.index') }}">
                                 <span class="nav-main-link-name">Daftar Piutang</span>
                             </a>
                         </li>
@@ -159,7 +159,7 @@
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('piutang*')) ? 'active' : '' }}" href="{{ route('laporan-penjualan.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/laporan*')) ? 'active' : '' }}" href="{{ route('penjualan-new.laporan.index') }}">
                                 <span class="nav-main-link-name">Laporan Penjualan</span>
                             </a>
                         </li>

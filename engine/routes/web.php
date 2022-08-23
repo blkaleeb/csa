@@ -30,6 +30,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PenerimaanBarangController;
 use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\LapOpnameController;
+use App\Http\Controllers\Penjualan\CreateInvoiceController;
+use App\Http\Controllers\Penjualan\DaftarPiutangController;
+use App\Http\Controllers\Penjualan\DaftarVoidController;
+use App\Http\Controllers\Penjualan\LaporanPenjualanController;
+use App\Http\Controllers\Penjualan\ReturPenjualanController as PenjualanReturPenjualanController;
 use App\Http\Controllers\PermintaanReturController;
 
 
@@ -56,6 +61,19 @@ use App\Http\Controllers\PermintaanReturController;
 //Barang
 //Barang-Kategori
 Route::middleware(['web', 'auth'])->group(function () {
+
+    ////////////////////////////////////////////////
+    /////////////////NEW ROUTES/////////////////////
+    ////////////////AFTER REVAMP////////////////////
+    Route::prefix("penjualan")->as("penjualan-new.")->group(function(){
+        Route::resource("create-invoice",CreateInvoiceController::class);
+        Route::resource("daftar-piutang",DaftarPiutangController::class);
+        Route::resource("daftar-void",DaftarVoidController::class);
+        Route::resource("laporan",LaporanPenjualanController::class);
+        Route::resource("retur",PenjualanReturPenjualanController::class);
+    });
+    ////////////////////////////////////////////////
+
     Route::get('/', [DashboardController::class, "index"])->name("dashboard");
 
     //additional
