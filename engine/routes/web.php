@@ -37,6 +37,7 @@ use App\Http\Controllers\Penjualan\LaporanPenjualanController;
 use App\Http\Controllers\Penjualan\ReturPenjualanController as PenjualanReturPenjualanController;
 use App\Http\Controllers\PermintaanReturController;
 
+use App\Http\Controllers\LogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +136,8 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::resource('stok_barang', StokBarangController::class);
     Route::resource('lap_opname', LapOpnameController::class);
     Route::resource('permintaan_retur', PermintaanReturController::class);
+
+    Route::resource('log', LogController::class);
 
     Route::prefix('report')->group(function () {
         Route::get('/barang', [ReportController::class, "getlaporanbarang"]);
