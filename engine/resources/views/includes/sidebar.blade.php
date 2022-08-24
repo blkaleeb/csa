@@ -329,6 +329,13 @@
                         <span class="nav-main-link-name">Report</span>
                     </a>
                 </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link {{ (request()->is('log*')) ? 'active' : '' }}" aria-haspopup="true"
+                        aria-expanded="false" href="{{ route('log.index') }}">
+                        <i class="nav-main-link-icon si si-book-open"></i>
+                        <span class="nav-main-link-name">Log Aktivitas</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- END Side Navigation -->
