@@ -122,6 +122,19 @@
         <!-- Side Navigation -->
         <div class="content-side">
             <ul class="nav-main">
+                
+                <?php
+                    if(Auth::user()->role_id==3){
+                        ?>
+                        <li class="nav-main-item ">
+                            <a class="nav-main-link {{ (request()->is('requestsales')) ? 'active open' : '' }}" href="{{ route('requestsales.index') }}">
+                                <i class="nav-main-link-icon si si-badge"></i>
+                                <span class="nav-main-link-name">Request For Sales</span>
+                            </a>
+                        </li>
+                        <?php
+                    }else{
+                ?>
                 <li class="nav-main-item ">
                     <a class="nav-main-link {{ (request()->is('/')) ? 'active open' : '' }}" href="{{ route('dashboard') }}">
                         <i class="nav-main-link-icon si si-speedometer"></i>
@@ -336,6 +349,7 @@
                         <span class="nav-main-link-name">Log Aktivitas</span>
                     </a>
                 </li>
+                <?php } ?>
             </ul>
         </div>
         <!-- END Side Navigation -->
