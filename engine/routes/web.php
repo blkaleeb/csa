@@ -39,6 +39,8 @@ use App\Http\Controllers\PermintaanReturController;
 
 use App\Http\Controllers\LogController;
 
+use App\Http\Controllers\RequestSalesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -132,6 +134,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::resource('permintaan_retur', PermintaanReturController::class);
 
     Route::resource('log', LogController::class);
+    Route::resource("requestsales", RequestSalesController::class);
 
     Route::prefix('report')->group(function () {
         Route::get('/barang', [ReportController::class, "getlaporanbarang"]);

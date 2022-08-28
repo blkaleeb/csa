@@ -59,7 +59,11 @@ class LoginController extends Controller
                 'password'  => $request->password
             );
             if (Auth::guard()->attempt($userdata)) {
-                return redirect()->intended('/')->with('message', 'Login Sukses');
+                if(Auth::user()->role_id==3){
+                    return redirect()->intended('/requestsales')->with('message', 'Login Sukses');
+                }else{
+                    return redirect()->intended('/')->with('message', 'Login Sukses');
+                }
             } else {
                 return redirect()->back()->with('error', 'Login Ulang, name atau Password anda salah');
             }

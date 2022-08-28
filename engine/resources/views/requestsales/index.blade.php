@@ -9,7 +9,7 @@
         <!-- Form -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Tujuan Penjualan</h3>
+                <h3 class="block-title">Request For Sales</h3>
             </div>
             <div class="block-content block-content-full">
                 <div class="row">
@@ -258,17 +258,17 @@
                 <div class="row">
                     <div class="row mb-2 mt-3">
                         <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(0)" class="btn btn-info form-control"
+                            <button type="button" onclick="submitRequestSales(0)" class="btn btn-info form-control"
                                 id="btn_simpan">Simpan</button>
                         </div>
                     </div>
-                    <div class="row mb-2">
+                    <!-- <div class="row mb-2">
                         <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(1)" class="btn btn-info form-control"
+                            <button type="button" onclick="submitRequestSales(1)" class="btn btn-info form-control"
                                 id="btn_simpan_cetak">Simpan &
                                 Cetak</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -278,7 +278,7 @@
             <!-- Form -->
             <div class="block block-rounded">
                 <div class="block-header block-header-default">
-                    <h3 class="block-title">{{ $is_edit ? 'Ubah Rincian' : 'Rincian' }} Penjualan</h3>
+                    <h3 class="block-title">{{ $is_edit ? 'Ubah Rincian' : 'Rincian' }} Request For Sales</h3>
                 </div>
                 <div class="block-content block-content-full">
                     <div class="row">
@@ -364,17 +364,17 @@
                 <div class="row">
                     <div class="row mb-2 mt-3">
                         <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(0)" class="btn btn-info form-control"
+                            <button type="button" onclick="submitRequestSales(0)" class="btn btn-info form-control"
                                 id="btn_simpan">Simpan</button>
                         </div>
                     </div>
-                    <div class="row mb-2">
+                    <!-- <div class="row mb-2">
                         <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(1)" class="btn btn-info form-control"
+                            <button type="button" onclick="submitRequestSales(1)" class="btn btn-info form-control"
                                 id="btn_simpan_cetak">Simpan &
                                 Cetak</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -527,39 +527,23 @@
             calcGrandTotal();
         }
 
-        function submitSalesOrder(print) {
+        function submitRequestSales(print) {
             var formheader = $(".form-header").serialize();
             var formbarang = $(".form-barang").serialize();
-            @if ($is_edit)
-                var param = formbarang
-                var method = "put"
-                $.ajax({
-                        method: method,
-                        url: "{{ url('penjualan') . '/' . $data->id }}",
-                        data: param
-                    })
-                    .done(function(msg) {
-                        toastr.success("Success");
-                        popupTimer()
-                    }).fail(function(msg) {
-                        toastr.error("Error");
-                    });
-            @else
+            
                 var param = formheader + "&" + formbarang
                 var method = "post"
                 $.ajax({
                         method: method,
-                        url: "{{ route('daftar-piutang.store') }}",
+                        url: "{{ route('requestsales.store') }}",
                         data: param
                     })
                     .done(function(msg) {
-                        toastr.success("Error");
-                        // popupTimer();
+                        toastr.success("Success");
+                        popupTimer();
                     }).fail(function(msg) {
                         toastr.error("Error");
                     });
-            @endif
-
         }
 
         function popupTimer() {
