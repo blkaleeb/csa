@@ -71,7 +71,7 @@
                         <tbody id="">
 
                         @foreach ($data as $key)
-                        <tr>
+                        <tr @if($key->void_status == 1) style="background-color: darkred; color:white" @endif>
 
                             <td class="fw-semibold fs-sm">{{ $loop->iteration }}</td>
                             <td class="fw-semibold fs-sm">{{$key->salesorderheader->intnomorsales ?? null}}

@@ -120,7 +120,7 @@
 				<td>{{$key->intnomorsales}}</td>
 				<td>{{date("d-m-Y",strtotime($key->due_date))}}</td>
 				<td>{{$key->customer->name ?? $key->name}}</td>
-				<td class="printAngka">{{$key->total_sales + $key->diskon + $key->retur}}</td>
+				<td class="printAngka">{{$key->total_sales - $key->diskon - $key->retur}}</td>
 				<td class="printAngka">{{$key->diskon}}</td>
 				<td class="printAngka">{{$key->retur}}</td>
 				<td class="printAngka">{{$key->total_sales}}</td>
@@ -130,7 +130,7 @@
 				<td class="printAngka">{{$key->komisi}}</td>
 				@endif
 				<td class="printAngka">{{$key->modal}}</td>
-				<td class="printAngka">{{$key->total_sales - $key->modal}}</td>
+				<td class="printAngka">{{$key->total_sales - $key->diskon - $key->retur - $key->modal}}</td>
 				{{-- <td class="notprint"><a href="{{url('penjualan/'.$key->id)}}">Detail</a></td> --}}
 			</tr>
 			{{-- @endif --}}

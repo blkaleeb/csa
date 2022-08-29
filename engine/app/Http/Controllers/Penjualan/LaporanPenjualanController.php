@@ -8,7 +8,8 @@ use App\Models\SalesInvoicePayment;
 use App\Models\SalesOrderHeader;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use App\Models\DataVoid;
+use DB;
 class LaporanPenjualanController extends Controller
 {
     /**
@@ -31,26 +32,31 @@ class LaporanPenjualanController extends Controller
         $d["date_start"] = $date_start;
         $d["date_end"] = $date_end;
         $data = SalesInvoicePayment::query();
-        if ($request->has("customer")) {
+        if ($request->customer != null) {
             $d["customer_filter"] = $request->customer;
             $customer = Konsumen::where("name", "like", '%' . $request->customer . '%')->pluck("id")->toArray();
             $sales = SalesOrderHeader::wherein("customer_id", $customer)->pluck("id")->toArray();
-            $data = $data->wherein("sales_order_header_id", $sales)
-                ->whereBetween("createdOn", [$d["date_start"], $d["date_end"]]);
+            $data = $data->wherein("sales_order_header_id", $sales);
         }
-        if ($request->has("invoice")) {
+        if ($request->invoice != null) {
             $d["invoice_filter"] = $request->invoice;
             $sales = SalesOrderHeader::where("intnomorsales", "like", '%' . $request->invoice . '%')->pluck("id")->toArray();
-            $data = $data->wherein("sales_order_header_id", $sales)
-                ->whereBetween("createdOn", [$d["date_start"], $d["date_end"]]);
+            $data = $data->wherein("sales_order_header_id", $sales);
         }
-        $data = $data->whereBetween("createdOn", [$d["date_start"], $d["date_end"]]);
+        if ($request->invoice == null && $request->customer == null) {
+            $data = $data->whereBetween("createdOn", [$d["date_start"], $d["date_end"]]);
+        }
+        DB::enableQueryLog();
         $d["data"] = $data->orderBy("createdOn", "desc")->paginate(25);
+        dd(DB::getQueryLog());
+
         $d["url_filter"] = route("penjualan-new.laporan.index");
         $d["filter_enabled"] = true;
 
         return view("revamp.penjualan.laporan-penjualan.index", $d);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -113,8 +119,18 @@ class LaporanPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         //
+        $void = new DataVoid();
+
+        $void->type = "SalesInvoicePayment";
+        $void->model_id = $id;
+        $void->reason = $request->reason;
+        $void->status = 0;
+        $void->save();
+
+
+        return redirect()->back()->with("message", "data menunggu approval");
     }
 }

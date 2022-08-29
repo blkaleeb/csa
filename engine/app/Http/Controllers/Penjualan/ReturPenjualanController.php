@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Penjualan;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Counter;
 use App\Models\CustomerReturnHeader;
 use App\Models\CustomerReturnLine;
 use App\Models\Konsumen;
 use App\Models\PoHeader;
 use App\Models\SalesOrderHeader;
-use App\Models\SalesOrderLine;
 use App\Models\Stok;
 use App\Models\Supplier;
 use App\Models\SupplierReturnHeader;
 use App\Models\SupplierReturnLine;
-use Carbon\Carbon;
-
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 class ReturPenjualanController extends Controller
 {
     /**
@@ -25,41 +22,16 @@ class ReturPenjualanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $view = "penjualan-retur.";
+    protected $view = "revamp.penjualan.retur.";
     protected $menu_header = "Retur Penjualan";
     protected $menu_title = "Retur Penjualan";
 
-    public function index(Request $request)
+    public function index()
     {
-
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
-        $data = SalesOrderHeader::query();
-
-
-        if ($request->has("customer")) {
-            $d["customer_filter"] = $request->customer;
-            $customer = Konsumen::where("name", "like", '%' . $request->customer . '%')->pluck("id")->toArray();
-            $data = $data->wherein("customer_id", $customer);
-        }
-        if ($request->has("invoice")) {
-            $d["invoice_filter"] = $request->invoice;
-
-            $data = $data->where("intnomorsales", "like", '%' . $request->invoice . '%');
-        }
-
-        $data = $data->where("total_paid", "!=", "0");
-
-
-        $d["data"] = $data->orderBy("createdOn", "desc")->paginate(25)->withQueryString();
-
-        //paginate variable
-        $d["limit"] = $request->limit ?? 25;
+        $d["data"] = CustomerReturnHeader::all();
         return view($this->view . "index", $d);
-        // $d["menu_header"] = $this->menu_header;
-        // $d["menu_title"] = $this->menu_title;
-        // $d["data"] = CustomerReturnHeader::all();
-        // return view($this->view . "index", $d);
     }
 
     /**
@@ -67,14 +39,13 @@ class ReturPenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
         $d["is_edit"] = false;
-        $d["sales"] = SalesOrderHeader::find($request->salesid);
-        $d["customer"] = $d["sales"]->customer;
-        $d["stock"] = $d["sales"]->line;
+        $d["customers"] = Konsumen::with("salesorder")->get();
+        $d["stock"] = Stok::all();
         return view($this->view . "form", $d);
     }
 
@@ -176,27 +147,17 @@ class ReturPenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $void = new DataVoid();
-
-        $void->type = "CustomerReturnHeader";
-        $void->model_id = $id;
-        $void->reason = $request->reason;
-        $void->status = 0;
-        $void->save();
-
-
-        return redirect()->back()->with("message", "data menunggu approval");
-        // $header = CustomerReturnHeader::find($id);
-        // $line = CustomerReturnLine::where("customer_return_header_id",$id)->get();
-        // foreach($line as $item){
-        //     $stock = Stok::find($item->item_stock_id);
-        //     $stock->qty -= $item->qty;
-        //     $stock->save();
-        // }
-        // $header->delete();
-        // return redirect()->back()->with("message", "Data dihapus");
+        $header = CustomerReturnHeader::find($id);
+        $line = CustomerReturnLine::where("customer_return_header_id",$id)->get();
+        foreach($line as $item){
+            $stock = Stok::find($item->item_stock_id);
+            $stock->qty -= $item->qty;
+            $stock->save();
+        }
+        $header->delete();
+        return redirect()->back()->with("message", "Data dihapus");
     }
 
     public function print($id)
