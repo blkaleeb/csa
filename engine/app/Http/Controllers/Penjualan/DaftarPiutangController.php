@@ -56,6 +56,7 @@ class DaftarPiutangController extends Controller
         $data = $data->whereBetween("createdOn", [$d["date_start"], $d["date_end"]]);
 
 
+        $d["data"] = $data->where("payment_remain","!=",0);
         $d["data"] = $data->orderBy("createdOn", "desc")->paginate(25)->withQueryString();
 
         //paginate variable
@@ -204,7 +205,7 @@ class DaftarPiutangController extends Controller
         // $sales->save();
         $void = new DataVoid();
 
-        $void->type = "SalesInvoicePayment";
+        $void->type = "SalesOrderHeader";
         $void->model_id = $id;
         $void->reason = $request->reason;
         $void->status = 0;
@@ -212,6 +213,6 @@ class DaftarPiutangController extends Controller
 
 
         return redirect()->back()->with("message", "data menunggu approval");
-        return redirect()->back()->with("success", "Pembayaran dihapus");
+        // return redirect()->back()->with("success", "Pembayaran dihapus");
     }
 }

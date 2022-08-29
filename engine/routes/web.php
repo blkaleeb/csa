@@ -80,7 +80,13 @@ Route::middleware(['web', 'auth'])->group(function () {
         });
         Route::resource("daftar-void", DaftarVoidController::class);
         Route::resource("laporan", LaporanPenjualanController::class);
-        Route::resource("retur", PenjualanReturPenjualanController::class);
+        // Route::resource("retur", PenjualanReturPenjualanController::class);
+
+        Route::get("retur/{id}/print", [ReturPenjualanController::class, "print"])->name("retur.print");
+        Route::resource('retur', PenjualanReturPenjualanController::class);
+        Route::resource('retur_line', ReturPenjualanController::class);
+
+        // Route::resource('retur-line', ReturPembelianController::class);
     });
     ////////////////////////////////////////////////
 

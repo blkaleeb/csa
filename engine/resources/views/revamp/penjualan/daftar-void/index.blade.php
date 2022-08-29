@@ -49,7 +49,7 @@
                                 <td>Penjualan</td>
                                 <td>{{ $modeldata->intnomorsales }}</td>
                                 <td>{{ $modeldata->customer->name}}</td>
-                                <td>{{ $modeldata->total_sales}}</td>
+                                <td>{{ number_format($modeldata->total_sales)}}</td>
                                 @elseif($item->type == 'SalesInvoicePayment')
                                 @php
                                 $modeldata = App\Models\SalesInvoicePayment::withTrashed()->find($item->model_id);
@@ -57,11 +57,20 @@
                                 <td>Pembayaran</td>
                                 <td>{{ $modeldata->salesorderheader->intnomorsales }}</td>
                                 <td>{{ $modeldata->salesorderheader->customer->name}}</td>
-                                <td>{{ $modeldata->salesorderheader->total_sales}}</td>
+                                <td>{{ number_format($modeldata->salesorderheader->total_sales)}}</td>
                                 @endif
 
                                 <td>{{ $item->reason }}</td>
-                                <td>{{ $item->status }}</td>
+                                <td>@switch($item->status)
+                                    @case(0)
+                                        Menunggu
+                                        @break
+                                    @case(1)
+                                        Diterima
+                                        @break
+                                    @default
+                                        
+                                @endswitch</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-primary dropdown-toggle"
@@ -70,11 +79,12 @@
                                             <i class="fas fa-bars"></i>
                                         </button>
                                         <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
+                                            @if(Auth::user()->role_id == 1)
                                             <a class="dropdown-item"
                                                 href="{{ route('penjualan-new.daftar-void.approve', ['id' => $item->id]) }}">Approve</a>
                                             <a class="dropdown-item"
                                                 href="{{ route('penjualan-new.daftar-void.cancel', ['id' => $item->id]) }}">Cancel</a>
-
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

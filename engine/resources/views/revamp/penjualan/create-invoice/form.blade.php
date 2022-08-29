@@ -1,395 +1,388 @@
 @extends('layouts.master-sidebar')
 @push('css')
-    <link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.css') }}">
 @endpush
 
 @section('content')
-    <!-- Page Content -->
-    <div class="content w-100">
-        <!-- Form -->
-        <div class="block block-rounded">
-            <div class="block-header block-header-default">
-                <h3 class="block-title">Tujuan Penjualan</h3>
-            </div>
-            <div class="block-content block-content-full">
-                <div class="row">
-                    <div class="col-lg-12 space-y-5">
-                        <!-- Form Horizontal - Default Style -->
-                        <form autocomplete="off" class="space-y-4 form-header"
-                            action="{{ $is_edit ? route('daftar-piutang.update', $data->id) : '#' }}" method="POST"
-                            novalidate>
-                            @csrf
-                            @if ($is_edit)
-                                @method('put')
-                                <input type="hidden" name="update_header" value="1">
-                            @endif
-                            <div class="row mb-4">
-                                <div class="col-lg-6">
-                                    <label class="form-label" for="example-ltf-email">Konsumen</label>
-                                    <select name="customer_id" id="" class="customer select2-modal form-select ">
-                                        <option value="" disabled @if (!$is_edit) selected @endif>
-                                            Pilih Konsumen</option>
+<!-- Page Content -->
+<div class="content w-100">
+    <!-- Form -->
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Tujuan Penjualan</h3>
+        </div>
+        <div class="block-content block-content-full">
+            <div class="row">
+                <div class="col-lg-12 space-y-5">
+                    <!-- Form Horizontal - Default Style -->
+                    <form autocomplete="off" class="space-y-4 form-header"
+                        action="{{ $is_edit ? route('daftar-piutang.update', $data->id) : '#' }}" method="POST"
+                        novalidate>
+                        @csrf
+                        @if ($is_edit)
+                        @method('put')
+                        <input type="hidden" name="update_header" value="1">
+                        @endif
+                        <div class="row mb-4">
+                            <div class="col-lg-6">
+                                <label class="form-label" for="example-ltf-email">Konsumen</label>
+                                <select name="customer_id" id="" class="customer js-select2 form-select ">
+                                    <option value="" disabled @if (!$is_edit) selected @endif>
+                                        Pilih Konsumen</option>
 
-                                        @foreach ($customers as $customer)
-                                            <option value="{{ $customer->id }}"
-                                                @if ($is_edit && $data->customer_id == $customer->id) selected @endif
-                                                data-item="{{ $customer }}" data-block="{{ $customer->block }}"
-                                                data-sales="{{ $customer->sales }}">
-                                                {{ $customer->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="">
-                                        <label class="form-label" for="example-ltf-email">Alamat</label>
-                                        <p id="customer_address" style="margin: unset !important">
-                                            {{ $data->customer->customer_address ?? '' }} </p>
-                                        <span id="customer_sales">{{ $data->customer->sales->displayName ?? '' }}</span>
-                                    </div>
+                                    @foreach ($customers as $customer)
+                                    <option value="{{ $customer->id }}" @if ($is_edit && $data->customer_id ==
+                                        $customer->id) selected @endif
+                                        data-item="{{ $customer }}" data-block="{{ $customer->block }}"
+                                        data-sales="{{ $customer->sales }}">
+                                        {{ $customer->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="">
+                                    <label class="form-label" for="example-ltf-email">Alamat</label>
+                                    <p id="customer_address" style="margin: unset !important">
+                                        {{ $data->customer->customer_address ?? '' }} </p>
+                                    <span id="customer_sales">{{ $data->customer->sales->displayName ?? '' }}</span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <label class="form-label" for="example-flatpickr-custom">Tanggal Penjualan</label>
-                                    <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
-                                        name="order_date" placeholder="hari-bulan-tahun"
-                                        value="{{ \Carbon\Carbon::parse($is_edit ? $data->order_date : $orderdate)->format('d-m-Y') }}"
-                                        data-date-format="d-m-Y">
-                                </div>
-                                <div class="col-xl-6">
-                                    <label class="form-label" for="due_date">Jatuh Tempo</label>
-                                    <input type="text" class="js-flatpickr form-control" id="due_date" name="due_date"
-                                        placeholder="Jatuh Tempo"
-                                        value="{{ \Carbon\Carbon::parse($is_edit ? $data->due_date : $jatuhtempo)->format('d-m-Y') }}"
-                                        data-date-format="d-m-Y">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label class="form-label" for="example-ltf-email">Supir</label>
-                                    <select name="supir" id="" class="form-control  select2-modal form-select ">
-                                        <option value="0">Tidak Pakai Supir</option>
-                                        @foreach ($supir as $item)
-                                            <option value="{{ $item->id }}"
-                                                @if ($is_edit && $data->supir == $item->id) selected @endif>
-                                                {{ $item->displayName }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <label class="form-label" for="example-ltf-email">Kenek</label>
-                                    <select name="kenek" id="" class="form-control  select2-modal form-select ">
-                                        <option value="0">Tidak Pakai Kenek</option>
-
-                                        @foreach ($kenek as $item)
-                                            <option value="{{ $item->id }}"
-                                                @if ($is_edit && $data->kenek == $item->id) selected @endif>
-                                                {{ $item->displayName }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="form-label" for="example-flatpickr-custom">Tanggal Penjualan</label>
+                                <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
+                                    name="order_date" placeholder="hari-bulan-tahun"
+                                    value="{{ \Carbon\Carbon::parse($is_edit ? $data->order_date : $orderdate)->format('d-m-Y') }}"
+                                    data-date-format="d-m-Y">
                             </div>
-                            @if ($is_edit)
-                                <div class="row mt-4">
-                                    <div class="col-lg-12">
-                                        <button type="submit" class="btn btn-info form-control">Update</button>
-                                    </div>
-                                </div>
-                            @endif
-                        </form>
-                        <!-- END Form Horizontal - Default Style -->
-                    </div>
+                            <div class="col-xl-6">
+                                <label class="form-label" for="due_date">Jatuh Tempo</label>
+                                <input type="text" class="js-flatpickr form-control" id="due_date" name="due_date"
+                                    placeholder="Jatuh Tempo"
+                                    value="{{ \Carbon\Carbon::parse($is_edit ? $data->due_date : $jatuhtempo)->format('d-m-Y') }}"
+                                    data-date-format="d-m-Y">
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="form-label" for="example-ltf-email">Supir</label>
+                                <select name="supir" id="" class="form-control  js-select2 form-select ">
+                                    <option value="0">Tidak Pakai Supir</option>
+                                    @foreach ($supir as $item)
+                                    <option value="{{ $item->id }}" @if ($is_edit && $data->supir == $item->id) selected
+                                        @endif>
+                                        {{ $item->displayName }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label class="form-label" for="example-ltf-email">Kenek</label>
+                                <select name="kenek" id="" class="form-control  js-select2 form-select ">
+                                    <option value="0">Tidak Pakai Kenek</option>
+
+                                    @foreach ($kenek as $item)
+                                    <option value="{{ $item->id }}" @if ($is_edit && $data->kenek == $item->id) selected
+                                        @endif>
+                                        {{ $item->displayName }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @if ($is_edit)
+                        <div class="row mt-4">
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-info form-control">Update</button>
+                            </div>
+                        </div>
+                        @endif
+                    </form>
+                    <!-- END Form Horizontal - Default Style -->
                 </div>
             </div>
         </div>
-        <!-- END Form -->
     </div>
+    <!-- END Form -->
+</div>
 
-    @if ($is_edit)
-        <div class="content w-100">
-            <div class="block block-rounded">
-                <div class="block-header block-header-default">
-                    <h3 class="block-title">Ubah Barang</h3>
-                </div>
-                <div class="block-content block-content-full">
-                    <div class="table-responsive">
-                        <table class="table table-hover table-vcenter js-dataTable-buttons js-table-sections ">
-                            <thead>
-                                <tr>
-                                    <th class="text-center"></th>
-                                    <th class="fw-semibold fs-sm">Product</th>
-                                    <th class="fw-semibold fs-sm">Harga Satuan</th>
-                                    <th class="fw-semibold fs-sm">Quantity</th>
-                                    <th class="fw-semibold fs-sm">Harga Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody class="fs-sm">
-                                @foreach ($data->line as $line)
-                                    <tr>
-                                        <td class="text-center"></td>
-                                        <td>{{ $line->stock->name ?? '-' }}</td>
-                                        <td>{{ number_format($line->price_per_satuan_id) ?? '-' }}</td>
-                                        <td>{{ $line->qty }}</td>
-                                        <td>{{ number_format($line->qty * $line->price_per_satuan_id) }} <input
-                                                class="subtotalOrder d-none" type="hidden" readonly
-                                                value="{{ $line->qty * $line->price_per_satuan_id }}"></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn btn-primary dropdown-toggle"
-                                                    id="dropdown-default-primary" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-bars"></i>
-                                                </button>
-                                                <div class="dropdown-menu fs-sm"
-                                                    aria-labelledby="dropdown-default-primary">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('penjualan_line.edit', $line->id) }}">Edit</a>
-                                                    <a class="dropdown-item delete">Void</a>
-                                                    <form autocomplete="off"
-                                                        action="{{ route('penjualan_line.destroy', $line->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+@if ($is_edit)
+<div class="content w-100">
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Ubah Barang</h3>
         </div>
-        <div class="content w-100">
-            <!-- Form -->
-            <div class="block block-rounded">
-                <div class="block-header block-header-default">
-                    <h3 class="block-title">Detail Barang</h3>
-                </div>
-                <div class="block-content block-content-full">
-                    <div class="row">
-                        <div class="col-lg-12 ">
-                            <hr>
-                            <form autocomplete="off" class="form-barang">
-
-                                @csrf
-                                @if ($is_edit)
-                                    <input type="hidden" name="update_line" value="1" id="">
-                                @endif
-                                <div class="row space-y-5">
-                                    <div class="col-lg-12">
-                                        <div class="row mb-4">
-                                            <div class="col-xl-12">
-                                                <label class="form-label" for="">Barang:</label>
-                                                <select class="stock  select2-modal form-select  form-control"
-                                                    style="width: 100%">
-                                                    <option value="" disabled selected>Pilih Barang</option>
-                                                    @foreach ($stock as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            data-item="{{ $item }}">{{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-4">
-                                            <div class="col-xl-3">
-                                                <label class="form-label" for="">QTY:</label>
-                                                <input autocomplete="off" min="1" type="number"
-                                                    class="quantity form-control" value="1">
-                                            </div>
-
-                                            <div class="col-xl-3">
-                                                <label class="form-label" for="">Harga Satuan:</label>
-                                                <input autocomplete="off" type="number"
-                                                    class="harga_satuan form-control">
-                                            </div>
-
-                                            <div class="col-xl-3" id="modal" style="display:none">
-                                                <label class="form-label" for="">Harga Modal:</label>
-                                                <input autocomplete="off" readonly type="number"
-                                                    class="harga_modal form-control">
-                                            </div>
-
-                                            <div class="col-xl-3">
-                                                <label class="form-label" for="">Diskon %</label>
-                                                <input autocomplete="off" type="number" class="diskon form-control"
-                                                    value="0" min="0">
-                                            </div>
-                                        </div>
-                                        <div class="form-group hide">
-                                            <input autocomplete="off" type="button" onclick="addToCart()"
-                                                class="form-control btn btn-info dis" value="Tambah Barang">
-                                        </div>
-                                        <input autocomplete="off" type="hidden" id="pur">
-                                        <input autocomplete="off" type="hidden" id="gtx">
-
-                                    </div>
-                                    <div class="col-lg-12" style="overflow-y: auto; max-height: 500px">
-                                        <div>
-                                            <table id="" class="table table-bordered table-stripped">
-                                                <thead>
-                                                    <th>No</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>QTY</th>
-                                                    <th>Harga Satuan</th>
-                                                    <th>Diskon</th>
-                                                    <th>Subtotal</th>
-                                                    <th>Void</th>
-
-                                                </thead>
-                                                <tbody class="cart">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+        <div class="block-content block-content-full">
+            <div class="table-responsive">
+                <table class="table table-hover table-vcenter js-dataTable-buttons js-table-sections ">
+                    <thead>
+                        <tr>
+                            <th class="text-center"></th>
+                            <th class="fw-semibold fs-sm">Product</th>
+                            <th class="fw-semibold fs-sm">Harga Satuan</th>
+                            <th class="fw-semibold fs-sm">Quantity</th>
+                            <th class="fw-semibold fs-sm">Harga Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="fs-sm">
+                        @foreach ($data->line as $line)
+                        <tr>
+                            <td class="text-center"></td>
+                            <td>{{ $line->stock->name ?? '-' }}</td>
+                            <td>{{ number_format($line->price_per_satuan_id) ?? '-' }}</td>
+                            <td>{{ $line->qty }}</td>
+                            <td>{{ number_format($line->qty * $line->price_per_satuan_id) }} <input
+                                    class="subtotalOrder d-none" type="hidden" readonly
+                                    value="{{ $line->qty * $line->price_per_satuan_id }}"></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                        id="dropdown-default-primary" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                    <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
+                                        <a class="dropdown-item"
+                                            href="{{ route('penjualan_line.edit', $line->id) }}">Edit</a>
+                                        <a class="dropdown-item delete">Void</a>
+                                        <form autocomplete="off"
+                                            action="{{ route('penjualan_line.destroy', $line->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </div>
                                 </div>
-                        </div>
-                        <input type="hidden" name="total_sales" id="total_sales">
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="row mb-2 mt-3">
-                        <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(0)" class="btn btn-info form-control"
-                                id="btn_simpan">Simpan</button>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(1)" class="btn btn-info form-control"
-                                id="btn_simpan_cetak">Simpan &
-                                Cetak</button>
-                        </div>
-                    </div>
-                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
+<div class="content w-100">
+    <!-- Form -->
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">Detail Barang</h3>
         </div>
-    @else
-        <div class="content w-100">
-            <!-- Form -->
-            <div class="block block-rounded">
-                <div class="block-header block-header-default">
-                    <h3 class="block-title">{{ $is_edit ? 'Ubah Rincian' : 'Rincian' }} Penjualan</h3>
-                </div>
-                <div class="block-content block-content-full">
-                    <div class="row">
-                        <div class="col-lg-12 ">
-                            <hr>
-                            <form autocomplete="off" class="form-barang">
-                                <div class="row space-y-5">
-                                    <div class="col-lg-12">
-                                        <div class="row mb-4">
-                                            <div class="col-xl-12">
-                                                <label class="form-label" for="">Barang:</label>
-                                                <select class="stock  select2-modal form-select  form-control"
-                                                    style="width: 100%">
-                                                    <option value="" disabled selected>Pilih Barang</option>
-                                                    @foreach ($stock as $item)
-                                                        <option value="{{ $item->id }}"
-                                                            data-item="{{ $item }}">{{ $item->name }}
-                                                            (Stock:{{ $item->qty }})
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+        <div class="block-content block-content-full">
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <hr>
+                    <form autocomplete="off" class="form-barang">
 
-                                        <div class="row mb-4">
-                                            <div class="col-xl-3">
-                                                <label class="form-label" for="">QTY:</label>
-                                                <input autocomplete="off" min="1" type="number"
-                                                    class="quantity form-control" value="1">
-                                            </div>
-
-                                            <div class="col-xl-3">
-                                                <label class="form-label" for="">Harga Satuan:</label>
-                                                <input autocomplete="off" type="number"
-                                                    class="harga_satuan form-control">
-                                            </div>
-
-                                            <div class="col-xl-3" id="modal" style="display:none">
-                                                <label class="form-label" for="">Harga Modal:</label>
-                                                <input autocomplete="off" readonly type="number"
-                                                    class="harga_modal form-control">
-                                            </div>
-
-                                            <div class="col-xl-3">
-                                                <label class="form-label" for="">Diskon %</label>
-                                                <input autocomplete="off" type="number" class="diskon form-control"
-                                                    value="0" min="0">
-                                            </div>
-                                        </div>
-                                        <div class="form-group hide">
-                                            <input autocomplete="off" type="button" onclick="addToCart()"
-                                                class="form-control btn btn-info dis" value="Tambah Barang">
-                                        </div>
-                                        <input autocomplete="off" type="hidden" id="pur">
-                                        <input autocomplete="off" type="hidden" id="gtx">
-
-                                    </div>
-                                    <div class="col-lg-12" style="overflow-y: auto; max-height: 500px">
-                                        <div>
-                                            <table id="" class="table table-bordered table-stripped">
-                                                <thead>
-                                                    <th>No</th>
-                                                    <th>Kode Barang</th>
-                                                    <th>QTY</th>
-                                                    <th>Harga Satuan</th>
-                                                    <th>Diskon</th>
-                                                    <th>Subtotal</th>
-                                                    <th>Void</th>
-
-                                                </thead>
-                                                <tbody class="cart">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                        @csrf
+                        @if ($is_edit)
+                        <input type="hidden" name="update_line" value="1" id="">
+                        @endif
+                        <div class="row space-y-5">
+                            <div class="col-lg-12">
+                                <div class="row mb-4">
+                                    <div class="col-xl-12">
+                                        <label class="form-label" for="">Barang:</label>
+                                        <select class="stock  js-select2 form-select  form-control" style="width: 100%">
+                                            <option value="" disabled selected>Pilih Barang</option>
+                                            @foreach ($stock as $item)
+                                            <option value="{{ $item->id }}" data-item="{{ $item }}">{{ $item->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+
+                                <div class="row mb-4">
+                                    <div class="col-xl-3">
+                                        <label class="form-label" for="">QTY:</label>
+                                        <input autocomplete="off" min="1" type="number" class="quantity form-control"
+                                            value="1">
+                                    </div>
+
+                                    <div class="col-xl-3">
+                                        <label class="form-label" for="">Harga Satuan:</label>
+                                        <input autocomplete="off" type="number" class="harga_satuan form-control">
+                                    </div>
+
+                                    <div class="col-xl-3" id="modal" style="display:none">
+                                        <label class="form-label" for="">Harga Modal:</label>
+                                        <input autocomplete="off" readonly type="number"
+                                            class="harga_modal form-control">
+                                    </div>
+
+                                    <div class="col-xl-3">
+                                        <label class="form-label" for="">Diskon %</label>
+                                        <input autocomplete="off" type="number" class="diskon form-control" value="0"
+                                            min="0">
+                                    </div>
+                                </div>
+                                <div class="form-group hide">
+                                    <input autocomplete="off" type="button" onclick="addToCart()"
+                                        class="form-control btn btn-info dis" value="Tambah Barang">
+                                </div>
+                                <input autocomplete="off" type="hidden" id="pur">
+                                <input autocomplete="off" type="hidden" id="gtx">
+
+                            </div>
+                            <div class="col-lg-12" style="overflow-y: auto; max-height: 500px">
+                                <div>
+                                    <table id="" class="table table-bordered table-stripped">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Kode Barang</th>
+                                            <th>QTY</th>
+                                            <th>Harga Satuan</th>
+                                            <th>Diskon</th>
+                                            <th>Subtotal</th>
+                                            <th>Void</th>
+
+                                        </thead>
+                                        <tbody class="cart">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <input type="hidden" name="total_sales" id="total_sales">
-                        </form>
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="row mb-2 mt-3">
-                        <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(0)" class="btn btn-info form-control"
-                                id="btn_simpan">Simpan</button>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-xl-12">
-                            <button type="button" onclick="submitSalesOrder(1)" class="btn btn-info form-control"
-                                id="btn_simpan_cetak">Simpan &
-                                Cetak</button>
-                        </div>
-                    </div>
+                <input type="hidden" name="total_sales" id="total_sales">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row mb-2 mt-3">
+                <div class="col-xl-12">
+                    <button type="button" onclick="submitSalesOrder(0)" class="btn btn-info form-control"
+                        id="btn_simpan">Simpan</button>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-xl-12">
+                    <button type="button" onclick="submitSalesOrder(1)" class="btn btn-info form-control"
+                        id="btn_simpan_cetak">Simpan &
+                        Cetak</button>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+</div>
+@else
+<div class="content w-100">
+    <!-- Form -->
+    <div class="block block-rounded">
+        <div class="block-header block-header-default">
+            <h3 class="block-title">{{ $is_edit ? 'Ubah Rincian' : 'Rincian' }} Penjualan</h3>
         </div>
-    @endif
+        <div class="block-content block-content-full">
+            <div class="row">
+                <div class="col-lg-12 ">
+                    <hr>
+                    <form autocomplete="off" class="form-barang">
+                        <div class="row space-y-5">
+                            <div class="col-lg-12">
+                                <div class="row mb-4">
+                                    <div class="col-xl-12">
+                                        <label class="form-label" for="">Barang:</label>
+                                        <select class="stock  js-select2 form-select  form-control" style="width: 100%">
+                                            <option value="" disabled selected>Pilih Barang</option>
+                                            @foreach ($stock as $item)
+                                            <option value="{{ $item->id }}" data-item="{{ $item }}">{{ $item->name }}
+                                                (Stock:{{ $item->qty }})
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
-    <!-- END Page Content -->
+                                <div class="row mb-4">
+                                    <div class="col-xl-3">
+                                        <label class="form-label" for="">QTY:</label>
+                                        <input autocomplete="off" min="1" type="number" class="quantity form-control"
+                                            value="1">
+                                    </div>
+
+                                    <div class="col-xl-3">
+                                        <label class="form-label" for="">Harga Satuan:</label>
+                                        <input autocomplete="off" type="number" class="harga_satuan form-control">
+                                    </div>
+
+                                    <div class="col-xl-3" id="modal" style="display:none">
+                                        <label class="form-label" for="">Harga Modal:</label>
+                                        <input autocomplete="off" readonly type="number"
+                                            class="harga_modal form-control">
+                                    </div>
+
+                                    <div class="col-xl-3">
+                                        <label class="form-label" for="">Diskon %</label>
+                                        <input autocomplete="off" type="number" class="diskon form-control" value="0"
+                                            min="0">
+                                    </div>
+                                </div>
+                                <div class="form-group hide">
+                                    <input autocomplete="off" type="button" onclick="addToCart()"
+                                        class="form-control btn btn-info dis" value="Tambah Barang">
+                                </div>
+                                <input autocomplete="off" type="hidden" id="pur">
+                                <input autocomplete="off" type="hidden" id="gtx">
+
+                            </div>
+                            <div class="col-lg-12" style="overflow-y: auto; max-height: 500px">
+                                <div>
+                                    <table id="" class="table table-bordered table-stripped">
+                                        <thead>
+                                            <th>No</th>
+                                            <th>Kode Barang</th>
+                                            <th>QTY</th>
+                                            <th>Harga Satuan</th>
+                                            <th>Diskon</th>
+                                            <th>Subtotal</th>
+                                            <th>Void</th>
+
+                                        </thead>
+                                        <tbody class="cart">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <input type="hidden" name="total_sales" id="total_sales">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row mb-2 mt-3">
+                <div class="col-xl-12">
+                    <button type="button" onclick="submitSalesOrder(0)" class="btn btn-info form-control"
+                        id="btn_simpan">Simpan</button>
+                </div>
+            </div>
+            {{-- <div class="row mb-2">
+                <div class="col-xl-12">
+                    <button type="button" onclick="submitSalesOrder(1)" class="btn btn-info form-control"
+                        id="btn_simpan_cetak">Simpan &
+                        Cetak</button>
+                </div>
+            </div> --}}
+        </div>
+    </div>
+</div>
+</div>
+@endif
+
+<!-- END Page Content -->
 @endsection
 
 @include('includes.modal.riwayat')
 @push('js')
-    <script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $(document).ready(function() {
+<script src="{{ asset('assets/js/plugins/flatpickr/flatpickr.min.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
             $(window).keydown(function(event) {
                 if (event.keyCode == 13) {
                     event.preventDefault();
@@ -401,15 +394,15 @@
             calcGrandTotal();
         });
 
-        // One.helpersOnLoad([
-        //     'js-flatpickr',
-        //     'jq-datepicker',
-        //     // 'jq-maxlength',
-        //     // 'jq-select2',
-        //     // 'jq-masked-inputs',
-        //     // 'jq-rangeslider',
-        //     // 'jq-colorpicker'
-        // ]);
+        One.helpersOnLoad([
+            'js-flatpickr',
+            'jq-datepicker',
+            // 'jq-maxlength',
+            'jq-select2',
+            // 'jq-masked-inputs',
+            // 'jq-rangeslider',
+            // 'jq-colorpicker'
+        ]);
 
         $(".customer").change(function() {
             var customer = $(this).find('option').filter(':selected');
@@ -460,6 +453,7 @@
         function addToCart() {
 
             var stock = $('.stock').find('option').filter(':selected');
+            if(parseInt($(".quantity").attr("max")) >= parseInt($(".quantity").val())){
             var datastock = stock.data("item");
             var table = $(".cart")
             var count = table.find("tr"); //sudah isi berapa sebelum append
@@ -500,6 +494,10 @@
             // $(".select2-search__field").focus();
             $(".diskon").val(0);
             $(".quantity").val(1)
+            }else{
+                toastr.error("Stock tidak cukup");
+
+            }
         }
 
         $(window).keydown(function(event) {
@@ -561,7 +559,72 @@
             @endif
 
         }
+        $('#salesorderhistory').on('show.bs.modal', function(e) {
+            // do something...
+            var customerid = $(".customer").find('option').filter(':selected').val();
+            if (customerid != "") {
+                $.ajax({
+                        method: "post",
+                        url: "{{ url('api/salesorder/history/customer') }}",
+                        data: {
+                            customer_id: customerid
+                        }
+                    })
+                    .done(function(msg) {
+                        var table = $("#riwayat_sales")
+                        table.empty()
+                        $.each(msg, function(k, v) {
+                            var no = `<td class="number">` + (k + 1) + `</td>`
+                            var nosales = `<td>` + v.intnomorsales + `</td>`
+                            var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
+                                `</td>`
+                            var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
+                                `</td>`
+                            var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
+                            var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
+                            var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
+                                `</td>`
+                            table.append(`<tr>` + no + nosales + tanggalorder + totalfaktur +
+                                totalbayar + retur + sisabayar + `</tr>`);
+                        })
+                    });
+            } else {
+                $("#salesorderhistory").modal("hide");
+                toastr.error("Pilih Konsumen terlebih dahulu");
+            }
+        })
 
+        $('#saleslinehistory').on('show.bs.modal', function(e) {
+            // do something...
+            var stockid = $(".stock").find('option').filter(':selected').val();
+            var customerid = $(".customer").find('option').filter(':selected').val();
+
+            if (stockid != "" && customerid != "") {
+                $.ajax({
+                        method: "post",
+                        url: "{{ url('api/salesline/history/customer') }}",
+                        data: {
+                            item_stock_id: stockid,
+                            customer_id: customerid
+                        }
+                    })
+                    .done(function(msg) {
+                        var table = $("#riwayat_item")
+                        table.empty()
+                        $.each(msg, function(k, v) {
+                            var tanggal = `<td>` + new Date(v.createdOn).toLocaleDateString() + `</td>`
+                            var barang = `<td>` + v.stock.name + `</td>`
+                            var qty = `<td>` + v.qty + `</td>`
+                            var hargasatuan = `<td>` + number_format(v.price_per_satuan_id, 0, ",",
+                                ".") + `</td>`
+                            table.append(`<tr>` + tanggal + barang + qty + hargasatuan + `</tr>`);
+                        })
+                    });
+            } else {
+                $("#salesorderhistory").modal("hide");
+                toastr.error("Pilih Konsumen terlebih dahulu");
+            }
+        })
         function popupTimer() {
             let timerInterval
             Swal.fire({
@@ -586,5 +649,5 @@
                 }
             })
         }
-    </script>
+</script>
 @endpush

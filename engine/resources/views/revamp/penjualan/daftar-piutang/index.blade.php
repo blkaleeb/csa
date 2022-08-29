@@ -41,10 +41,13 @@
                                     Diskon
                                 </th>
                                 <th class="col-head">
+                                    Sisa Bayar
+                                </th>
+                                <th class="col-head">
                                     Jumlah Pembayaran
                                 </th>
                                 <th class="col-head">
-                                    Total Pembayaran
+                                    Total Sales
                                 </th>
                                 <th class="col-head">
                                     Total Retur <i class="fa-solid fa-question" data-bs-toggle="tooltip"
@@ -54,9 +57,7 @@
                                 <th class="col-head">
                                     Notes
                                 </th>
-                                <th class="col-head">
-                                    Payment
-                                </th>
+                              
                                 <th>
                                     Action
                                 </th>
@@ -65,10 +66,8 @@
                         <tbody id="">
 
                         @foreach ($data as $key)
-                        <tr>
-                            <td class="text-center fs-sm">
-                                <i class="fa fa-angle-right text-muted"></i>
-                            </td>
+                        <tr @if($key->void_status == 1) style="background-color: red" @endif>
+                  
                             <td class="fw-semibold fs-sm">{{ $loop->iteration }}</td>
                             <td class="fw-semibold fs-sm">{{$key->intnomorsales ?? null}}
                             </td>
@@ -80,8 +79,9 @@
                                 </a>
                             </td>
                             <td class="fw-semibold fs-sm">Rp. {{number_format($key->diskon)}}</td>
-                            <td class="fw-semibold fs-sm">Rp. {{number_format($key->payment_value)}}</td>
-                            <td class="fw-semibold fs-sm">Rp. {{number_format($key->payment_value+$key->diskon)}}
+                            <td class="fw-semibold fs-sm">Rp. {{number_format($key->payment_remain)}}</td>
+                            <td class="fw-semibold fs-sm">Rp. {{number_format($key->total_paid)}}</td>
+                            <td class="fw-semibold fs-sm">Rp. {{number_format($key->total_sales)}}
                             </td>
                             @php
                             $notes="";
@@ -91,16 +91,7 @@
                             @endphp
                             <td>{{$key->retur ?? 0}}</td>
                             <td class="fw-semibold fs-sm">{{$notes[0] ?? null}}</td>
-                            <td class="fw-semibold fs-sm">@if($key->payment_id=="C")
-                                Cash
-                                @elseif($key->payment_id=="G")
-                                Giro
-                                @elseif($key->payment_id=="CH")
-                                Cek
-                                @elseif($key->payment_id=="TR")
-                                Transfer
-                                @endif
-                            </td>
+                          
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-primary dropdown-toggle"

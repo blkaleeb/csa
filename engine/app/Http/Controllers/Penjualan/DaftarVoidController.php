@@ -27,7 +27,7 @@ class DaftarVoidController extends Controller
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
         $data = DataVoid::query();
-        $d["data"] = $data->orderBy("createdOn", "desc")->where("status", 0)->paginate(25)->withQueryString();
+        $d["data"] = $data->orderBy("createdOn", "desc")->orderby("createdOn", "desc")->paginate(25)->withQueryString();
 
         //paginate variable
         $d["limit"] = $request->limit ?? 25;
@@ -132,13 +132,15 @@ class DaftarVoidController extends Controller
             }
             $header->delete();
         } else if ($void->type == "SalesInvoicePayment") {
-            $inv = SalesInvoicePayment::find($id);
+            $inv = SalesInvoicePayment::find($void->model_id);
             $header = SalesOrderHeader::find($inv->sales_order_header_id);
             $header->payment_remain += $inv->payment_value + $inv->diskon;
+            $header->total_paid -= $inv->payment_value + $inv->diskon;
             $header->save();
             $inv->delete();
         }
         $void->status = 1;
+        $void->save();
         return redirect()->back()->with("message", "Data dihapus");
     }
 
