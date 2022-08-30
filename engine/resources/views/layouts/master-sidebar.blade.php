@@ -103,10 +103,12 @@
 
                         <!-- Toggle Side Overlay -->
                         <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                        @if(Auth::user()->role_id!=3)
                         <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout"
                             data-action="side_overlay_toggle">
                             <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
                         </button>
+                        @endif
                         <!-- END Toggle Side Overlay -->
                     </div>
                     <!-- END Right Section -->

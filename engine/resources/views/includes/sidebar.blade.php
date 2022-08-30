@@ -131,7 +131,7 @@
                         <span class="nav-main-link-name">Request For Sales</span>
                     </a>
                 </li>
-                @endif
+                @else
                 <li class="nav-main-item ">
                     <a class="nav-main-link {{ (request()->is('/')) ? 'active open' : '' }}"
                         href="{{ route('dashboard') }}">
@@ -373,7 +373,7 @@
                         <span class="nav-main-link-name">Log Aktivitas</span>
                     </a>
                 </li>
-
+                @endif
             </ul>
         </div>
         <!-- END Side Navigation -->
