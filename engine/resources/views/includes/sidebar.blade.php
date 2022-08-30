@@ -122,21 +122,19 @@
         <!-- Side Navigation -->
         <div class="content-side">
             <ul class="nav-main">
-                
-                <?php
-                    if(Auth::user()->role_id==3){
-                        ?>
-                        <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('requestsales')) ? 'active open' : '' }}" href="{{ route('requestsales.index') }}">
-                                <i class="nav-main-link-icon si si-badge"></i>
-                                <span class="nav-main-link-name">Request For Sales</span>
-                            </a>
-                        </li>
-                        <?php
-                    }else{
-                ?>
+
+                @if(Auth::user()->role_id==3)
                 <li class="nav-main-item ">
-                    <a class="nav-main-link {{ (request()->is('/')) ? 'active open' : '' }}" href="{{ route('dashboard') }}">
+                    <a class="nav-main-link {{ (request()->is('requestsales')) ? 'active open' : '' }}"
+                        href="{{ route('requestsales.index') }}">
+                        <i class="nav-main-link-icon si si-badge"></i>
+                        <span class="nav-main-link-name">Request For Sales</span>
+                    </a>
+                </li>
+                @endif
+                <li class="nav-main-item ">
+                    <a class="nav-main-link {{ (request()->is('/')) ? 'active open' : '' }}"
+                        href="{{ route('dashboard') }}">
                         <i class="nav-main-link-icon si si-speedometer"></i>
                         <span class="nav-main-link-name">Dashboard</span>
                     </a>
@@ -151,34 +149,40 @@
                     <ul class="nav-main-submenu">
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penjualan/create-invoice*')) ? 'active' : '' }}" href="{{ route('penjualan-new.create-invoice.create') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/create-invoice*')) ? 'active' : '' }}"
+                                href="{{ route('penjualan-new.create-invoice.create') }}">
                                 <span class="nav-main-link-name">Buat Faktur</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penjualan/daftar-piutang*')) ? 'active' : '' }}" href="{{ route('penjualan-new.daftar-piutang.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/daftar-piutang*')) ? 'active' : '' }}"
+                                href="{{ route('penjualan-new.daftar-piutang.index') }}">
                                 <span class="nav-main-link-name">Daftar Piutang</span>
                             </a>
                         </li>
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penjualan/daftar-void*')) ? 'active' : '' }}" href="{{ route('penjualan-new.daftar-void.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/daftar-void*')) ? 'active' : '' }}"
+                                href="{{ route('penjualan-new.daftar-void.index') }}">
                                 <span class="nav-main-link-name">Daftar Void</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penjualan/retur*')) ? 'active' : '' }}" href="{{ route('penjualan-new.retur.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/retur*')) ? 'active' : '' }}"
+                                href="{{ route('penjualan-new.retur.index') }}">
                                 <span class="nav-main-link-name">Retur Penjualan</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penjualan/laporan*')) ? 'active' : '' }}" href="{{ route('penjualan-new.laporan.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penjualan/laporan*')) ? 'active' : '' }}"
+                                href="{{ route('penjualan-new.laporan.index') }}">
                                 <span class="nav-main-link-name">Laporan Penjualan</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-main-item {{ (request()->is('po*')) || (request()->is('penerimaan*')) || (request()->is('hutang*')) || (request()->is('retur_pembelian*')) ? 'active open' : '' }}">
+                <li
+                    class="nav-main-item {{ (request()->is('po*')) || (request()->is('penerimaan*')) || (request()->is('hutang*')) || (request()->is('retur_pembelian*')) ? 'active open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                         aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-badge"></i>
@@ -186,30 +190,35 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('po*')) ? 'active' : '' }}" href="{{ route('po.index') }}">
+                            <a class="nav-main-link {{ (request()->is('po*')) ? 'active' : '' }}"
+                                href="{{ route('po.index') }}">
                                 <span class="nav-main-link-name">PO</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penerimaan*')) ? 'active' : '' }}" href="{{ route('penerimaan.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penerimaan*')) ? 'active' : '' }}"
+                                href="{{ route('penerimaan.index') }}">
                                 <span class="nav-main-link-name">Penerimaan</span>
                             </a>
                         </li>
 
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('hutang*')) ? 'active' : '' }}" href="{{ route('hutang.index') }}">
+                            <a class="nav-main-link {{ (request()->is('hutang*')) ? 'active' : '' }}"
+                                href="{{ route('hutang.index') }}">
                                 <span class="nav-main-link-name">Pembayaran Hutang</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('retur_pembelian*')) ? 'active' : '' }}" href="{{ route('retur_pembelian.index') }}">
+                            <a class="nav-main-link {{ (request()->is('retur_pembelian*')) ? 'active' : '' }}"
+                                href="{{ route('retur_pembelian.index') }}">
                                 <span class="nav-main-link-name">Retur Pembelian</span>
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="nav-main-item {{ (request()->is('pengeluaran*')) || (request()->is('kategori_pengeluaran*')) || (request()->is('inventoris*')) ? 'active open' : '' }}">
+                <li
+                    class="nav-main-item {{ (request()->is('pengeluaran*')) || (request()->is('kategori_pengeluaran*')) || (request()->is('inventoris*')) ? 'active open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                         aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-note"></i>
@@ -217,23 +226,27 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('pengeluaran*')) ? 'active' : '' }}" href="{{ route('pengeluaran.index') }}">
+                            <a class="nav-main-link {{ (request()->is('pengeluaran*')) ? 'active' : '' }}"
+                                href="{{ route('pengeluaran.index') }}">
                                 <span class="nav-main-link-name">Data</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('kategori_pengeluaran*')) ? 'active' : '' }}" href="{{ route('kategori_pengeluaran.index') }}">
+                            <a class="nav-main-link {{ (request()->is('kategori_pengeluaran*')) ? 'active' : '' }}"
+                                href="{{ route('kategori_pengeluaran.index') }}">
                                 <span class="nav-main-link-name">Kategori</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('inventoris*')) ? 'active' : '' }}" href="{{ route('inventoris.index') }}">
+                            <a class="nav-main-link {{ (request()->is('inventoris*')) ? 'active' : '' }}"
+                                href="{{ route('inventoris.index') }}">
                                 <span class="nav-main-link-name">Inventoris</span>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-main-item {{ (request()->is('penerimaan_barang*')) || (request()->is('stok_barang*')) || (request()->is('lap_opname*')) || (request()->is('permintaan_retur*'))  ? 'active open' : '' }}">
+                <li
+                    class="nav-main-item {{ (request()->is('penerimaan_barang*')) || (request()->is('stok_barang*')) || (request()->is('lap_opname*')) || (request()->is('permintaan_retur*'))  ? 'active open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                         aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-drawer"></i>
@@ -241,22 +254,26 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('penerimaan_barang*')) ? 'active' : '' }}" href="{{ route('penerimaan_barang.index') }}">
+                            <a class="nav-main-link {{ (request()->is('penerimaan_barang*')) ? 'active' : '' }}"
+                                href="{{ route('penerimaan_barang.index') }}">
                                 <span class="nav-main-link-name">Daftar Penerimaan Barang</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('stok_barang*')) ? 'active' : '' }}" href="{{ route('stok_barang.index') }}">
+                            <a class="nav-main-link {{ (request()->is('stok_barang*')) ? 'active' : '' }}"
+                                href="{{ route('stok_barang.index') }}">
                                 <span class="nav-main-link-name">Daftar Stok Barang</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('lap_opname*')) ? 'active' : '' }}" href="{{ route('lap_opname.index') }}">
+                            <a class="nav-main-link {{ (request()->is('lap_opname*')) ? 'active' : '' }}"
+                                href="{{ route('lap_opname.index') }}">
                                 <span class="nav-main-link-name">Laporan Opname</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
-                            <a class="nav-main-link {{ (request()->is('permintaan_retur*')) ? 'active' : '' }}" href="{{ route('permintaan_retur.index') }}">
+                            <a class="nav-main-link {{ (request()->is('permintaan_retur*')) ? 'active' : '' }}"
+                                href="{{ route('permintaan_retur.index') }}">
                                 <span class="nav-main-link-name">Daftar Permintaan Retur</span>
                             </a>
                         </li>
@@ -273,19 +290,22 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('karyawan*')) ? 'active' : '' }}" href="{{ route('karyawan.index') }}">
+                            <a class="nav-main-link {{ (request()->is('karyawan*')) ? 'active' : '' }}"
+                                href="{{ route('karyawan.index') }}">
                                 <span class="nav-main-link-name">Karyawan</span>
                             </a>
                         </li>
                         <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('role*')) ? 'active' : '' }}" href="{{ route('role.index') }}">
+                            <a class="nav-main-link {{ (request()->is('role*')) ? 'active' : '' }}"
+                                href="{{ route('role.index') }}">
                                 <span class="nav-main-link-name">Role</span>
                             </a>
                         </li>
 
                     </ul>
                 </li>
-                <li class="nav-main-item {{ (request()->is('kategori*')) || (request()->is('merk*')) || (request()->is('stok*')) || (request()->is('opname*')) ? 'active open' : '' }}">
+                <li
+                    class="nav-main-item {{ (request()->is('kategori*')) || (request()->is('merk*')) || (request()->is('stok*')) || (request()->is('opname*')) ? 'active open' : '' }}">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                         aria-expanded="false" href="#">
                         <i class="nav-main-link-icon si si-wrench"></i>
@@ -293,22 +313,26 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('kategori*')) ? 'active' : '' }}" href="{{ route('kategori.index') }}">
+                            <a class="nav-main-link {{ (request()->is('kategori*')) ? 'active' : '' }}"
+                                href="{{ route('kategori.index') }}">
                                 <span class="nav-main-link-name">Kategori</span>
                             </a>
                         </li>
                         <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('merk*')) ? 'active' : '' }}" href="{{ route('merk.index') }}">
+                            <a class="nav-main-link {{ (request()->is('merk*')) ? 'active' : '' }}"
+                                href="{{ route('merk.index') }}">
                                 <span class="nav-main-link-name">Merk</span>
                             </a>
                         </li>
                         <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('stok*')) ? 'active' : '' }}" href="{{ route('stok.index') }}">
+                            <a class="nav-main-link {{ (request()->is('stok*')) ? 'active' : '' }}"
+                                href="{{ route('stok.index') }}">
                                 <span class="nav-main-link-name">Stok</span>
                             </a>
                         </li>
                         <li class="nav-main-item ">
-                            <a class="nav-main-link {{ (request()->is('opname*')) ? 'active' : '' }}" href="{{ route('opname.index') }}">
+                            <a class="nav-main-link {{ (request()->is('opname*')) ? 'active' : '' }}"
+                                href="{{ route('opname.index') }}">
                                 <span class="nav-main-link-name">Opname</span>
                             </a>
                         </li>
@@ -349,7 +373,7 @@
                         <span class="nav-main-link-name">Log Aktivitas</span>
                     </a>
                 </li>
-                <?php } ?>
+
             </ul>
         </div>
         <!-- END Side Navigation -->
