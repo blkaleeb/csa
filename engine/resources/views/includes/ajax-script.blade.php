@@ -18,11 +18,19 @@
 
                     });
             });
+
             $("#formModal").on('shown.bs.modal', event => {
                 $(".select2-modal").select2({
-                    dropdownParent: $("#formModal")
-                })
+                    dropdownParent: $("#formModal .modal-body")
+                });
+            //     var select2Instance = $(".select2-modal").data('select2');
+                // select2Instance.on('results:message', function(params){
+                //   this.dropdown._resizeDropdown();
+                //   this.dropdown._positionDropdown();
+                // });
             })
+
+
         })
     </script>
 @endpush
