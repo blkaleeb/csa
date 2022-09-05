@@ -14,6 +14,7 @@ use App\Models\Komisi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class RequestSalesController extends Controller
@@ -80,17 +81,18 @@ class RequestSalesController extends Controller
         //endgaragarapopup
 
         $header = new RequestSalesHeader();
-        $header->due_date = Carbon::parse($request->due_date)->format('Y-m-d');
+        // $header->due_date = Carbon::parse($request->due_date)->format('Y-m-d');
         $header->intnomorsales = $intnomorsales;
-        $header->order_date = Carbon::parse($request->order_date)->format('Y-m-d');
+        // $header->order_date = Carbon::parse($request->order_date)->format('Y-m-d');
         $header->payment_remain = $total_sales;
         $header->retur = 0;
         $header->status = "C";
         $header->total_paid = 0;
         $header->total_sales = $total_sales;
         $header->customer_id = $request->customer_id;
-        $header->supir = $request->supir;
-        $header->kenek = $request->kenek;
+        $header->createdBy = Auth::user()->id;
+        // $header->supir = $request->supir;
+        // $header->kenek = $request->kenek;
         $header->save();
         $counter->sequence_next_value += 1;
         $counter->save();
@@ -112,7 +114,7 @@ class RequestSalesController extends Controller
             $line->sales_per_satuan_id = $request->harga_modal[$i]; //harga modal 1 an
             $line->qty = $request->quantity[$i];
             $line->item_stock_id = $request->item_stock_id[$i];
-            $line->sales_order_header_id = $header->id;
+            $line->request_sales_header_id = $header->id;
             $line->save();
 
             if ($line->stock->brand) {

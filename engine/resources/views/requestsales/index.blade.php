@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <label class="form-label" for="example-flatpickr-custom">Tanggal Penjualan</label>
                                     <input type="text" class="js-flatpickr form-control" id="example-flatpickr-custom"
                                         name="order_date" placeholder="hari-bulan-tahun"
@@ -63,8 +63,8 @@
                                         placeholder="Jatuh Tempo"
                                         value="{{ \Carbon\Carbon::parse($is_edit ? $data->due_date : $jatuhtempo)->format('d-m-Y') }}"
                                         data-date-format="d-m-Y">
-                                </div>
-                                <div class="col-lg-6">
+                                </div> -->
+                                <!-- <div class="col-lg-6">
                                     <label class="form-label" for="example-ltf-email">Supir</label>
                                     <select name="supir" id="" class="form-control  select2-modal form-select ">
                                         <option value="0">Tidak Pakai Supir</option>
@@ -89,7 +89,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                             @if ($is_edit)
                                 <div class="row mt-4">
@@ -550,7 +550,7 @@
             let timerInterval
             Swal.fire({
                 title: 'Auto Reload Page',
-                html: 'Pembuatan faktur berhasil, Halaman akan dimuat ulang',
+                html: 'Pembuatan request for sales berhasil, Halaman akan dimuat ulang',
                 timer: 2000,
                 timerProgressBar: true,
                 didOpen: () => {
