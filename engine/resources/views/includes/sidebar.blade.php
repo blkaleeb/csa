@@ -122,13 +122,19 @@
         <!-- Side Navigation -->
         <div class="content-side">
             <ul class="nav-main">
-
                 @if(Auth::user()->role_id==3)
                 <li class="nav-main-item ">
                     <a class="nav-main-link {{ (request()->is('requestsales')) ? 'active open' : '' }}"
                         href="{{ route('requestsales.index') }}">
                         <i class="nav-main-link-icon si si-badge"></i>
                         <span class="nav-main-link-name">Request For Sales</span>
+                    </a>
+                </li>
+                <li class="nav-main-item ">
+                    <a class="nav-main-link {{ (request()->is('listrequestsales')) ? 'active open' : '' }}"
+                        href="{{ route('listrequestsales.index') }}">
+                        <i class="nav-main-link-icon si si-energy"></i>
+                        <span class="nav-main-link-name">Daftar Request For Sales</span>
                     </a>
                 </li>
                 @else
