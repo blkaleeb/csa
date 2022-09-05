@@ -533,7 +533,7 @@
                 var method = "put"
                 $.ajax({
                         method: method,
-                        url: "{{ url('penjualan') . '/' . $data->id }}",
+                        url: "{{ route('daftar-piutang.update',$data->id) }}",
                         data: param
                     })
                     .done(function(msg) {

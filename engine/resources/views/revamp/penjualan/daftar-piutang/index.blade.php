@@ -101,7 +101,7 @@
                                     </button>
                                     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
                                         <a class="dropdown-item"
-                                            href="{{ route('penjualan-new.daftar-piutang.create', ['salesid' => $key->id]) }}">Edit</a>
+                                            href="{{ route('penjualan-new.daftar-piutang.edit', ['daftar_piutang' => $key->id]) }}">Edit</a>
                                         <a class="dropdown-item"
                                             href="{{ route('penjualan-new.daftar-piutang.create', ['salesid' => $key->id]) }}">Bayar</a>
                                         <a class="dropdown-item"
