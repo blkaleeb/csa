@@ -551,7 +551,7 @@
                         data: param
                     })
                     .done(function(msg) {
-                        toastr.success("Error");
+                        toastr.success("Success");
                         // popupTimer();
                     }).fail(function(msg) {
                         toastr.error("Error");
