@@ -598,6 +598,8 @@
             // do something...
             var stockid = $(".stock").find('option').filter(':selected').val();
             var customerid = $(".customer").find('option').filter(':selected').val();
+            console.log(customerid);
+            console.log(stockid);
 
             if (stockid != "" && customerid != "") {
                 $.ajax({
@@ -622,7 +624,13 @@
                     });
             } else {
                 $("#salesorderhistory").modal("hide");
-                toastr.error("Pilih Konsumen terlebih dahulu");
+                if (customerid == '') {
+                    toastr.error("Pilih Konsumen terlebih dahulu");
+                } else if (stockid == '') {
+                    toastr.error("Pilih Barang terlebih dahulu");
+                } else {
+                    toastr.error("Error");
+                }
             }
         })
         function popupTimer() {

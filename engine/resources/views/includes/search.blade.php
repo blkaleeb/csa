@@ -19,11 +19,11 @@
         </div>
     </div>
     @endif
-    {{-- <div class="row history ms-4" style="display: none">
+    <div class="row history ms-4" style="display: none">
         <div class="col-sm-12">
             <button type="button" class="btn btn-alt-primary push" data-bs-toggle="modal" data-bs-target="#saleslinehistory">Riwayat Barang</button>
         </div>
-    </div> --}}
+    </div>
 </form>
 @push("js")
 <script>
