@@ -598,8 +598,6 @@
             // do something...
             var stockid = $(".stock").find('option').filter(':selected').val();
             var customerid = $(".customer").find('option').filter(':selected').val();
-            console.log(customerid);
-            console.log(stockid);
 
             if (stockid != "" && customerid != "") {
                 $.ajax({
