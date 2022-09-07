@@ -48,7 +48,7 @@ class LaporanPenjualanController extends Controller
         }
         DB::enableQueryLog();
         $d["data"] = $data->orderBy("createdOn", "desc")->paginate(25);
-        dd(DB::getQueryLog());
+        // dd(DB::getQueryLog());
 
         $d["url_filter"] = route("penjualan-new.laporan.index");
         $d["filter_enabled"] = true;
