@@ -23,20 +23,22 @@
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
+                            <th>Date</th>
                             <th>User</th>
                             <th>Event</th>
                             <th>Auditable Type</th>
-                            <th>Date</th>
+                            <th>URL</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($data as $d)
                             <tr>
                                 <td class="text-center fs-sm">{{$loop->iteration}}</td>
+                                <td class="fs-sm">{{date("d-m-Y H:i:s",strtotime($d->created_at))}}</td>
                                 <td class="fs-sm">{{$d->displayName}}</td>
                                 <td class="fs-sm">{{ucfirst($d->event)}}</td>
                                 <td class="fs-sm">{{$d->auditable_type}}</td>
-                                <td class="fs-sm">{{date("d-m-Y H:i:s",strtotime($d->created_at))}}</td>
+                                <td class="fs-sm"><a href="{{$d->url}}" target="_blank">{{$d->url}}</a></td>
                             </tr>
                         @endforeach
                     </tbody>

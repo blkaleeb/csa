@@ -25,6 +25,7 @@ class LogController extends Controller
         $d["data"] =  DB::table('audits')
                     ->join('users','users.id','=','audits.user_id')
                     ->select(DB::raw('audits.*, users.displayName'))
+                    ->where('audits.auditable_type', '!=','Tracking Request')
                     ->orderBy("audits.created_at", "desc")->paginate(25);
         return view($this->view . "index", $d);
     }
