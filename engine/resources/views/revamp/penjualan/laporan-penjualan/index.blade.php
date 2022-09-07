@@ -19,11 +19,11 @@
                     {{-- <a href="{{route('retur_pembelian.create')}}" class="btn btn-info block-title">Buat Faktur</a>
                     --}}
 
-                    <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
+                    <!-- <button class="btn btn-warning" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Filter
-                    </button>
-                    <a href="{{route('laporan-penjualan.create')}}" class="btn btn-info">Buat Pembayaran</a>
+                    </button> -->
+                    <!-- <a href="{{route('laporan-penjualan.create')}}" class="btn btn-info">Buat Pembayaran</a> -->
                 </div>
             </div>
             <div class="block-content block-content-full">
