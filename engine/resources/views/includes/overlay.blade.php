@@ -82,7 +82,7 @@
                                                 <input type="text" class="js-flatpickr form-control"
                                                     id="example-flatpickr-custom" name="date_end"
                                                     placeholder="hari-bulan-tahun"
-                                                    value="{{ $date_end?->format('d F Y') }}" data-date-format="d F Y">
+                                                    value="{{ $date_end->format('d F Y') }}" data-date-format="d F Y">
                                             </div>
 
                                         </div>

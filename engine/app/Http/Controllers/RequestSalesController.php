@@ -113,6 +113,7 @@ class RequestSalesController extends Controller
             $line->price_per_satuan_id = $request->harga_satuan[$i]; //harga jual 1 an
             $line->sales_per_satuan_id = $request->harga_modal[$i]; //harga modal 1 an
             $line->qty = $request->quantity[$i];
+            $line0->status = 0;
             $line->item_stock_id = $request->item_stock_id[$i];
             $line->request_sales_header_id = $header->id;
             $line->save();
@@ -132,24 +133,24 @@ class RequestSalesController extends Controller
         $header->komisi = $total_sales * ($komisipersen / 100);
         $header->modal = $modal;
         $header->save();
-        try {
-            $komisi = Komisi::where("sales_order_header_id", $header->id)->firstorfail();
-            $komisi->amount = $header->komisi;
-            $komisi->current_amount = 0;
-            $komisi->customer_id = $header->customer->id;
-            $komisi->sales_order_header_id = $header->id;
-            $komisi->user_id = $header->customer->sales->id;
-            $komisi->percentage = $komisipersen;
-            $komisi->save();
-        } catch (\Throwable $th) {
-            $komisi = new Komisi();
-            $komisi->amount = $header->komisi;
-            $komisi->current_amount = 0;
-            $komisi->sales_order_header_id = $header->id;
-            $komisi->user_id = $header->customer->sales->id;
-            $komisi->percentage = $komisipersen;
-            $komisi->save();
-        }
+        // try {
+        //     $komisi = Komisi::where("sales_order_header_id", $header->id)->firstorfail();
+        //     $komisi->amount = $header->komisi;
+        //     $komisi->current_amount = 0;
+        //     $komisi->customer_id = $header->customer->id;
+        //     $komisi->sales_order_header_id = $header->id;
+        //     $komisi->user_id = $header->customer->sales->id;
+        //     $komisi->percentage = $komisipersen;
+        //     $komisi->save();
+        // } catch (\Throwable $th) {
+        //     $komisi = new Komisi();
+        //     $komisi->amount = $header->komisi;
+        //     $komisi->current_amount = 0;
+        //     $komisi->sales_order_header_id = $header->id;
+        //     $komisi->user_id = $header->customer->sales->id;
+        //     $komisi->percentage = $komisipersen;
+        //     $komisi->save();
+        // }
 
         DB::commit();
         if ($request->has("prints")) {

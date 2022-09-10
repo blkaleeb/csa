@@ -30,6 +30,7 @@
                             <th>Customer</th>
                             <th>Total</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     @foreach ($data as $item)
@@ -47,6 +48,7 @@
                                 {{$item->customer->name ?? ''}}
                             </td>
                             <td id="total_{{$item->id}}"></td>
+                            <td></td>
                             <td></td>
                             <!-- <td>
 
@@ -77,6 +79,7 @@
                             <td class="fw-semibold fs-sm">Product</td>
                             <td class="fw-semibold fs-sm">Harga Satuan</td>
                             <td class="fw-semibold fs-sm">Quantity</td>
+                            <td class="fw-semibold fs-sm">Quantity Acc</td>
                             <td class="fw-semibold fs-sm">Harga Total</td>
                             <td class="fw-semibold fs-sm" width="10%">Status</td>
                         </tr>
@@ -86,6 +89,7 @@
                             <td>{{ $line->stock->name ?? "-" }}</td>
                             <td>{{ number_format($line->price_per_satuan_id) ?? "-" }}</td>
                             <td>{{ $line->qty }}</td>
+                            <td>{{ $line->qty_acc }}</td>
                             <td>{{ number_format($line->qty * $line->price_per_satuan_id) }}</td>
                             <td><?php
                             if($line->status == '0'){

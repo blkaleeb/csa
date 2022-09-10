@@ -134,7 +134,7 @@
                     <a class="nav-main-link {{ (request()->is('listrequestsales')) ? 'active open' : '' }}"
                         href="{{ route('listrequestsales.index') }}">
                         <i class="nav-main-link-icon si si-energy"></i>
-                        <span class="nav-main-link-name">Daftar Request For Sales</span>
+                        <span class="nav-main-link-name">Daftar Request</span>
                     </a>
                 </li>
                 @else
