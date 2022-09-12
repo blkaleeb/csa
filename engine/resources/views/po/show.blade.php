@@ -378,7 +378,7 @@ function addToCart(){
         htmlbonus = `(Bonus)`;
     }
     console.log(count.length);
-    if(count.length <8 && $(".quantity").val() != 0 && warehouse.val()!=""){ // 8 barang 1 faktur, iya "<"
+    if($(".quantity").val() != 0 && warehouse.val()!=""){ // 8 barang 1 faktur, iya "<"
     // ////////////////////////////////////////////////////////////////////////
     subtotal = Math.floor($(".quantity").val() * ($(".harga_satuan").val() * ((100-$(".diskon").val())/100)))
     diskon = Math.floor($(".quantity").val() * $(".harga_satuan").val()-subtotal)
@@ -392,7 +392,7 @@ function addToCart(){
     table.append(`<tr>`+no+kodebarang+qty+gudang+option+`</tr>`);
     updateRowOrder();
     }else{
-        toastr.error("Limit 1 Faktur, 8 barang");
+        toastr.error("Silahkan Pilih Gudang");
     }
     // ////////////////////////////////////////////////////////////////////////
 $(".void").click(remove);

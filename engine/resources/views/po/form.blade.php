@@ -393,7 +393,7 @@ function addToCart(){
     table.append(`<tr>`+no+kodebarang+qty+gudang+option+`</tr>`);
     updateRowOrder();
     }else{
-        toastr.error("Limit 1 Faktur, 8 barang");
+        toastr.error("Silahkan Pilih Gudang");
     }
     // ////////////////////////////////////////////////////////////////////////
 $(".void").click(remove);

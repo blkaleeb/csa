@@ -18,12 +18,24 @@
             <button type="button" class="btn btn-alt-primary push" data-bs-toggle="modal" data-bs-target="#salesorderhistory">Riwayat Hutang</button>
         </div>
     </div>
-    @endif
     <div class="row history ms-4" style="display: none">
         <div class="col-sm-12">
             <button type="button" class="btn btn-alt-primary push" data-bs-toggle="modal" data-bs-target="#saleslinehistory">Riwayat Barang</button>
         </div>
     </div>
+    @endif
+    @if(request()->is('requestsales'))
+    <div class="row history ms-4">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-alt-primary push" data-bs-toggle="modal" data-bs-target="#salesorderhistory">Riwayat Hutang</button>
+        </div>
+    </div>
+    <div class="row history ms-4">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-alt-primary push" data-bs-toggle="modal" data-bs-target="#requestsaleshistory">Riwayat Barang</button>
+        </div>
+    </div>
+    @endif
 </form>
 @push("js")
 <script>

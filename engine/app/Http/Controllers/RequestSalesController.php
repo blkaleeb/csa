@@ -113,7 +113,7 @@ class RequestSalesController extends Controller
             $line->price_per_satuan_id = $request->harga_satuan[$i]; //harga jual 1 an
             $line->sales_per_satuan_id = $request->harga_modal[$i]; //harga modal 1 an
             $line->qty = $request->quantity[$i];
-            $line0->status = 0;
+            $line->status = 0;
             $line->item_stock_id = $request->item_stock_id[$i];
             $line->request_sales_header_id = $header->id;
             $line->save();
