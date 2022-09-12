@@ -157,8 +157,8 @@ class DaftarPiutangController extends Controller
         $d["data"] = SalesOrderHeader::with("customer")->find($id);
         $d["customers"] = Konsumen::all();
         $d["stock"] = Stok::all();
-        $d["kenek"] = User::where("role_id", 4)->get();
-        $d["supir"] = User::where("role_id", 5)->get();
+        $d["kenek"] = User::where("role_id", 5)->get();
+        $d["supir"] = User::where("role_id", 4)->get();
         // dd($d);
         return view("revamp.penjualan.create-invoice.form", $d);
     }
