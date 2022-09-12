@@ -22,7 +22,7 @@
 
             <div class="block-content block-content-full">
                 <div class="table-responsive">
-                    <table class="table table-hover table-vcenter js-dataTable-buttons ">
+                    <table class="table table-hover table-vcenter js-dataTable-buttons-no-search ">
                         <thead>
                             <tr>
                                 <th class="col-head">
@@ -167,7 +167,7 @@
                     </tbody>
 
                     </table>
-                    {{ $data->links() }}
+                    {{ $data->appends(request()->input())->links(); }}
                 </div>
             </div>
         </div>

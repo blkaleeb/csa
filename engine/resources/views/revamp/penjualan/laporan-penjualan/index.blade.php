@@ -28,7 +28,7 @@
             </div>
             <div class="block-content block-content-full">
                 <div class="table-responsive">
-                    <table class="table table-hover table-vcenter js-dataTable-buttons">
+                    <table class="table table-hover table-vcenter js-dataTable-buttons-no-search">
                         <thead>
                             <tr>
                                 <th class="col-head">
@@ -69,7 +69,6 @@
                             </tr>
                         </thead>
                         <tbody id="">
-
                         @foreach ($data as $key)
                         <tr @if($key->void_status == 1) style="background-color: darkred; color:white" @endif>
 
@@ -166,7 +165,7 @@
                     </tbody>
 
                     </table>
-                    {{ $data->links() }}
+                    {{$data->appends(request()->input())->links();}}
                 </div>
             </div>
         </div>
@@ -190,5 +189,27 @@
 <script src="{{asset('assets/js/pages/be_tables_datatables.min.js')}}"></script>
 <script>
     One.helpersOnLoad(['one-table-tools-checkable', 'one-table-tools-sections']);
+    // $(document).ready(function(){
+    //     var html = '<div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"><div id="search_bar" class="dataTables_filter"><label><input type="search" class="form-control form-control-sm" placeholder="Search.." aria-controls="DataTables_Table_0"></label></div></div></div>';
+    //     $('.exportBtn').after(html);
+
+    //     $('#search_bar').keyup(function(e) {
+    //         clearTimeout($.data(this, 'timer'));
+    //         if (e.keyCode == 13)
+    //           search(true);
+    //         else
+    //           $(this).data('timer', setTimeout(search, 500));
+    //     });
+
+    //     function search(force) {
+    //         var existingString = $("#searchString").val();
+    //         if (!force && existingString.length < 2) return; //wasn't enter, not > 1 char
+    //         // $.get('/Tracker/Search/' + existingString, function(data) {
+    //         //     $('div#results').html(data);
+    //         //     $('#results').show();
+    //         // });
+    //     }
+    //     // https://stackoverflow.com/questions/3028704/optimised-search-using-ajax-and-keypress
+    // });
 </script>
 @endpush
