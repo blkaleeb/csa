@@ -286,6 +286,20 @@
 
                     </ul>
                 </li>
+                <?php
+                    if(Auth::user()->role_id==1){
+                        ?>
+                            <li class="nav-main-item ">
+                                <a class="nav-main-link {{ (request()->is('listrequestowner')) ? 'active open' : '' }}"
+                                    href="{{ route('listrequestowner.index') }}">
+                                    <i class="nav-main-link-icon si si-energy"></i>
+                                    <span class="nav-main-link-name">Daftar Request</span>
+                                </a>
+                            </li>
+                        <?php
+                    }
+                ?>
+                
                 <li class="nav-main-heading">Master</li>
                 <li
                     class="nav-main-item {{ (request()->is('karyawan*')) || (request()->is('role*')) ? 'active open' : '' }}">

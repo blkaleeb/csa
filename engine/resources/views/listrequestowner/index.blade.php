@@ -25,11 +25,11 @@
                     <thead>
                         <tr>
                             <th class="text-center"></th>
+                            <th>Sales</th>
                             <th>No Request</th>
                             <th>Tanggal</th>
                             <th>Customer</th>
                             <th>Total</th>
-                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -42,14 +42,28 @@
                             <td class="text-center fs-sm">
                                 <i class="fa fa-angle-right text-muted"></i>
                             </td>
+                            <td>{{$item->user->displayName ?? ''}}</td>
                             <td>{{$item->intnomorsales}}</td>
                             <td>{{date("d-m-Y H:i:s",strtotime($item->createdOn))}}</td>
                             <td>
                                 {{$item->customer->name ?? ''}}
                             </td>
                             <td id="total_{{$item->id}}"></td>
-                            <td></td>
-                            <td></td>
+                            <td><div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                        id="dropdown-default-primary" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                    <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
+                                        <a class="dropdown-item" href="javascript:void(0)" id="detailbtn" data-attr="{{ route('listrequestowner.show', $item->id) }}">Penerimaan</a>
+                                        <a class="dropdown-item delete">Void</a>
+                                        <form autocomplete="off" action="{{route('listrequestowner.destroy',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </div>
+                                </div></td>
                             <!-- <td>
 
                                 <div class="dropdown">

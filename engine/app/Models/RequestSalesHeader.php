@@ -20,6 +20,10 @@ class RequestSalesHeader extends Model implements Auditable
     {
         return $this->belongsTo(Konsumen::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'createdBy', 'id');
+    }
     public function line()
     {
         return $this->hasMany(RequestSalesLine::class);

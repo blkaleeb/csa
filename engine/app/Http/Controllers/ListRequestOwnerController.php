@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\RequestSalesHeader;
 use App\Models\RequestSalesLine;
+use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class ListRequestSalesController extends Controller
+class ListRequestOwnerController extends Controller
 {
-
-    protected $view = "listrequestsales.";
+    protected $view = "listrequestowner.";
     protected $menu_header = "Daftar Request";
     protected $menu_title = "Daftar Request";
 
@@ -24,7 +24,7 @@ class ListRequestSalesController extends Controller
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
-        $d["data"] = RequestSalesHeader::with('customer')->where('createdBy', '=', Auth::user()->id)->paginate(10);
+        $d["data"] = RequestSalesHeader::with('user')->paginate(10);
         return view($this->view . "index", $d);
     }
 
@@ -68,7 +68,12 @@ class ListRequestSalesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $line = RequestSalesLine::where("request_sales_header_id",$id)->get();
+        foreach($line as $item){
+            $item->status = 1;
+            $item->save();
+        }
+        return redirect()->back()->with("message", "Data diubah");
     }
 
     /**
@@ -91,6 +96,13 @@ class ListRequestSalesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $header = RequestSalesHeader::find($id);
+        $line = RequestSalesLine::where("request_sales_header_id",$id)->get();
+        foreach($line as $item){
+            $item->deletedOn = date('Y-m-d H:i:s');
+            $item->save();
+        }
+        $header->delete();
+        return redirect()->back()->with("message", "Data dihapus");
     }
 }
