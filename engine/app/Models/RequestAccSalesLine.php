@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RequestSalesLine extends Model implements Auditable
+class RequestAccSalesLine extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
@@ -18,14 +18,14 @@ class RequestSalesLine extends Model implements Auditable
     const UPDATED_AT = 'updatedOn';
     const DELETED_AT = 'deletedOn';
 
-    public function requestsalesheader()
+    public function requestaccsalesheader()
     {
-        return $this->belongsTo(RequestSalesHeader::class);
+        return $this->belongsTo(RequestAccSalesHeader::class);
     }
 
     public function header()
     {
-        return $this->belongsTo(RequestSalesHeader::class, "request_sales_header_id");
+        return $this->belongsTo(RequestAccSalesHeader::class, "request_sales_header_id");
     }
 
     public function stock()

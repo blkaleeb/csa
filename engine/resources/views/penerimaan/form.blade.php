@@ -54,6 +54,17 @@
 
                             </div>
                         </div>
+
+                        <div class="row">
+                            <label class="col-sm-4 col-form-label" for="example-hf-email">Tanggal diterima</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="js-flatpickr form-control" id="rencana_diterima"
+                                name="rencana_diterima" placeholder="hari-bulan-tahun"
+                                data-date-format="d-m-Y"  value="{{\Carbon\Carbon::parse($is_edit?$data->rencana_datang:date('Y-m-d'))->format('d-m-Y');}}">
+
+                            </div>
+                        </div>
+                                        
                         <div class="row">
                             <label class="col-sm-4 col-form-label" for="example-hf-email">PPN:</label>
                             <div class="col-sm-8">

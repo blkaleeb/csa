@@ -92,12 +92,12 @@
                             <td>{{ $line->qty_acc }}</td>
                             <td>{{ number_format($line->qty * $line->price_per_satuan_id) }}</td>
                             <td><?php
-                            if($line->status == '0'){
-                                echo "<font style='color:red'>Not Review</font>";
-                            }elseif($line->status == '1'){
+                            if($line->status == '1' || $line->qty == $line->qty_acc){
+                                echo "<font style='color:green'>Accept</font>";
+                            }elseif($line->status == '0'){
                                 echo "<font style='color:orange'>In Review</font>";
                             }elseif($line->status == '2'){
-                                echo "<font style='color:green'>Accept</font>";
+                                echo "<font style='color:red'>Not Accept</font>";
                             }
                             ?></td>
                             <?php

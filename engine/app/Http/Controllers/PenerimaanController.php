@@ -80,6 +80,7 @@ class PenerimaanController extends Controller
 
         $poheader = PoHeader::find($request->po_header_id);
         $poheader->po_total += $request->invoice_total;
+        $poheader->rencana_diterima = Carbon::parse($request->rencana_diterima)->format('Y-m-d');
         $poheader->save();
         //preprare line
         if ($request->line != null) {

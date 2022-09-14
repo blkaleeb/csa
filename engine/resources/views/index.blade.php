@@ -147,7 +147,7 @@
                                         <span class="fs-sm text-muted">{{$item->createdOn->format("d F Y")}}</span>
                                     </td>
                                     <td>
-                                        <span class="fw-semibold text-warning">{{$item->customer?->name ?? "Customer Dihapus"}}</span>
+                                        <span class="fw-semibold text-warning">{{$item->customer->name ?? "Customer Dihapus"}}</span>
                                     </td>
                                     <td class="d-sm-table-cell text-end">
                                         Rp {{number_format($item->total_sales)}}
