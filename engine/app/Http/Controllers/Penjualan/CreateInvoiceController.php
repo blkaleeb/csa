@@ -8,6 +8,7 @@ use App\Models\SalesOrderHeader;
 use App\Models\Stok;
 use App\Models\User;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class CreateInvoiceController extends Controller
@@ -36,10 +37,24 @@ class CreateInvoiceController extends Controller
         $d["menu_title"] = $this->menu_title;
         $d["is_edit"] = false;
         $d["customers"] = Konsumen::with("sales")->get();
+        $today = new DateTime(date("Y-m-d"));
         foreach ($d["customers"] as $customer) {
-            $block = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
-            if (count($block) > 3) {
-                $customer->block = 1;
+            // $block = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
+            // if (count($block) > 3) {
+            //     $customer->block = 1;
+            // } else {
+            //     $customer->block = 0;
+            // }
+            $temp = SalesOrderHeader::where("customer_id", $customer->id)->orderby("due_date")->first();
+            if ($temp != null) {
+                $due_date = new DateTime (date("Y-m-d", strtotime($temp->due_date)));
+                $diff_m = $due_date->diff($today)->format('%m');
+                $diff_y = $due_date->diff($today)->format('%y');
+                if ($diff_y == 0 && $diff_m < 3) {
+                    $customer->block = 0;    
+                } else {
+                    $customer->block = 1;
+                }
             } else {
                 $customer->block = 0;
             }

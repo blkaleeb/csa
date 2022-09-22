@@ -207,14 +207,20 @@ if(price.data("max")>0){
 //         var table = $("#riwayat_sales")
 //         table.empty()
 //         $.each(msg,function(k,v){
-//             var no = `<td class="number">1</td>`
-//             var nosales = `<td>`+v.intnomorsales+`</td>`
-//             var tanggalorder = `<td>`+v.order_date+`</td>`
-//             var totalfaktur = `<td>`+v.total_sales+`</td>`
-//             var totalbayar = `<td>`+v.total_paid+`</td>`
-//             var retur = `<td>`+v.retur+`</td>`
-//             var sisabayar = `<td>`+v.payment_remain+`</td>`
-//             table.append(`<tr>`+no+nosales+tanggalorder+totalfaktur+totalbayar+retur+sisabayar+`</tr>`);
+//             var no = `<td class="number">` + (k + 1) + `</td>`
+            // var nosales = `<td>` + v.intnomorsales + `</td>`
+            // var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
+            //     `</td>`
+            // var jatuhtempo = `<td>` + new Date(v.due_date).toLocaleDateString() +
+            //     `</td>`
+            // var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
+            //     `</td>`
+            // var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
+            // var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
+            // var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
+            //     `</td>`
+            // table.append(`<tr>` + no + nosales + tanggalorder + jatuhtempo + totalfaktur +
+            //     totalbayar + retur + sisabayar + `</tr>`);
 //         })
 //     });
 //   }else{

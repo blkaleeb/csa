@@ -26,6 +26,9 @@
                                 Tanggal Order
                             </th>
                             <th class="col-head">
+                                Jatuh Tempo
+                            </th>
+                            <th class="col-head">
                                 Total Faktur <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top"
                                     title="Sudah dikurangi Retur dan Diskon"></i>
                             </th>

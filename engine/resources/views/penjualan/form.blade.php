@@ -544,13 +544,15 @@
                             var nosales = `<td>` + v.intnomorsales + `</td>`
                             var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
                                 `</td>`
+                            var jatuhtempo = `<td>` + new Date(v.due_date).toLocaleDateString() +
+                                `</td>`
                             var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
                                 `</td>`
                             var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
                             var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
                             var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
                                 `</td>`
-                            table.append(`<tr>` + no + nosales + tanggalorder + totalfaktur +
+                            table.append(`<tr>` + no + nosales + tanggalorder + jatuhtempo + totalfaktur +
                                 totalbayar + retur + sisabayar + `</tr>`);
                         })
                     });
