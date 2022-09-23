@@ -50,8 +50,8 @@ class CreateInvoiceController extends Controller
                 $due_date = new DateTime (date("Y-m-d", strtotime($temp->due_date)));
                 $diff_m = $due_date->diff($today)->format('%m');
                 $diff_y = $due_date->diff($today)->format('%y');
-                if ($diff_y == 0 && $diff_m < 3) {
-                    $customer->block = 0;    
+                if ($diff_y == 0 && $diff_m < 3 && $temp->payment_remain == 0) {
+                    $customer->block = 0;
                 } else {
                     $customer->block = 1;
                 }
