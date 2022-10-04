@@ -297,6 +297,16 @@
                                 </a>
                             </li>
                         <?php
+                    }else if(Auth::user()->role_id==2){
+                        ?>
+                            <li class="nav-main-item ">
+                                <a class="nav-main-link {{ (request()->is('listrequestadmin')) ? 'active open' : '' }}"
+                                    href="{{ route('listrequestadmin.index') }}">
+                                    <i class="nav-main-link-icon si si-energy"></i>
+                                    <span class="nav-main-link-name">Daftar Request</span>
+                                </a>
+                            </li>
+                        <?php
                     }
                 ?>
                 

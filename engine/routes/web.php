@@ -42,6 +42,7 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\RequestSalesController;
 use App\Http\Controllers\ListRequestSalesController;
 use App\Http\Controllers\ListRequestOwnerController;
+use App\Http\Controllers\ListRequestAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +147,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::resource("requestsales", RequestSalesController::class);
     Route::resource("listrequestsales", ListRequestSalesController::class);
     Route::resource("listrequestowner", ListRequestOwnerController::class);
+    Route::resource("listrequestadmin", ListRequestAdminController::class);
 
     Route::prefix('report')->group(function () {
         Route::get('/barang', [ReportController::class, "getlaporanbarang"]);

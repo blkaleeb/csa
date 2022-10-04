@@ -13,7 +13,7 @@ class RequestAccSalesLine extends Model implements Auditable
     use SoftDeletes;
     use HasFactory;
 
-    protected $table = "request_sales_line";
+    protected $table = "requestacc_sales_line";
     const CREATED_AT = 'createdOn';
     const UPDATED_AT = 'updatedOn';
     const DELETED_AT = 'deletedOn';
@@ -25,7 +25,7 @@ class RequestAccSalesLine extends Model implements Auditable
 
     public function header()
     {
-        return $this->belongsTo(RequestAccSalesHeader::class, "request_sales_header_id");
+        return $this->belongsTo(RequestAccSalesHeader::class, "requestacc_sales_header_id");
     }
 
     public function stock()

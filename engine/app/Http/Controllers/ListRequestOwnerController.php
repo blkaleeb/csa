@@ -64,7 +64,7 @@ class ListRequestOwnerController extends Controller
                 if($request->qty[$i] == 0 && $request->status[$i] == '0'){
                 }else{
                      //insert detail
-                    DB::insert('INSERT INTO `requestacc_sales_line` (`createdBy`,`createdOn`,`updatedBy`,`updatedOn`,`bonus`,`code`,`diskon`,`price_per_satuan_id`,`qty`,`qty_pending_send`,`retur`,`item_stock_id`,`requestacc_sales_header_id`,`sales_per_satuan_id`,`komisi`,`deletedOn`,`status`)
+                    DB::insert('INSERT INTO `requestacc_sales_line` (`createdBy`,`createdOn`,`updatedBy`,`updatedOn`,`bonus`,`code`,`diskon`,`price_per_satuan_id`,`qty`,`qty_pending_send`,`retur`,`item_stock_id`,`request_acc_sales_header_id`,`sales_per_satuan_id`,`komisi`,`deletedOn`,`status`)
                     (SELECT '.Auth::user()->id.',NOW(),`updatedBy`,NOW(),`bonus`,`code`,`diskon`,`price_per_satuan_id`,'.$request->qty[$i].',`qty_pending_send`,`retur`,`item_stock_id`,'.$lastid.',`sales_per_satuan_id`,`komisi`,`deletedOn`,'.$request->status[$i].' FROM `request_sales_line` WHERE id='.$request->line[$i].');');
 
                     //update totalan

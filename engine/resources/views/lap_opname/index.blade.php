@@ -49,7 +49,7 @@
                                     </button>
                                     <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
                                         <a class="dropdown-item"  href="javascript:void(0)" id="detailbtn" data-attr="{{ route('lap_opname.show', $item->date) }}">Detail</a>
-                                        <a class="dropdown-item"  href="javascript:void(0)" id="" data-attr="{{ route('lap_opname.show', $item->id) }}">Edit</a>
+                                        <!-- <a class="dropdown-item"  href="javascript:void(0)" id="" data-attr="{{ route('lap_opname.show', $item->id) }}">Edit</a> -->
                                     </div>
                                 </div>
                             </td>
