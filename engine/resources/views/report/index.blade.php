@@ -145,10 +145,10 @@
                         <div class="form-group">
                             Konsumen:
                             <select class="resetparam customer form-control" name="customer" style="width: 100%"></select>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 Detail Barang:
                                 <input type="checkbox" class="" name="detail">
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="form-group">

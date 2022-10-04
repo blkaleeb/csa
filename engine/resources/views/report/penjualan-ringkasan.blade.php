@@ -120,10 +120,11 @@
 				<td>{{$key->intnomorsales}}</td>
 				<td>{{date("d-m-Y",strtotime($key->due_date))}}</td>
 				<td>{{$key->customer->name ?? $key->name}}</td>
-				<td class="printAngka">{{$key->total_sales - $key->diskon - $key->retur}}</td>
+				<!-- <td class="printAngka">{{$key->total_sales - $key->diskon - $key->retur}}</td> -->
+				<td class="printAngka">{{$key->total_sales}}</td>
 				<td class="printAngka">{{$key->diskon}}</td>
 				<td class="printAngka">{{$key->retur}}</td>
-				<td class="printAngka">{{$key->total_sales}}</td>
+				<td class="printAngka">{{$key->total_sales - $key->diskon - $key->retur}}</td>
 				<td class="printAngka">{{$key->total_paid}}</td>
 				<td class="printAngka">{{$key->payment_remain}}</td>
 				@if($lihatkomisi =="On")
