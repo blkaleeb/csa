@@ -503,7 +503,7 @@ class ReportController extends Controller
             }
             $name = "Laporan/Piutang/Laporan Piutang per-" . Date("YmdHis") . ".pdf";
             // dd($data);
-            return view('report.piutang-detail', [
+            return view('report.piutang', [
                 "data" => $data,
                 "tanggalstart" => $request->date_start,
                 "tanggalend" => $request->date_end,
