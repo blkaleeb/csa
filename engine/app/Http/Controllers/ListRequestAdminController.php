@@ -37,7 +37,7 @@ class ListRequestAdminController extends Controller
         $d["customers"] = Konsumen::all();
         $d["kenek"] = User::where("role_id", 5)->get();
         $d["supir"] = User::where("role_id", 4)->get();
-        $d["data"] = RequestAccSalesHeader::with('user')->where('stat', '=', 0)->paginate(10);
+        $d["data"] = RequestAccSalesHeader::with('user')->orderBy('createdOn', 'desc')->where('stat', '=', 0)->paginate(10);
         return view($this->view . "index", $d);
     }
 

@@ -28,7 +28,7 @@ class ListRequestOwnerController extends Controller
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
-        $d["data"] = RequestSalesHeader::with('user')->paginate(10);
+        $d["data"] = RequestSalesHeader::with('user')->orderBy('createdOn', 'desc')->paginate(10);
         return view($this->view . "index", $d);
     }
 
@@ -55,7 +55,7 @@ class ListRequestOwnerController extends Controller
         DB::insert('INSERT INTO `requestacc_sales_header` (
             `createdBy`,`createdOn`,`updatedBy`,`updatedOn`,`diskon`,`due_date`,`intnomorsales`,`nomorsales`,`order_date`,`payment_remain`,`payment_terms`,`pos`,`retur`,`status`,`total_dp`,`total_paid`, `total_sales`,`bank_id`, `customer_id`,`modal`,`supir`, `kenek`,`print`,`deletedOn`,`komisi`)
             (SELECT
-            '.Auth::user()->id.',NOW(),`updatedBy`, NOW(),`diskon`, `due_date`,`intnomorsales`, `nomorsales`,`order_date`,`payment_remain`,`payment_terms`, `pos`,`retur`, `status`,`total_dp`, `total_paid`,`total_sales`,`bank_id`, `customer_id`,`modal`,`supir`,`kenek`,`print`, `deletedOn`, `komisi`
+            `createdBy`,NOW(),`updatedBy`, NOW(),`diskon`, `due_date`,`intnomorsales`, `nomorsales`,`order_date`,`payment_remain`,`payment_terms`, `pos`,`retur`, `status`,`total_dp`, `total_paid`,`total_sales`,`bank_id`, `customer_id`,`modal`,`supir`,`kenek`,`print`, `deletedOn`, `komisi`
           FROM `request_sales_header` where id='.$request->id.')');
         $lastid = DB::getPdo()->lastInsertId();
         if ($request->line != null) {

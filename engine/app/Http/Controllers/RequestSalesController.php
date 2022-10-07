@@ -37,11 +37,11 @@ class RequestSalesController extends Controller
         $d["customers"] = Konsumen::with("sales")->get();
         foreach ($d["customers"] as $customer) {
             $block = RequestSalesHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
-            // if (count($block) > 3) {
-                // $customer->block = 1;
-            // } else {
+            if (count($block) > 3) {
+                $customer->block = 1;
+            } else {
                 $customer->block = 0;
-            // }
+            }
         }
         $d["kenek"] = User::where("role_id", 5)->get();
         $d["supir"] = User::where("role_id", 4)->get();
