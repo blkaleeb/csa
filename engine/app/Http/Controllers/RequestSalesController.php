@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Konsumen;
+use App\Models\SalesOrderHeader;
 use App\Models\RequestSalesHeader;
 use App\Models\RequestSalesLine;
 use App\Models\Stok;
@@ -36,7 +37,7 @@ class RequestSalesController extends Controller
         $d["is_edit"] = false;
         $d["customers"] = Konsumen::with("sales")->get();
         foreach ($d["customers"] as $customer) {
-            $block = RequestSalesHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
+            $block = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
             if (count($block) > 3) {
                 $customer->block = 1;
             } else {

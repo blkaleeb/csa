@@ -560,6 +560,19 @@
             @endif
 
         }
+
+        function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+        }
+
+        function formatDate(date) {
+        return [
+            padTo2Digits(date.getDate()),
+            padTo2Digits(date.getMonth() + 1),
+            date.getFullYear(),
+        ].join('/');
+        }
+
         $('#salesorderhistory').on('show.bs.modal', function(e) {
             // do something...
             var customerid = $(".customer").find('option').filter(':selected').val();
@@ -577,9 +590,9 @@
                         $.each(msg, function(k, v) {
                             var no = `<td class="number">` + (k + 1) + `</td>`
                             var nosales = `<td>` + v.intnomorsales + `</td>`
-                            var tanggalorder = `<td>` + new Date(v.order_date).toLocaleDateString() +
+                            var tanggalorder = `<td>` + formatDate(new Date(v.order_date)) +
                                 `</td>`
-                            var jatuhtempo = `<td>` + new Date(v.due_date).toLocaleDateString() +
+                            var jatuhtempo = `<td>` + formatDate(new Date(v.due_date)) +
                                 `</td>`
                             var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
                                 `</td>`
