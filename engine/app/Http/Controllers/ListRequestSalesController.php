@@ -24,7 +24,7 @@ class ListRequestSalesController extends Controller
     {
         $d["menu_header"] = $this->menu_header;
         $d["menu_title"] = $this->menu_title;
-        $d["data"] = RequestSalesHeader::with('customer')->where('createdBy', '=', Auth::user()->id)->paginate(10);
+        $d["data"] = RequestSalesHeader::with('customer')->where('createdBy', '=', Auth::user()->id)->orderBy('createdOn', 'desc')->paginate(10);
         return view($this->view . "index", $d);
     }
 
