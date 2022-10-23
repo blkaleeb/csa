@@ -135,7 +135,6 @@
                         @endforeach
                     </tbody>
                 </table></div>
-                {{ $stocks->links() }}
             </div>
         </div>
         <!-- END Dynamic Table with Export Buttons -->

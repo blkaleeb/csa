@@ -70,7 +70,7 @@ class RequestSalesController extends Controller
      */
     public function store(Request $request)
     {
-        $counter = Counter::find(5);
+        $counter = Counter::find(10);
         $nomor = str_pad($counter->sequence_next_value, 4, 0, STR_PAD_LEFT);
         $intnomorsales = str_pad(date("mY") . $nomor, 12, 0, STR_PAD_LEFT);
         DB::beginTransaction();

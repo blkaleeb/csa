@@ -45,7 +45,7 @@ class StokBarangController extends Controller
         $d["satuan"] = Satuan::all();
         $d["gudangs"] = Warehouse::all();
 
-        $d["stocks"] = Stok::with("gudang")->paginate(10);
+        $d["stocks"] = Stok::with("gudang")->get();
         // $stok = Stok::with("gudang")->get();
 
         $stok = Stok::join('warehouse','warehouse.id','=','item_stock.warehouse_id')
