@@ -97,7 +97,7 @@ $(".stock").change(function(){
     var datastock = stock.data("item");
     console.log(datastock)
     $(".quantity").attr("min",1);
-    $(".quantity").attr("max",datastock.qty);
+    // $(".quantity").attr("max",datastock.qty);
     $(".harga_satuan").val(datastock.sell_price)
     $(".harga_modal").val(datastock.purchase_price)
     $(".diskon").val()
