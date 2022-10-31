@@ -150,10 +150,11 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td class="printAngka" style="width: auto">{{$sales + $diskon + $retur}}</td>
+				<!-- <td class="printAngka" style="width: auto">{{$sales + $diskon + $retur}}</td> -->
+				<td class="printAngka" style="width: auto">{{$sales}}</td>
 				<td class="printAngka">{{$diskon}}</td>
 				<td class="printAngka">{{$retur}}</td>
-				<td class="printAngka">{{$sales}}</td>
+				<td class="printAngka">{{$sales - $diskon - $retur}}</td>
 				<td class="printAngka">{{$paid}}</td>
 				<td class="printAngka">{{$remain}}</td>
 				<td class="printAngka">{{$komisi}}</td>
