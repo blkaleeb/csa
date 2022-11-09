@@ -16,7 +16,7 @@
                 <div class="col-lg-12 space-y-5">
                     <!-- Form Horizontal - Default Style -->
                     <form autocomplete="off" class="space-y-4 form-header"
-                        action="{{ $is_edit ? route('penjualan-new.create-invoice.update', $data->id) : '#' }}" method="POST"
+                        action="{{ $is_edit ? route('daftar-piutang.update', $data->id) : '#' }}" method="POST"
                         novalidate>
                         @csrf
                         @if ($is_edit)
@@ -533,7 +533,7 @@
                 var method = "put"
                 $.ajax({
                         method: method,
-                        url: "{{ route('penjualan-new.create-invoice.update',$data->id) }}",
+                        url: "{{ route('daftar-piutang.update',$data->id) }}",
                         data: param
                     })
                     .done(function(msg) {
