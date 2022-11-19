@@ -670,7 +670,7 @@
                         htmlpembelian += '<td>'+formatNumber(pembelian[i]['qty'])+'</td>';
                         htmlpembelian += '<td>'+formatNumber(pembelian[i]['price_per_satuan_id'])+'</td>';
                         htmlpembelian += '<td></td></tr>';
-                        totalpembelian += pembelian[i]['qty'];
+                        totalpembelian += parseInt(pembelian[i]['qty']);
                     }
                     $("#totalpembelian").html(totalpembelian);
                     $("#tblpembelian").html(htmlpembelian);
@@ -688,7 +688,7 @@
                         htmlreturpembelian += '<td>'+formatNumber(returpembelian[i]['qty'])+'</td>';
                         htmlreturpembelian += '<td>'+formatNumber(returpembelian[i]['retur_price'])+'</td>';
                         htmlreturpembelian += '<td></td></tr>';
-                        totalreturpembelian += returpembelian[i]['qty'];
+                        totalreturpembelian += parseInt(returpembelian[i]['qty']);
                     }
                     $("#totalreturpembelian").html(totalreturpembelian);
                     $("#tblreturpembelian").html(htmlreturpembelian);
@@ -697,7 +697,7 @@
                     //penjualan
                     var htmlpenjualan = '';
                     var totalpenjualan = 0;
-                    for (let i = 0; i < daftar-piutang.length; i++) {
+                    for (let i = 0; i < penjualan.length; i++) {
                         var tgl = new Date(penjualan[i]['createdOn']);
                         htmlpenjualan += '<tr><td>'+(i+1)+'</td>';
                         htmlpenjualan += '<td>'+day(tgl)+'</td>';
@@ -707,7 +707,7 @@
                         htmlpenjualan += '<td>'+formatNumber(penjualan[i]['qty'])+'</td>';
                         htmlpenjualan += '<td>'+formatNumber(penjualan[i]['price_per_satuan_id'])+'</td>';
                         htmlpenjualan += '<td></td></tr>';
-                        totalpenjualan += penjualan[i]['qty'];
+                        totalpenjualan += parseInt(penjualan[i]['qty']);
                     }
                     $("#totalpenjualan").html(totalpenjualan);
                     $("#tblpenjualan").html(htmlpenjualan);
@@ -716,7 +716,7 @@
                     //retur penjualan
                     var htmlreturpenjualan = '';
                     var totalreturpenjualan = 0;
-                    for (let i = 0; i < returdaftar-piutang.length; i++) {
+                    for (let i = 0; i < returpenjualan.length; i++) {
                         var tgl = new Date(returpenjualan[i]['createdOn']);
                         htmlreturpenjualan += '<tr><td>'+(i+1)+'</td>';
                         htmlreturpenjualan += '<td>'+day(tgl)+'</td>';
@@ -731,7 +731,7 @@
                         htmlreturpenjualan += '<td>'+formatNumber(returpenjualan[i]['qty'])+'</td>';
                         htmlreturpenjualan += '<td>'+formatNumber(returpenjualan[i]['returprice'])+'</td>';
                         htmlreturpenjualan += '<td></td></tr>';
-                        totalreturpenjualan += returpenjualan[i]['qty'];
+                        totalreturpenjualan += parseInt(returpenjualan[i]['qty']);
                     }
                     $("#totalreturpenjualan").html(totalreturpenjualan);
                     $("#tblreturpenjualan").html(htmlreturpenjualan);

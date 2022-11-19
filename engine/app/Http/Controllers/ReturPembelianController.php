@@ -142,7 +142,7 @@ class ReturPembelianController extends Controller
      */
     public function destroy($id)
     {
-        $merk = Merk::find($id);
+        $merk = SupplierReturnHeader::find($id);
         $merk->delete();
         return redirect()->back()->with("message", "Data dihapus");
     }
