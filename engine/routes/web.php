@@ -87,7 +87,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
         Route::get("retur/{id}/print", [ReturPenjualanController::class, "print"])->name("retur.print");
         Route::resource('retur', PenjualanReturPenjualanController::class);
-        Route::resource('retur_line', ReturPenjualanController::class);
+        Route::resource('retur_line', PenjualanReturPenjualanController::class);
 
         // Route::resource('retur-line', ReturPembelianController::class);
     });

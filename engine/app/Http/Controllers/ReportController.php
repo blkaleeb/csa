@@ -653,7 +653,7 @@ class ReportController extends Controller
                 ->orderby("purchase_invoice_header.createdOn", "asc");
             $view = 'report.hutang-detail';
         } else {
-            $data = PurchaseInvoiceHeader::select(DB::raw('`supplier`.`supplier_name`,SUM(`invoice_total`) as "invoice_total",SUM(`paid_total`) as "paid_total"'))
+            $data = PurchaseInvoiceHeader::select(DB::raw('`supplier`.`supplier_name`,`supplier`.`createdOn`, SUM(`invoice_total`) as "invoice_total",SUM(`paid_total`) as "paid_total"'))
                 ->join('po_header', 'po_header.id', '=', 'purchase_invoice_header.poheader_id')
                 ->join('supplier', 'supplier.id', '=', 'po_header.supplier_id')
                 ->whereBetween('purchase_invoice_header.invoice_date', [$request->date_start, $request->date_end])

@@ -19,6 +19,11 @@
             </td>
 
             <td class="col-head" >
+              Tanggal
+
+            </td>
+
+            <td class="col-head" >
               Supplier
 
             </td>
@@ -63,6 +68,7 @@
           @endphp
           <tr >
             <td onclick="" class="">{{$loop->iteration}}</td>
+            <td>{{date("d-m-Y",strtotime($key->createdOn))}}</td>
             <td>{{$key->supplier_name}}</td>
             <td class="printAngka">{{$key->invoice_total + $key->retur}}</td>
             <td class="printAngka">{{$key->retur}}</td>
