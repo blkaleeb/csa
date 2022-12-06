@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use App\Models\SupplierReturnHeader;
 use App\Models\SupplierReturnLine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReturPembelianController extends Controller
 {
@@ -126,11 +127,15 @@ class ReturPembelianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $merk = Merk::find($id);
-        foreach ($request->except("_token", "_method") as $key => $value) {
-            $merk->$key = $value;
-        }
-        $merk->save();
+        // $merk = SupplierReturnHeader::find($id);
+        // foreach ($request->except("_token", "_method") as $key => $value) {
+        //      $merk->$key = $value;
+        // }
+        // $merk->save();
+
+        DB::table('supplier_return_header')
+              ->where('id', $id)
+              ->update(['supplier_code' => $request->supplier_id]);
         return redirect()->back()->with("message", "Data diubah");
     }
 

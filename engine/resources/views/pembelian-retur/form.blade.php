@@ -29,7 +29,7 @@
                                     <option value="" disabled @if(!$is_edit) selected @endif>Pilih Supplier</option>
 
                                     @foreach($suppliers as $supplier)
-                                    <option value="{{$supplier->id}}" @if($is_edit && $data->supplier_id ==
+                                    <option value="{{$supplier->id}}" @if($is_edit && $data->supplier_code ==
                                         $supplier->id) selected @endif data-item="{{$supplier}}"
                                         >
                                         {{$supplier->supplier_name}}
