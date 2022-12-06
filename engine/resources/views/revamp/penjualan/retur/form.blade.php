@@ -16,7 +16,8 @@
                 <div class="col-lg-12 space-y-5">
                     <!-- Form Horizontal - Default Style -->
                     <form autocomplete="off" class="space-y-4 form-header"
-                        action="{{$is_edit?route('penjualan-new.retur.update',$data->id):'#'}}" method="POST" novalidate>
+                        action="{{$is_edit?route('penjualan-new.retur.update',$data->id):'#'}}" method="POST"
+                        novalidate>
                         @csrf
                         @if($is_edit)
                         @method('put')
@@ -75,48 +76,52 @@
             <h3 class="block-title">Ubah Barang</h3>
         </div>
         <div class="block-content block-content-full">
-            <div class ="table-responsive"><table class="table table-hover table-vcenter js-table-sections ">
-                <thead>
-                    <tr>
-                        <th class="text-center"></th>
-                        <th class="fw-semibold fs-sm">Product</th>
-                        <th class="fw-semibold fs-sm">Harga Satuan</th>
-                        <th class="fw-semibold fs-sm">Quantity</th>
-                        <th class="fw-semibold fs-sm">Harga Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody class="fs-sm">
-                    @foreach ($data->line as $line)
-                    <tr>
-                        <td class="text-center"></td>
-                        <td>{{ $line->stock->name ?? "-" }}</td>
-                        <td>{{ number_format($line->price_per_satuan_id) ?? "-" }}</td>
-                        <td>{{ $line->qty }}</td>
-                        <td>{{ number_format($line->qty * $line->price_per_satuan_id) }} <input
-                                class="subtotalOrder d-none" type="hidden" readonly
-                                value="{{$line->qty * $line->price_per_satuan_id}}"></td>
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-primary dropdown-toggle"
-                                    id="dropdown-default-primary" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                                <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
-                                    <a class="dropdown-item" href="{{route('penjualan_line.edit',$line->id)}}">Edit</a>
-                                    <a class="dropdown-item delete">Void</a>
-                                    <form autocomplete="off" action="{{route('penjualan_line.destroy',$line->id)}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+            <div class="table-responsive">
+                <table class="table table-hover table-vcenter js-table-sections ">
+                    <thead>
+                        <tr>
+                            <th class="text-center"></th>
+                            <th class="fw-semibold fs-sm">Product</th>
+                            <th class="fw-semibold fs-sm">Harga Satuan</th>
+                            <th class="fw-semibold fs-sm">Quantity</th>
+                            <th class="fw-semibold fs-sm">Harga Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="fs-sm">
+                        @foreach ($data->line as $line)
+                        <tr>
+                            <td class="text-center"></td>
+                            <td>{{ $line->stock->name ?? "-" }}</td>
+                            <td>{{ number_format($line->price_per_satuan_id) ?? "-" }}</td>
+                            <td>{{ $line->qty }}</td>
+                            <td>{{ number_format($line->qty * $line->price_per_satuan_id) }} <input
+                                    class="subtotalOrder d-none" type="hidden" readonly
+                                    value="{{$line->qty * $line->price_per_satuan_id}}"></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle"
+                                        id="dropdown-default-primary" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i class="fas fa-bars"></i>
+                                    </button>
+                                    <div class="dropdown-menu fs-sm" aria-labelledby="dropdown-default-primary">
+                                        <a class="dropdown-item"
+                                            href="{{route('penjualan_line.edit',$line->id)}}">Edit</a>
+                                        <a class="dropdown-item delete">Void</a>
+                                        <form autocomplete="off" action="{{route('penjualan_line.destroy',$line->id)}}"
+                                            method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table></div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -142,7 +147,8 @@
                                         <select class="stock select2 form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Barang</option>
                                             {{-- @foreach ($stock as $item)
-                                            <option value="{{$item->id}}" data-item="{{$item}}">{{$item->name}}</option>
+                                            <option value="{{$item->id}}" data-item="{{$item}}">{{$item->name}}
+                                            </option>
                                             @endforeach --}}
                                         </select>
                                     </div>
@@ -184,17 +190,18 @@
                                         <tbody class="cart">
 
                                         </tbody>
-                                    </table></div>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="total_sales" id="total_sales">
-                    </form>
                 </div>
+                <input type="hidden" name="total_sales" id="total_sales">
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 @else
 <div class="content w-100">
@@ -256,17 +263,18 @@
                                         <tbody class="cart">
 
                                         </tbody>
-                                    </table></div>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="total_sales" id="total_sales">
-                    </form>
                 </div>
+                <input type="hidden" name="total_sales" id="total_sales">
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 @endif
 
 <div class="content w-100">
@@ -290,6 +298,7 @@
         </div>
     </div>
 </div>
+</div>
 <!-- END Page Content -->
 @endsection
 
@@ -299,16 +308,16 @@
 
 <script>
     $(document).ready(function () {
-		$(window).keydown(function (event) {
-			if (event.keyCode == 13) {
-				event.preventDefault();
-				return false;
-			}
-		});
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
         $(".gtText").show();
         $(".history").show();
         calcGrandTotal();
-	});
+    });
     One.helpersOnLoad([
         'js-flatpickr',
         'jq-datepicker',
@@ -317,214 +326,223 @@
         // 'jq-masked-inputs',
         // 'jq-rangeslider',
         // 'jq-colorpicker'
-]);
+    ]);
 
-$(".customer").change(function(){
-    var customer = $(this).find('option').filter(':selected');
-    var datacustomer = customer.data("item");
-    $(".po").empty();
-    $(".po").append(`<option value="" disabled @if(!$is_edit) selected @endif>Pilih PO</option>`)
-    $.each(datacustomer.salesorder,function(k,v){
-        $(".po").append(`<option value='`+v.id+`'>`+v.intnomorsales+`</option>`)
-    })
-    $("#customer_address").text(datacustomer.customer_address)
-})
-
-$(".po").change(function(){
-    var po = $(this).find('option').filter(':selected');
-    $.ajax({
-    method: "get",
-    url: "{{url('api/itemstock/')}}",
-    })
-    .done(function( msg ) {
-        $.each(msg,function(k,v){
-            var option = `<option value='`+v.id+`' data-item='`+JSON.stringify(v)+`'>`+v.name+`</option>`
-            $(".stock").append(option);
+    $(".customer").change(function () {
+        var customer = $(this).find('option').filter(':selected');
+        var datacustomer = customer.data("item");
+        $(".po").empty();
+        $(".po").append(`<option value="" disabled @if(!$is_edit) selected @endif>Pilih PO</option>`)
+        $.each(datacustomer.salesorder, function (k, v) {
+            $(".po").append(`<option value='` + v.id + `'>` + v.intnomorsales + `</option>`)
         })
+        $("#customer_address").text(datacustomer.customer_address)
+    })
+
+    $(".po").change(function () {
+        var po = $(this).find('option').filter(':selected');
+        $.ajax({
+                method: "get",
+                url: "{{url('api/itemstock/')}}",
+            })
+            .done(function (msg) {
+                $.each(msg, function (k, v) {
+                    var option = `<option value='` + v.id + `' data-item='` + JSON.stringify(v) +
+                        `'>` + v.name + `</option>`
+                    $(".stock").append(option);
+                })
+            });
+    })
+
+    $(".stock").change(function () {
+        var stock = $(this).find('option').filter(':selected');
+        var datastock = stock.data("item");
+        console.log(datastock)
+        $(".quantity").attr("min", 1);
+        $(".quantity").attr("max", datastock.qty);
+        $(".harga_satuan").val(datastock.price_per_satuan_id)
+    })
+
+
+    function addToCart() {
+
+        var stock = $('.stock').find('option').filter(':selected');
+        var datastock = stock.data("item");
+        var table = $(".cart")
+        var count = table.find("tr"); //sudah isi berapa sebelum append
+        console.log(count.length);
+        if (count.length < 8 && $(".quantity").val() != 0) {
+            // 8 barang 1 faktur, iya "<"
+            // ////////////////////////////////////////////////////////////////////////
+            subtotal = Math.floor($(".quantity").val() * $(".harga_satuan").val())
+            // ////////////////////////////////////////////////////////////////////////
+            var no = `<td class="number">1</td>`
+            var kodebarang = `<td><input type='hidden' value='` + datastock.id + `' name="item_stock_id[]">` + datastock
+                .name + `</td>`
+            var qty = `<td><input type='hidden' value='` + $(".quantity").val() + `' name="quantity[]">` + $(
+                ".quantity").val() + `</td>`
+            var hargasatuan = `<td><input type='hidden' value='` + $(".harga_satuan").val() +
+                `' name="harga_satuan[]">` + addDecimal($(".harga_satuan").val()) + `</td>`
+            var subtotal = `<td><input type='hidden' class='subtotalOrder' value='` + subtotal +
+                `' name="subtotal[]">` + addDecimal(subtotal) + `</td>`
+            var option = `<td><button type='button' class='btn btn-sm btn-danger void'>Void</button></td>`
+            table.append(`<tr>` + no + kodebarang + qty + hargasatuan + subtotal + option + `</tr>`);
+            updateRowOrder();
+            calcGrandTotal();
+        } else {
+            toastr.error("Limit 1 Faktur, 8 barang");
+
+        }
+        // ////////////////////////////////////////////////////////////////////////
+        $(".void").click(remove);
+        // ////////////////////////////////////////////////////////////////////////
+        var selectstock = $(".stock").select2();
+        selectstock.select2('open');
+        $(".select2-search__field").focus();
+        $(".diskon").val(0);
+        $(".quantity").val(1)
+    }
+
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            addToCart();
+        }
     });
-})
 
-$(".stock").change(function(){
-    var stock = $(this).find('option').filter(':selected');
-    var datastock = stock.data("item");
-    console.log(datastock)
-    $(".quantity").attr("min",1);
-    $(".quantity").attr("max",datastock.qty);
-    $(".harga_satuan").val(datastock.price_per_satuan_id)
-})
+    function calcGrandTotal() {
+        var gt = 0;
+        $(".subtotalOrder").map(function (k, v) {
+            gt += parseInt($(v).val())
+        })
+        $("#grand_total").val(addDecimal(gt));
+        $("#total_sales").val(gt);
+    }
 
 
-function addToCart(){
 
-    var stock = $('.stock').find('option').filter(':selected');
-    var datastock = stock.data("item");
-    var table = $(".cart")
-    var count = table.find("tr"); //sudah isi berapa sebelum append
-    console.log(count.length);
-    if(count.length <8 && $(".quantity").val() != 0){
-        // 8 barang 1 faktur, iya "<"
-    // ////////////////////////////////////////////////////////////////////////
-    subtotal = Math.floor($(".quantity").val() * $(".harga_satuan").val())
-// ////////////////////////////////////////////////////////////////////////
-    var no = `<td class="number">1</td>`
-    var kodebarang = `<td><input type='hidden' value='`+datastock.id+`' name="item_stock_id[]">`+datastock.name+`</td>`
-    var qty = `<td><input type='hidden' value='`+$(".quantity").val()+`' name="quantity[]">`+$(".quantity").val()+`</td>`
-    var hargasatuan = `<td><input type='hidden' value='`+$(".harga_satuan").val()+`' name="harga_satuan[]">`+addDecimal($(".harga_satuan").val())+`</td>`
-    var subtotal = `<td><input type='hidden' class='subtotalOrder' value='`+subtotal+`' name="subtotal[]">`+addDecimal(subtotal)+`</td>`
-    var option = `<td><button type='button' class='btn btn-sm btn-danger void'>Void</button></td>`
-    table.append(`<tr>`+no+kodebarang+qty+hargasatuan+subtotal+option+`</tr>`);
-    updateRowOrder();
-    calcGrandTotal();
-    }else{
-        toastr.error("Limit 1 Faktur, 8 barang");
+    function remove() {
+        //parent 1 td
+        //parent 2 tr
+        $(this).parent().parent().remove();
+        updateRowOrder();
+        calcGrandTotal();
+    }
+
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+        return [
+            padTo2Digits(date.getDate()),
+            padTo2Digits(date.getMonth() + 1),
+            date.getFullYear(),
+        ].join('/');
+    }
+
+    $('#salesorderhistory').on('show.bs.modal', function (e) {
+        // do something...
+        var customerid = $(".customer").find('option').filter(':selected').val();
+        if (customerid != "") {
+            $.ajax({
+                    method: "post",
+                    url: "{{url('api/salesorder/history/customer')}}",
+                    data: {
+                        customer_id: customerid
+                    }
+                })
+                .done(function (msg) {
+                    var table = $("#riwayat_sales")
+                    table.empty()
+                    $.each(msg, function (k, v) {
+                        var no = `<td class="number">` + (k + 1) + `</td>`
+                        var nosales = `<td>` + v.intnomorsales + `</td>`
+                        var tanggalorder = `<td>` + formatDate(new Date(v.order_date)) +
+                            `</td>`
+                        var jatuhtempo = `<td>` + formatDate(new Date(v.due_date)) +
+                            `</td>`
+                        var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
+                            `</td>`
+                        var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
+                        var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
+                        var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
+                            `</td>`
+                        table.append(`<tr>` + no + nosales + tanggalorder + jatuhtempo +
+                            totalfaktur +
+                            totalbayar + retur + sisabayar + `</tr>`);
+                    })
+                });
+        } else {
+            $("#salesorderhistory").modal("hide");
+            toastr.error("Pilih Konsumen terlebih dahulu");
+        }
+    })
+
+    $('#saleslinehistory').on('show.bs.modal', function (e) {
+        // do something...
+        var stockid = $(".stock").find('option').filter(':selected').val();
+        var customerid = $(".customer").find('option').filter(':selected').val();
+
+        if (stockid != "" && customerid != "") {
+            $.ajax({
+                    method: "post",
+                    url: "{{url('api/salesline/history/customer')}}",
+                    data: {
+                        item_stock_id: stockid,
+                        customer_id: customerid
+                    }
+                })
+                .done(function (msg) {
+                    var table = $("#riwayat_item")
+                    table.empty()
+                    $.each(msg, function (k, v) {
+                        var tanggal = `<td>` + v.createdOn + `</td>`
+                        var barang = `<td>` + v.stock.name + `</td>`
+                        var qty = `<td>` + v.qty + `</td>`
+                        var hargasatuan = `<td>` + v.price_per_satuan_id + `</td>`
+                        table.append(`<tr>` + tanggal + barang + qty + hargasatuan + `</tr>`);
+                    })
+                });
+        } else {
+            $("#salesorderhistory").modal("hide");
+            toastr.error("Pilih Konsumen terlebih dahulu");
+        }
+    })
+
+    function submitSupplierReturn(print) {
+        var formheader = $(".form-header").serialize();
+        var formbarang = $(".form-barang").serialize();
+        @if($is_edit)
+        var param = formbarang
+        var method = "put"
+        $.ajax({
+                method: method,
+                url: "{{url('retur_penjualan').'/'.$data->id}}",
+                data: param
+            })
+            .done(function (msg) {
+                toastr.success("Success");
+                // location.reload(true)
+            }).fail(function (msg) {
+                toastr.error("Error");
+            });
+        @else
+        var param = formheader + "&" + formbarang
+        var method = "post"
+        $.ajax({
+                method: method,
+                url: "{{route('penjualan-new.retur.store')}}",
+                data: param
+            })
+            .done(function (msg) {
+                toastr.success("Success");
+                location.reload(true)
+            }).fail(function (msg) {
+                toastr.error("Error");
+            });
+        @endif
 
     }
-// ////////////////////////////////////////////////////////////////////////
-$(".void").click(remove);
-// ////////////////////////////////////////////////////////////////////////
-    var selectstock = $(".stock").select2();
-    selectstock.select2('open');
-    $(".select2-search__field").focus();
-    $(".diskon").val(0);
-    $(".quantity").val(1)
-}
 
-$(window).keydown(function (event) {
-    if (event.keyCode == 13) {
-        addToCart();
-    }
-});
-
-function calcGrandTotal(){
-    var gt = 0;
-    $(".subtotalOrder").map(function(k,v){
-        gt +=parseInt($(v).val())
-    })
-    $("#grand_total").val(addDecimal(gt));
-    $("#total_sales").val(gt);
-}
-
-
-
-function remove(){
-    //parent 1 td
-    //parent 2 tr
-    $(this).parent().parent().remove();
-    updateRowOrder();
-    calcGrandTotal();
-}
-
-function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
-}
-
-function formatDate(date) {
-    return [
-        padTo2Digits(date.getDate()),
-        padTo2Digits(date.getMonth() + 1),
-        date.getFullYear(),
-    ].join('/');
-}
-
-$('#salesorderhistory').on('show.bs.modal', function (e) {
-  // do something...
-  var customerid = $(".customer").find('option').filter(':selected').val();
-  if(customerid != ""){
-    $.ajax({
-    method: "post",
-    url: "{{url('api/salesorder/history/customer')}}",
-    data: { customer_id: customerid}
-    })
-    .done(function( msg ) {
-        var table = $("#riwayat_sales")
-        table.empty()
-        $.each(msg,function(k,v){
-            var no = `<td class="number">` + (k + 1) + `</td>`
-            var nosales = `<td>` + v.intnomorsales + `</td>`
-            var tanggalorder = `<td>` + formatDate(new Date(v.order_date))  +
-                `</td>`
-            var jatuhtempo = `<td>` + formatDate(new Date(v.due_date)) +
-                `</td>`
-            var totalfaktur = `<td>` + number_format(v.total_sales, 0, ",", ".") +
-                `</td>`
-            var totalbayar = `<td>` + number_format(v.total_paid, 0, ",", ".") + `</td>`
-            var retur = `<td>` + number_format(v.retur, 0, ",", ".") + `</td>`
-            var sisabayar = `<td>` + number_format(v.payment_remain, 0, ",", ".") +
-                `</td>`
-            table.append(`<tr>` + no + nosales + tanggalorder + jatuhtempo + totalfaktur +
-                totalbayar + retur + sisabayar + `</tr>`);
-        })
-    });
-  }else{
-      $("#salesorderhistory").modal("hide");
-    toastr.error("Pilih Konsumen terlebih dahulu");
-  }
-})
-
-$('#saleslinehistory').on('show.bs.modal', function (e) {
-  // do something...
-  var stockid = $(".stock").find('option').filter(':selected').val();
-  var customerid = $(".customer").find('option').filter(':selected').val();
-
-  if(stockid != "" && customerid != ""){
-    $.ajax({
-    method: "post",
-    url: "{{url('api/salesline/history/customer')}}",
-    data: {
-        item_stock_id: stockid,
-        customer_id: customerid
-    }
-    })
-    .done(function( msg ) {
-        var table = $("#riwayat_item")
-        table.empty()
-        $.each(msg,function(k,v){
-            var tanggal = `<td>`+v.createdOn+`</td>`
-            var barang = `<td>`+v.stock.name+`</td>`
-            var qty = `<td>`+v.qty+`</td>`
-            var hargasatuan = `<td>`+v.price_per_satuan_id+`</td>`
-            table.append(`<tr>`+tanggal+barang+qty+hargasatuan+`</tr>`);
-        })
-    });
-  }else{
-      $("#salesorderhistory").modal("hide");
-    toastr.error("Pilih Konsumen terlebih dahulu");
-  }
-})
-
-function submitSupplierReturn(print){
-    var formheader = $(".form-header").serialize();
-    var formbarang = $(".form-barang").serialize();
-    @if($is_edit)
-    var param = formbarang
-    var method = "put"
-    $.ajax({
-    method: method,
-    url: "{{url('retur_penjualan').'/'.$data->id}}",
-    data: param
-    })
-    .done(function( msg ) {
-    toastr.success("Success");
-        // location.reload(true)
-    }).fail(function (msg){
-    toastr.error("Error");
-    });
-    @else
-    var param = formheader+"&"+formbarang
-    var method ="post"
-    $.ajax({
-    method: method,
-    url: "{{route('penjualan-new.retur.store')}}",
-    data: param
-    })
-    .done(function( msg ) {
-    toastr.success("Success");
-        location.reload(true)
-    }).fail(function (msg){
-    toastr.error("Error");
-    });
-    @endif
-
-}
 </script>
 @endpush
