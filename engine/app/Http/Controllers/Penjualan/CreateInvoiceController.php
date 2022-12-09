@@ -43,30 +43,30 @@ class CreateInvoiceController extends Controller
         $d["customers"] = Konsumen::with("sales")->get();
         $today = new DateTime(date("Y-m-d"));
         foreach ($d["customers"] as $customer) {
-            // $block = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
-            // if (count($block) > 3) {
-            //     $customer->block = 1;
-            // } else {
-            //     $customer->block = 0;
-            // }
-            // $temp = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain",">",0)->orderby("due_date")->first();
-            // if ($temp != null) {
-            //     $due_date = new DateTime (date("Y-m-d", strtotime($temp->due_date)));
-            //     $diff_m = $due_date->diff($today)->format('%m');
-            //     $diff_y = $due_date->diff($today)->format('%y');
-            //     // dd($diff_m < 3);
-            //     if ($due_date < $today) {
-            //         if ($diff_y == 0 && $diff_m < 3) {
-            //                 $customer->block = 0;
-            //         } else {
-            //             $customer->block = 1;
-            //         }
-            //     } else {
-            //         $customer->block = 0;
-            //     }
-            // } else {
+            $block = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain", ">", 0)->get();
+            if (count($block) > 3) {
+                $customer->block = 1;
+            } else {
                 $customer->block = 0;
-            // }
+            }
+            $temp = SalesOrderHeader::where("customer_id", $customer->id)->where("payment_remain",">",0)->orderby("due_date")->first();
+            if ($temp != null) {
+                $due_date = new DateTime (date("Y-m-d", strtotime($temp->due_date)));
+                $diff_m = $due_date->diff($today)->format('%m');
+                $diff_y = $due_date->diff($today)->format('%y');
+                // dd($diff_m < 3);
+                if ($due_date < $today) {
+                    if ($diff_y == 0 && $diff_m < 3) {
+                            $customer->block = 0;
+                    } else {
+                        $customer->block = 1;
+                    }
+                } else {
+                    $customer->block = 0;
+                }
+            } else {
+                $customer->block = 0;
+            }
         }
         $d["kenek"] = User::where("role_id", 5)->get();
         $d["supir"] = User::where("role_id", 4)->get();
