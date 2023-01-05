@@ -143,12 +143,11 @@
                                 <div class="row mb-4">
                                     <div class="col-xl-12">
                                         <label class="form-label" for="">Barang:</label>
-                                        <select class="stock select2 form-control" style="width: 100%">
+                                        <select class="select2 form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Barang</option>
-                                            {{-- @foreach ($stock as $item)
-                                            <option value="{{$item->id}}" data-item="{{$item}}">{{$item->name}}
-                                            </option>
-                                            @endforeach --}}
+                                            @foreach ($stock as $item)
+                                            <option value="{{$item->id}}" data-sales="{{$item}}" data-item="{{$item->stock}}">{{$item->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -219,10 +218,10 @@
                                 <div class="row mb-4">
                                     <div class="col-xl-12">
                                         <label class="form-label" for="">Barang:</label>
-                                        <select class="select2 form-control" style="width: 100%">
+                                        <select class="stock select2 form-control" style="width: 100%">
                                             <option value="" disabled selected>Pilih Barang</option>
-                                            @foreach($stock as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @foreach ($stock as $item)
+                                            <option value="{{$item->id}}" data-sales="{{$item}}" data-item="{{$item}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -371,6 +370,7 @@
 
         var stock = $('.stock').find('option').filter(':selected');
         var datastock = stock.data("item");
+        //console.log(datastock.id);
         var table = $(".cart")
         var count = table.find("tr"); //sudah isi berapa sebelum append
         console.log(count.length);
@@ -380,8 +380,8 @@
             subtotal = Math.floor($(".quantity").val() * $(".harga_satuan").val())
             // ////////////////////////////////////////////////////////////////////////
             var no = `<td class="number">1</td>`
-            var kodebarang = `<td><input type='hidden' value='` + datastock.stock.id + `' name="item_stock_id[]">` +
-                datastock.stock.name + `</td>`
+            var kodebarang = `<td><input type='hidden' value='` + datastock.id + `' name="item_stock_id[]">` +
+                datastock.name + `</td>`
             var qty = `<td><input type='hidden' value='` + $(".quantity").val() + `' name="quantity[]">` + $(
                 ".quantity").val() + `</td>`
             var hargasatuan = `<td><input type='hidden' value='` + $(".harga_satuan").val() +

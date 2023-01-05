@@ -139,7 +139,7 @@ class StokBarangController extends Controller
         //Data Retur Penjualan
         $d["retur_penjualan"] = CustomerReturnLine::with("header")->where("item_stock_id", $id)->whereBetween("createdOn", [$date_start, $date_end])->get();
         //Data Retur Pembelian
-        $d["retur_pembelian"] = SupplierReturnLine::with("header")->where("item_stock_ids", $id)->whereBetween("createdOn", [$date_start, $date_end])->get();
+        $d["retur_pembelian"] = SupplierReturnLine::with("header")->where("item_stock_id", $id)->whereBetween("createdOn", [$date_start, $date_end])->get();
 
         $d["date_start"] = $date_start;
         $d["date_end"] = $date_end;
